@@ -1,2 +1,4 @@
 [deploy]
 startCommand = "node server/index.js"
+[service]
+healthcheckPath = ""
