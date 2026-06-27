@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BarberShop Pro - صالون الحلاقة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#C9A84C;--gold2:#D4AF37;--gold3:#B8962E;--dark:#0D0D0D;--dark2:#1A1A1A;--dark3:#252525;--white:#F5F0EB;--red:#C41E3A;--blue:#1E5090;--gray:#8A8278}
+*{margin:0;padding:0;box-sizing:border-box;scrollbar-width:thin;scrollbar-color:var(--gold) transparent}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--dark)}::-webkit-scrollbar-thumb{background:var(--gold);border-radius:10px}
+html{scroll-behavior:smooth}
+body{font-family:'Tajawal',sans-serif;background:var(--dark);color:#fff;overflow-x:hidden}
+
+/* POLE */
+.pole{position:fixed;top:0;left:0;right:0;height:5px;z-index:9999;display:flex}
+.pole div{flex:1;animation:poleMove 1.5s linear infinite}
+.pole div:nth-child(1){background:var(--red)}
+.pole div:nth-child(2){background:#fff}
+.pole div:nth-child(3){background:var(--blue)}
+.pole div:nth-child(4){background:var(--red)}
+.pole div:nth-child(5){background:#fff}
+.pole div:nth-child(6){background:var(--blue)}
+@keyframes poleMove{0%{transform:translateY(-100%)}100%{transform:translateY(100%)}}
+
+/* NAV */
+nav{position:fixed;top:5px;left:0;right:0;z-index:9998;background:rgba(13,13,13,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,.1);display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:60px}
+.nav-logo{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:900;color:var(--gold);font-family:'Playfair Display',serif}
+.nav-logo span{color:#fff;font-family:'Tajawal',sans-serif;font-weight:300}
+.nav-links{display:flex;gap:4px}
+.nav-links button{padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;color:rgba(255,255,255,.4);border:none;background:none;cursor:pointer;font-family:inherit;transition:.3s;white-space:nowrap}
+.nav-links button:hover{color:#fff;background:rgba(255,255,255,.04)}
+.nav-links button.active{color:var(--gold);background:rgba(201,168,76,.1)}
+.nav-toggle{display:none;background:none;border:none;color:var(--gold);font-size:24px;cursor:pointer;padding:8px}
+
+/* MAIN */
+.main{max-width:1060px;margin:0 auto;padding:85px 16px 40px}
+.page{display:none;animation:fadeIn .45s ease}
+.page.show{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 28px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;transition:.3s;border:none;font-family:inherit;text-decoration:none}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--dark)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(201,168,76,.25)}
+.btn-outline{background:transparent;border:1.5px solid rgba(255,255,255,.1);color:#fff}
+.btn-outline:hover{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.2)}
+.btn-sm{padding:8px 16px;font-size:12px;border-radius:8px}
+.btn-block{width:100%}
+.btn:disabled{opacity:.3;cursor:not-allowed;transform:none!important}
+.btn-danger{background:rgba(196,30,58,.15);color:var(--red);border:1px solid rgba(196,30,58,.2)}
+.btn-danger:hover{background:rgba(196,30,58,.25)}
+.btn-ghost{background:rgba(255,255,255,.04);color:rgba(255,255,255,.5)}
+.btn-ghost:hover{background:rgba(255,255,255,.08);color:#fff}
+.btn-green{background:rgba(0,200,80,.12);color:#00C850;border:1px solid rgba(0,200,80,.15)}
+.btn-green:hover{background:rgba(0,200,80,.2)}
+
+/* CARDS */
+.card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:28px;margin-bottom:16px}
+.card-gold{border-color:rgba(201,168,76,.15);background:rgba(201,168,76,.03)}
+.card-title{font-size:18px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.badge{background:rgba(201,168,76,.12);color:var(--gold);font-size:10px;padding:3px 10px;border-radius:20px;font-weight:700;letter-spacing:.5px;display:inline-block}
+
+/* FORM */
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:12px;font-weight:600;color:rgba(255,255,255,.4);margin-bottom:5px;letter-spacing:.3px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:11px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.04);color:#fff;font-size:14px;font-family:inherit;outline:none;transition:.3s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold);background:rgba(255,255,255,.06)}
+.form-group select option{background:var(--dark3);color:#fff}
+.form-group input::placeholder{color:rgba(255,255,255,.12)}
+
+/* HERO */
+.hero{text-align:center;padding:30px 10px 20px}
+.hero-img-wrap{width:100%;height:280px;border-radius:18px;overflow:hidden;margin-bottom:24px;position:relative}
+.hero-img-wrap img{width:100%;height:100%;object-fit:cover}
+.hero-img-wrap .overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(180deg,transparent 30%,rgba(13,13,13,.95) 100%)}
+.hero h1{font-size:42px;font-weight:900;line-height:1.2;margin-bottom:6px}
+.hero h1 .gold{color:var(--gold2)}
+.hero p{color:var(--gray);font-size:15px;margin-bottom:24px;max-width:500px;margin-left:auto;margin-right:auto}
+.hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* HOME FEATURES */
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:8px}
+.feature{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:14px;padding:20px;text-align:center}
+.feature .icon{font-size:32px;margin-bottom:8px;display:block}
+.feature h3{font-size:14px;font-weight:700;margin-bottom:4px}
+.feature p{font-size:12px;color:var(--gray)}
+
+/* QUEUE MINI */
+.queue-mini .q-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;margin-bottom:4px;background:rgba(255,255,255,.02)}
+.queue-mini .q-num{font-size:18px;font-weight:900;color:var(--gold2);min-width:32px;text-align:center}
+.queue-mini .q-name{font-size:14px;font-weight:600}
+.queue-mini .q-det{font-size:11px;color:var(--gray)}
+.queue-mini .q-status{font-size:10px;padding:2px 10px;border-radius:20px;font-weight:600;margin-right:auto}
+.queue-mini .q-wait{background:rgba(255,255,255,.06);color:var(--gray)}
+.queue-mini .q-prog{background:rgba(201,168,76,.15);color:var(--gold2)}
+.empty-msg{padding:24px;text-align:center;color:var(--gray);font-size:13px}
+
+/* BOOK PAGE */
+.book-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:700px){.book-grid{grid-template-columns:1fr}}
+.barber-grid,.style-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px}
+.b-card,.s-card{padding:12px 8px;border-radius:12px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.03);text-align:center;cursor:pointer;transition:.3s;position:relative}
+.b-card:hover,.s-card:hover{border-color:rgba(255,255,255,.1)}
+.b-card.chosen,.s-card.chosen{border-color:var(--gold2);background:rgba(201,168,76,.08);box-shadow:0 0 24px rgba(201,168,76,.06)}
+.b-card img,.s-card img{width:52px;height:52px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 6px}
+.b-card .name,.s-card .name{font-size:12px;font-weight:600;display:block}
+.s-card .price{font-size:11px;color:var(--gold2);font-weight:700;display:block;margin-top:2px}
+.placeholder-avatar{width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;margin:0 auto 6px;font-size:20px;color:rgba(255,255,255,.15)}
+
+.confirm-box{display:none;margin-top:14px;padding:18px;border-radius:12px;background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.15)}
+.confirm-box.show{display:block}
+.confirm-box p{font-size:13px;color:rgba(255,255,255,.55);margin-bottom:4px}
+.confirm-box .hl{color:var(--gold2);font-weight:700}
+.success-box{display:none;text-align:center;padding:32px 16px}
+.success-box.show{display:block}
+.success-box .big{font-size:48px;margin-bottom:8px;display:block}
+.success-box h2{font-size:24px;font-weight:700;margin-bottom:4px}
+.success-box .num{font-size:40px;font-weight:900;color:var(--gold2)}
+.success-box p{color:var(--gray);font-size:14px;margin-bottom:4px}
+
+/* QUEUE PAGE */
+.queue-stats{display:flex;gap:10px;margin-bottom:14px}
+.que-stat{padding:8px 14px;border-radius:8px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);text-align:center;min-width:80px}
+.que-stat .num{font-size:18px;font-weight:800;display:block}
+.que-stat .lbl{font-size:10px;color:var(--gray)}
+.q-list{margin-top:8px}
+.ql-item{display:flex;align-items:center;gap:14px;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.04);margin-bottom:6px;transition:.3s}
+.ql-item.in-progress{border-color:rgba(201,168,76,.2);background:rgba(201,168,76,.04)}
+.ql-item .num{font-size:20px;font-weight:900;color:var(--gold2);min-width:36px;text-align:center}
+.ql-item .info{flex:1}
+.ql-item .name{font-size:14px;font-weight:600}
+.ql-item .det{font-size:11px;color:var(--gray)}
+.ql-item .tag{font-size:10px;padding:3px 10px;border-radius:20px;font-weight:600}
+
+/* TRACK PAGE */
+.track-wrap{max-width:440px;margin:0 auto}
+.track-input{display:flex;gap:10px;margin-bottom:16px}
+.track-input input{flex:1;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.04);color:#fff;font-size:14px;font-family:inherit;outline:none;transition:.3s}
+.track-input input:focus{border-color:var(--gold2)}
+.track-result{display:none}
+.track-result.show{display:block}
+.track-pos{text-align:center;padding:24px}
+.track-pos .big{font-size:60px;font-weight:900;color:var(--gold2);line-height:1}
+.track-pos .lbl{color:var(--gray);font-size:14px;margin-top:4px}
+.track-detail{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.td-item{padding:12px;border-radius:10px;background:rgba(255,255,255,.02);text-align:center}
+.td-item .val{font-size:15px;font-weight:600;display:block}
+.td-item .lbl{font-size:10px;color:var(--gray);margin-top:2px;display:block}
+
+/* ADMIN */
+.admin-login-box{max-width:360px;margin:30px auto;text-align:center}
+.admin-login-box input{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.04);color:#fff;font-size:15px;text-align:center;font-family:inherit;outline:none;margin-bottom:12px}
+.admin-login-box input:focus{border-color:var(--gold2)}
+.admin-layout{display:grid;grid-template-columns:220px 1fr;gap:16px;min-height:50vh}
+@media(max-width:768px){.admin-layout{grid-template-columns:1fr}}
+.admin-side{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:14px;position:sticky;top:82px}
+.admin-side .a-btn{display:block;width:100%;padding:9px 12px;border-radius:8px;border:none;background:none;color:rgba(255,255,255,.35);font-size:13px;font-weight:600;cursor:pointer;text-align:right;font-family:inherit;transition:.3s;margin-bottom:3px}
+.admin-side .a-btn:hover{color:#fff;background:rgba(255,255,255,.04)}
+.admin-side .a-btn.on{color:var(--gold2);background:rgba(201,168,76,.08)}
+.admin-side .a-logout{display:block;width:100%;margin-top:10px;padding:9px;border-radius:8px;border:1px solid rgba(255,255,255,.06);background:none;color:rgba(255,255,255,.2);font-size:12px;cursor:pointer;text-align:center;font-family:inherit;transition:.3s}
+.admin-side .a-logout:hover{color:var(--red);border-color:rgba(196,30,58,.2)}
+.admin-panel{display:none}
+.admin-panel.on{display:block}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:16px}
+.stat-box{padding:16px;border-radius:12px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);text-align:center}
+.stat-box .num{font-size:26px;font-weight:800;display:block}
+.stat-box .lbl{font-size:10px;color:var(--gray);margin-top:3px}
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{padding:8px 10px;text-align:right;color:var(--gray);font-weight:600;font-size:10px;letter-spacing:.4px;border-bottom:1px solid rgba(255,255,255,.05)}
+td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.02);color:rgba(255,255,255,.65)}
+tr:hover td{background:rgba(255,255,255,.015)}
+td img{width:32px;height:32px;border-radius:50%;object-fit:cover;vertical-align:middle}
+.tbl-acts{display:flex;gap:4px;flex-wrap:wrap}
+.tbl-acts button{padding:4px 10px;border-radius:6px;border:none;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;transition:.3s}
+.tbl-edit{background:rgba(201,168,76,.1);color:var(--gold2)}
+.tbl-edit:hover{background:rgba(201,168,76,.18)}
+.tbl-del{background:rgba(196,30,58,.1);color:var(--red)}
+.tbl-del:hover{background:rgba(196,30,58,.18)}
+.tbl-go{background:rgba(30,80,144,.12);color:var(--blue)}
+.tbl-go:hover{background:rgba(30,80,144,.2)}
+.tbl-end{background:rgba(0,200,80,.1);color:#00C850}
+.tbl-end:hover{background:rgba(0,200,80,.18)}
+
+/* MODAL */
+.modal-bg{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);z-index:10000;display:none;align-items:center;justify-content:center;padding:16px}
+.modal-bg.show{display:flex}
+.modal-box{background:var(--dark2);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:28px;max-width:450px;width:100%;max-height:90vh;overflow-y:auto}
+.modal-box h2{font-size:18px;margin-bottom:16px}
+.modal-acts{display:flex;gap:10px;margin-top:16px}
+.modal-acts button{flex:1}
+
+/* TOAST */
+.toasts{position:fixed;bottom:20px;right:20px;z-index:99999;display:flex;flex-direction:column;gap:8px}
+.toast{padding:14px 18px;border-radius:12px;background:var(--dark3);border:1px solid rgba(255,255,255,.08);box-shadow:0 8px 30px rgba(0,0,0,.5);min-width:260px;max-width:380px;display:flex;align-items:center;gap:10px;animation:slideUp .5s cubic-bezier(.16,1,.3,1)}
+.toast.gold{border-color:rgba(201,168,76,.25);background:rgba(201,168,76,.06)}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.toast .ti{font-size:20px;flex-shrink:0}
+.toast .tt{font-size:13px;font-weight:700;display:block}
+.toast .td{font-size:11px;color:var(--gray);margin-top:1px}
+.toast .tc{background:none;border:none;color:rgba(255,255,255,.15);cursor:pointer;font-size:16px;margin-right:auto;padding:0 4px;font-family:inherit}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+nav{padding:0 12px;height:54px}
+.nav-links{position:fixed;top:59px;left:0;right:0;background:rgba(13,13,13,.98);backdrop-filter:blur(12px);flex-direction:column;padding:8px;border-bottom:1px solid rgba(255,255,255,.06);display:none}
+.nav-links.open{display:flex}
+.nav-toggle{display:block}
+.main{padding:75px 10px 30px}
+.hero h1{font-size:30px}
+.hero-img-wrap{height:180px}
+.stats-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="pole"><div></div><div></div><div></div><div></div><div></div><div></div></div>
+
+<nav>
+    <div class="nav-logo">✦ Barber<span>Shop</span></div>
+    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+    <div class="nav-links">
+        <button class="active" data-page="home">الرئيسية</button>
+        <button data-page="book">حجز دور</button>
+        <button data-page="queue">الطابور</button>
+        <button data-page="track">دوري</button>
+        <button data-page="admin">الإدارة</button>
+    </div>
+</nav>
+
+<div class="main">
+
+<!-- HOME -->
+<div class="page show" id="p-home">
+    <div class="hero">
+        <div class="hero-img-wrap">
+            <img src="https://images.unsplash.com/photo-1585747861115-93e382e01d72?w=1000&q=80" alt="" onerror="this.style.display='none'">
+            <div class="overlay"></div>
+        </div>
+        <h1>صالون <span class="gold">الحلاقة</span> الفاخر</h1>
+        <p>احجز دورك الآن عند أفضل الحلاقين المحترفين واستمتع بتجربة حلاقة راقية</p>
+        <div class="hero-actions">
+            <button class="btn btn-gold" onclick="goPage('book')">📅 احجز دورك</button>
+            <button class="btn btn-outline" onclick="goPage('queue')">👥 عرض الطابور</button>
+        </div>
+    </div>
+    <div class="features">
+        <div class="feature"><span class="icon">✂️</span><h3>حلاقين محترفين</h3><p>نخبة من أفضل الحلاقين ذوي الخبرة</p></div>
+        <div class="feature"><span class="icon">💈</span><h3>جميع أنواع الحلاقة</h3><p>كلاسيك، مودرن، زيرو، لحية وأكثر</p></div>
+        <div class="feature"><span class="icon">⏱️</span><h3>انتظار ذكي</h3><p>تتبع دورك لحظة بلحظة عبر الجوال</p></div>
+    </div>
+    <div class="card card-gold" style="margin-top:8px">
+        <div class="card-title">👥 الطابور الحالي <span class="badge">مباشر</span></div>
+        <div class="queue-mini" id="homeQueue"></div>
+    </div>
+</div>
+
+<!-- BOOK -->
+<div class="page" id="p-book">
+    <div class="card">
+        <div class="card-title">✂️ حجز دور جديد</div>
+        <p style="color:var(--gray);font-size:13px;margin-bottom:14px">اختر الحلاق، نوع الحلاقة، ثم أدخل بياناتك واحجز</p>
+
+        <div class="book-grid">
+            <div>
+                <div class="form-group">
+                    <label>اختر الحلاق</label>
+                    <div class="barber-grid" id="barberGrid"></div>
+                </div>
+                <div class="form-group">
+                    <label>👤 اسمك الكامل</label>
+                    <input type="text" id="custName" placeholder="أدخل اسمك">
+                </div>
+            </div>
+            <div>
+                <div class="form-group">
+                    <label>اختر نوع الحلاقة</label>
+                    <div class="style-grid" id="styleGrid"></div>
+                </div>
+                <div class="form-group">
+                    <label>📱 رقم الجوال</label>
+                    <input type="text" id="custPhone" placeholder="مثال: 966555555555">
+                </div>
+            </div>
+        </div>
+
+        <!-- Confirmation -->
+        <div class="confirm-box" id="confirmBox">
+            <p>لدى <span class="hl" id="cBarber">—</span></p>
+            <p>حلاقة: <span class="hl" id="cStyle">—</span> | السعر: <span class="hl" id="cPrice">—</span></p>
+            <button class="btn btn-gold btn-block" style="margin-top:10px" onclick="confirmBooking()">✅ تأكيد الحجز</button>
+        </div>
+
+        <!-- Success -->
+        <div class="success-box" id="successBox">
+            <span class="big">✅</span>
+            <h2>تم الحجز بنجاح!</h2>
+            <p>رقم دورك</p>
+            <div class="num" id="sNum">—</div>
+            <p style="margin-top:4px" id="sDetail"></p>
+            <button class="btn btn-outline" style="margin-top:12px" onclick="goPage('track')">🔍 تابع دورك</button>
+        </div>
+    </div>
+</div>
+
+<!-- QUEUE -->
+<div class="page" id="p-queue">
+    <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:8px">
+            <div class="card-title" style="margin-bottom:0">👥 طابور الانتظار</div>
+            <div class="queue-stats" style="margin-bottom:0">
+                <div class="que-stat"><span class="num" id="qWait">0</span><span class="lbl">انتظار</span></div>
+                <div class="que-stat"><span class="num" id="qProg">0</span><span class="lbl">بالخدمة</span></div>
+            </div>
+        </div>
+        <div class="q-list" id="queueList"></div>
+    </div>
+</div>
+
+<!-- TRACK -->
+<div class="page" id="p-track">
+    <div class="card track-wrap">
+        <div class="card-title" style="justify-content:center">🔍 تتبع دورك</div>
+        <p style="color:var(--gray);font-size:13px;text-align:center;margin-bottom:14px">أدخل رقم جوالك لمعرفة موقعك في الطابور</p>
+        <div class="track-input">
+            <input type="text" id="tPhone" placeholder="رقم الجوال" onkeydown="if(event.key==='Enter')doTrack()">
+            <button class="btn btn-gold" onclick="doTrack()">🔍 بحث</button>
+        </div>
+        <div class="track-result" id="trackResult">
+            <div class="track-pos">
+                <div class="big" id="tAhead">—</div>
+                <div class="lbl">أشخاص قبلك</div>
+            </div>
+            <div class="track-detail">
+                <div class="td-item"><span class="val" id="tNum">—</span><span class="lbl">رقم دورك</span></div>
+                <div class="td-item"><span class="val" id="tBarber">—</span><span class="lbl">الحلاق</span></div>
+                <div class="td-item"><span class="val" id="tStyle">—</span><span class="lbl">الحلاقة</span></div>
+                <div class="td-item"><span class="val" id="tStatus">—</span><span class="lbl">الحالة</span></div>
+            </div>
+            <button class="btn btn-sm btn-outline" style="margin:12px auto 0;display:block" onclick="requestNotify()">🔔 تفعيل الإشعارات</button>
+        </div>
+    </div>
+</div>
+
+<!-- ADMIN -->
+<div class="page" id="p-admin">
+    <div id="adminLogin">
+        <div class="card admin-login-box">
+            <div style="font-size:40px;margin-bottom:8px">🔐</div>
+            <h2 style="font-size:20px;margin-bottom:12px">دخول الإدارة</h2>
+            <input type="password" id="adminPass" placeholder="كلمة المرور" onkeydown="if(event.key==='Enter')doAdminLogin()">
+            <button class="btn btn-gold btn-block" onclick="doAdminLogin()">دخول</button>
+            <p id="adminErr" style="color:var(--red);font-size:12px;margin-top:8px;display:none"></p>
+        </div>
+    </div>
+    <div id="adminDash" style="display:none">
+        <div class="admin-layout">
+            <div class="admin-side">
+                <div style="padding:9px 12px;color:var(--gold2);font-weight:700;font-size:14px;margin-bottom:6px">⚙️ القائمة</div>
+                <button class="a-btn on" data-ap="stats">📊 الإحصائيات</button>
+                <button class="a-btn" data-ap="aqueue">👥 الطابور</button>
+                <button class="a-btn" data-ap="abarbers">✂️ الحلاقين</button>
+                <button class="a-btn" data-ap="astyles">💈 الحلاقات</button>
+                <button class="a-btn" data-ap="aset">🔧 الإعدادات</button>
+                <button class="a-logout" onclick="doLogout()">🚪 خروج</button>
+            </div>
+            <div class="admin-content">
+                <div class="admin-panel on" id="ap-stats"></div>
+                <div class="admin-panel" id="ap-aqueue"></div>
+                <div class="admin-panel" id="ap-abarbers"></div>
+                <div class="admin-panel" id="ap-astyles"></div>
+                <div class="admin-panel" id="ap-aset"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<div class="toasts" id="toasts"></div>
+<div class="modal-bg" id="modalBg"><div class="modal-box" id="modalBox"></div></div>
+
+<script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+<script>
+// ===== CONFIG =====
+const API = location.origin;
+let socket = null;
+let adminToken = localStorage.getItem('atok') || '';
+let selBarber = null;
+let selStyle = null;
+let trackPhone = '';
+
+// ===== SOCKET =====
+function initSocket(){
+    try {
+        socket = io(API, {transports:['websocket','polling']});
+        socket.on('connect', () => {});
+        socket.on('queue-updated', () => { refreshQueue(); refreshHomeQ(); if(adminToken) refreshAQueue(); });
+        socket.on('queue-counts', d => {
+            document.getElementById('qWait').textContent = (d.waiting||0);
+            document.getElementById('qProg').textContent = (d.in_progress||0);
+        });
+        socket.on('your-turn', d => {
+            if(trackPhone && d.phone === trackPhone) {
+                toast('🎯', 'دورك الآن!', d.booking.barber_name + ' في انتظارك', true);
+                beep(); notifyBrowser('🎯 دورك الآن!', 'الحلاق في انتظارك');
+            }
+        });
+        socket.on('nearly-your-turn', d => {
+            if(trackPhone && d.booking && d.booking.customer_phone === trackPhone) {
+                toast('⏳', 'دورك يقترب!', 'أنت التالي', true);
+                beep(); notifyBrowser('⏳ دورك يقترب', 'استعد');
+            }
+        });
+    } catch(e){}
+}
+
+function beep(){
+    try {
+        let ctx = new (window.AudioContext||window.webkitAudioContext)();
+        let o = ctx.createOscillator(), g = ctx.createGain();
+        o.connect(g); g.connect(ctx.destination);
+        o.frequency.setValueAtTime(800, ctx.currentTime);
+        o.frequency.setValueAtTime(1000, ctx.currentTime+.15);
+        g.gain.setValueAtTime(.2, ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(.01, ctx.currentTime+.4);
+        o.start(); o.stop(ctx.currentTime+.4);
+    } catch(e){}
+}
+
+function notifyBrowser(t, d){
+    if('Notification' in window && Notification.permission==='granted')
+        try{ new Notification(t, {body:d}) }catch(e){}
+}
+
+// ===== TOAST =====
+function toast(icon, title, desc, gold){
+    let c = document.getElementById('toasts');
+    let t = document.createElement('div');
+    t.className = 'toast' + (gold?' gold':'');
+    t.innerHTML = '<span class="ti">'+icon+'</span><div><span class="tt">'+title+'</span><span class="td">'+(desc||'')+'</span></div><button class="tc" onclick="this.parentElement.remove()">✕</button>';
+    c.appendChild(t);
+    setTimeout(()=>{if(t.parentElement)t.remove()}, 5000);
+}
+
+// ===== NAV =====
+function goPage(name){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('show'));
+    document.querySelectorAll('.nav-links button').forEach(b=>b.classList.remove('active'));
+    document.getElementById('p-'+name).classList.add('show');
+    let btn = document.querySelector('.nav-links button[data-page="'+name+'"]');
+    if(btn) btn.classList.add('active');
+    document.querySelector('.nav-links').classList.remove('open');
+    window.scrollTo({top:0,behavior:'smooth'});
+
+    if(name==='book') loadBook();
+    else if(name==='queue') refreshQueue();
+    else if(name==='admin') handleAdmin();
+}
+
+document.querySelectorAll('.nav-links button').forEach(b=>{
+    b.addEventListener('click',()=>goPage(b.dataset.page));
+});
+
+// ===== API =====
+async function api(url, opts={}){
+    let h = {'Content-Type':'application/json', ...opts.headers};
+    if(adminToken) h['Authorization'] = 'Bearer '+adminToken;
+    let r = await fetch(API+url, {...opts, headers:h});
+    let d = await r.json();
+    if(!r.ok) throw new Error(d.error||'خطأ');
+    return d;
+}
+
+function formDataApi(url, method, fd){
+    let h = {};
+    if(adminToken) h['Authorization'] = 'Bearer '+adminToken;
+    return fetch(API+url, {method, headers:h, body:fd}).then(r=>r.json());
+}
+
+// ===== HOME =====
+async function refreshHomeQ(){
+    try {
+        let q = await api('/api/queue');
+        let el = document.getElementById('homeQueue');
+        if(!q.length) { el.innerHTML='<div class="empty-msg">💈 لا يوجد حجوزات حالياً</div>'; return; }
+        el.innerHTML = q.slice(0,5).map(b=>'<div class="q-item"><div class="q-num">'+b.queue_number+'</div><div class="q-info"><div class="q-name">'+b.customer_name+'</div><div class="q-det">'+b.barber_name+' · '+b.style_name+'</div></div><span class="q-status '+(b.status==='in_progress'?'q-prog':'q-wait')+'">'+(b.status==='in_progress'?'قيد الخدمة':'انتظار')+'</span></div>').join('');
+    } catch(e){}
+}
+
+// ===== BOOK =====
+async function loadBook(){
+    selBarber=null; selStyle=null;
+    document.getElementById('confirmBox').classList.remove('show');
+    document.getElementById('successBox').classList.remove('show');
+    try {
+        let [barbers, styles] = await Promise.all([api('/api/barbers'), api('/api/styles')]);
+        let bg = document.getElementById('barberGrid');
+        bg.innerHTML = barbers.length ? barbers.map(b=>'<div class="b-card" data-id="'+b.id+'" onclick="pickBarber('+b.id+')"><div style="position:absolute;top:5px;left:5px;width:16px;height:16px;border-radius:50%;background:var(--gold2);color:var(--dark);font-size:9px;display:none;align-items:center;justify-content:center;font-weight:700">✓</div>'+(b.photo?'<img src="'+API+b.photo+'">':'<div class="placeholder-avatar">✂️</div>')+'<span class="name">'+b.name+'</span></div>').join('') : '<p style="color:var(--gray);font-size:12px;grid-column:1/-1">لا يوجد حلاقين</p>';
+
+        let sg = document.getElementById('styleGrid');
+        sg.innerHTML = styles.length ? styles.map(s=>'<div class="s-card" data-id="'+s.id+'" onclick="pickStyle('+s.id+')"><div style="position:absolute;top:5px;left:5px;width:16px;height:16px;border-radius:50%;background:var(--gold2);color:var(--dark);font-size:9px;display:none;align-items:center;justify-content:center;font-weight:700">✓</div>'+(s.photo?'<img src="'+API+s.photo+'">':'<div class="placeholder-avatar">💈</div>')+'<span class="name">'+s.name+'</span><span class="price">'+s.price+' ر.س</span></div>').join('') : '<p style="color:var(--gray);font-size:12px;grid-column:1/-1">لا توجد أنواع</p>';
+    } catch(e){ toast('⚠️','خطأ','فشل تحميل البيانات'); }
+}
+
+window.pickBarber = function(id){
+    selBarber=id;
+    document.querySelectorAll('.b-card').forEach(c=>{c.classList.toggle('chosen',parseInt(c.dataset.id)===id); c.querySelector('div:first-child').style.display=parseInt(c.dataset.id)===id?'flex':'none'});
+    updateConfirm();
+};
+
+window.pickStyle = function(id){
+    selStyle=id;
+    document.querySelectorAll('.s-card').forEach(c=>{c.classList.toggle('chosen',parseInt(c.dataset.id)===id); c.querySelector('div:first-child').style.display=parseInt(c.dataset.id)===id?'flex':'none'});
+    updateConfirm();
+};
+
+function updateConfirm(){
+    let el = document.getElementById('confirmBox');
+    if(selBarber && selStyle){
+        let bn = document.querySelector('.b-card.chosen .name')?.textContent||'—';
+        let sn = document.querySelector('.s-card.chosen .name')?.textContent||'—';
+        let sp = document.querySelector('.s-card.chosen .price')?.textContent||'—';
+        document.getElementById('cBarber').textContent = bn;
+        document.getElementById('cStyle').textContent = sn;
+        document.getElementById('cPrice').textContent = sp;
+        el.classList.add('show');
+    } else el.classList.remove('show');
+}
+
+window.confirmBooking = async function(){
+    let name = document.getElementById('custName').value.trim();
+    let phone = document.getElementById('custPhone').value.trim();
+    if(!name) return toast('⚠️','خطأ','أدخل اسمك');
+    if(!phone) return toast('⚠️','خطأ','أدخل رقم الجوال');
+    if(!selBarber) return toast('⚠️','خطأ','اختر حلاق');
+    if(!selStyle) return toast('⚠️','خطأ','اختر نوع الحلاقة');
+    try {
+        let r = await api('/api/book', {method:'POST', body:JSON.stringify({customer_name:name, customer_phone:phone, barber_id:selBarber, style_id:selStyle})});
+        document.getElementById('confirmBox').classList.remove('show');
+        document.getElementById('sNum').textContent = r.queue_number;
+        document.getElementById('sDetail').textContent = 'عند '+r.barber_name+' · '+r.style_name;
+        document.getElementById('successBox').classList.add('show');
+        trackPhone = phone;
+        toast('✅','تم الحجز!','رقم دورك '+r.queue_number, true);
+        beep();
+        notifyBrowser('✅ تم الحجز','رقم دورك: '+r.queue_number);
+    } catch(e){ toast('⚠️','خطأ',e.message); }
+};
+
+// ===== QUEUE =====
+async function refreshQueue(){
+    try {
+        let q = await api('/api/queue');
+        let el = document.getElementById('queueList');
+        if(!q.length) { el.innerHTML='<div class="empty-msg" style="padding:30px">💈 الطابور فارغ</div>'; return; }
+        let w = q.filter(b=>b.status==='waiting'), p = q.filter(b=>b.status==='in_progress');
+        document.getElementById('qWait').textContent = w.length;
+        document.getElementById('qProg').textContent = p.length;
+        el.innerHTML = [...p,...w].map(b=>'<div class="ql-item '+(b.status==='in_progress'?'in-progress':'')+'"><div class="num">'+b.queue_number+'</div><div class="info"><div class="name">'+b.customer_name+'</div><div class="det">'+b.barber_name+' · '+b.style_name+' · '+b.price+' ر.س</div></div><span class="tag" style="background:'+(b.status==='in_progress'?'rgba(201,168,76,.15);color:var(--gold2)':'rgba(255,255,255,.06);color:var(--gray)')+'">'+(b.status==='in_progress'?'✨ قيد الخدمة':'⏳ انتظار')+'</span></div>').join('');
+    } catch(e){}
+}
+
+// ===== TRACK =====
+window.doTrack = async function(){
+    let phone = document.getElementById('tPhone').value.trim();
+    if(!phone && !trackPhone) return toast('⚠️','خطأ','أدخل رقم الجوال');
+    let sp = phone || trackPhone;
+    trackPhone = sp;
+    try {
+        let r = await api('/api/queue/check/'+encodeURIComponent(sp));
+        let el = document.getElementById('trackResult');
+        if(!r){
+            document.getElementById('tAhead').textContent='—';
+            document.getElementById('tNum').textContent='—';
+            document.getElementById('tBarber').textContent='—';
+            document.getElementById('tStyle').textContent='—';
+            document.getElementById('tStatus').textContent='لا يوجد حجز';
+            el.classList.add('show'); return;
+        }
+        document.getElementById('tAhead').textContent = r.status==='in_progress'?'✨現在':r.ahead;
+        document.getElementById('tNum').textContent = r.queue_number;
+        document.getElementById('tBarber').textContent = r.barber_name;
+        document.getElementById('tStyle').textContent = r.style_name;
+        document.getElementById('tStatus').textContent = r.status==='waiting'?'⏳ انتظار':r.status==='in_progress'?'✨ قيد الخدمة':'✅ تم';
+        el.classList.add('show');
+        if(r.status==='in_progress'){ toast('🎯','دورك الآن!',r.barber_name+' في انتظارك',true); beep(); notifyBrowser('🎯 دورك الآن!','الحلاق في انتظارك'); }
+        if(socket) socket.emit('join-queue-track', sp);
+    } catch(e){ toast('⚠️','خطأ','فشل البحث'); }
+};
+
+window.requestNotify = function(){
+    if('Notification' in window) Notification.requestPermission().then(p=>{
+        if(p==='granted') toast('🔔','مفعل','الإشعارات مفعلة');
+    });
+};
+
+// ===== ADMIN =====
+function handleAdmin(){
+    if(adminToken){ document.getElementById('adminLogin').style.display='none'; document.getElementById('adminDash').style.display='block'; loadADash(); }
+    else { document.getElementById('adminLogin').style.display='block'; document.getElementById('adminDash').style.display='none'; }
+}
+
+window.doAdminLogin = async function(){
+    let p = document.getElementById('adminPass').value;
+    try {
+        let r = await api('/api/admin/login', {method:'POST', body:JSON.stringify({password:p})});
+        adminToken = r.token; localStorage.setItem('atok', adminToken);
+        document.getElementById('adminErr').style.display='none';
+        handleAdmin();
+        if(socket) socket.emit('join-admin');
+    } catch(e){
+        document.getElementById('adminErr').textContent='❌ '+e.message;
+        document.getElementById('adminErr').style.display='block';
+    }
+};
+
+window.doLogout = function(){ adminToken=''; localStorage.removeItem('atok'); handleAdmin(); };
+
+document.querySelectorAll('.a-btn').forEach(b=>{
+    b.addEventListener('click',()=>{
+        document.querySelectorAll('.a-btn').forEach(x=>x.classList.remove('on'));
+        document.querySelectorAll('.admin-panel').forEach(x=>x.classList.remove('on'));
+        b.classList.add('on');
+        let el = document.getElementById('ap-'+b.dataset.ap);
+        if(el) el.classList.add('on');
+        if(b.dataset.ap==='stats') loadADash();
+        else if(b.dataset.ap==='aqueue') refreshAQueue();
+        else if(b.dataset.ap==='abarbers') loadABarbers();
+        else if(b.dataset.ap==='astyles') loadAStyles();
+        else if(b.dataset.ap==='aset') loadASet();
+    });
+});
+
+async function loadADash(){
+    try {
+        let s = await api('/api/admin/stats');
+        document.getElementById('ap-stats').innerHTML = '<div class="card-title">📊 الإحصائيات</div><div class="stats-grid">'+
+            '<div class="stat-box"><span class="num">'+s.todayBookings+'</span><span class="lbl">حجوزات اليوم</span></div>'+
+            '<div class="stat-box"><span class="num">'+s.waiting+'</span><span class="lbl">انتظار</span></div>'+
+            '<div class="stat-box"><span class="num">'+s.totalBookings+'</span><span class="lbl">إجمالي</span></div>'+
+            '<div class="stat-box"><span class="num">'+s.done+'</span><span class="lbl">تم</span></div>'+
+            '<div class="stat-box"><span class="num">'+s.barbersCount+'</span><span class="lbl">حلاقين</span></div>'+
+            '<div class="stat-box"><span class="num">'+s.stylesCount+'</span><span class="lbl">حلاقات</span></div>'+
+        '</div>';
+    } catch(e){ document.getElementById('ap-stats').innerHTML='<p style="color:var(--gray)">فشل التحميل</p>'; }
+}
+
+async function refreshAQueue(){
+    try {
+        let q = await api('/api/queue/full');
+        let el = document.getElementById('ap-aqueue');
+        if(!q.length) { el.innerHTML='<div class="card-title">👥 الطابور</div><p style="color:var(--gray)">لا يوجد حجوزات</p>'; return; }
+        el.innerHTML = '<div class="card-title">👥 الطابور</div><div class="tbl-wrap"><table><thead><tr><th>#</th><th>الاسم</th><th>الجوال</th><th>الحلاق</th><th>النوع</th><th>الحالة</th><th></th></tr></thead><tbody>'+
+            q.map(b=>'<tr><td><strong>'+b.queue_number+'</strong></td><td>'+b.customer_name+'</td><td style="direction:ltr;text-align:right">'+b.customer_phone+'</td><td>'+b.barber_name+'</td><td>'+b.style_name+'</td><td>'+(b.status==='waiting'?'⏳':b.status==='in_progress'?'✨':'✅')+'</td><td><div class="tbl-acts">'+
+            (b.status==='waiting'?'<button class="tbl-go" onclick="updQ('+b.id+',\''+'in_progress'+'\')">▶ ابدأ</button>':'')+
+            (b.status==='in_progress'?'<button class="tbl-end" onclick="updQ('+b.id+',\''+'done'+'\')">✅ إنهاء</button>':'')+
+            '<button class="tbl-del" onclick="cancelQ('+b.id+')">✕</button></div></td></tr>').join('')+'</tbody></table></div>';
+    } catch(e){ document.getElementById('ap-aqueue').innerHTML='<p style="color:var(--red)">فشل</p>'; }
+}
+
+window.updQ = async function(id, st){
+    try{ await api('/api/queue/'+id+'/status', {method:'PUT', body:JSON.stringify({status:st})}); refreshAQueue(); toast('✅','تم'); } catch(e){ toast('⚠️','خطأ',e.message); }
+};
+
+window.cancelQ = async function(id){
+    if(!confirm('إلغاء الحجز؟')) return;
+    try{ await api('/api/queue/'+id, {method:'DELETE'}); refreshAQueue(); toast('✅','ألغي'); } catch(e){ toast('⚠️','خطأ',e.message); }
+};
+
+// BARBERS ADMIN
+async function loadABarbers(){
+    try {
+        let bb = await api('/api/barbers/all');
+        let el = document.getElementById('ap-abarbers');
+        el.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px"><div class="card-title" style="margin-bottom:0">✂️ الحلاقين</div><button class="btn btn-sm btn-gold" onclick="showBarberModal()">+ إضافة</button></div>';
+        if(!bb.length) { el.innerHTML += '<p style="color:var(--gray)">لا يوجد</p>'; return; }
+        el.innerHTML += '<div class="tbl-wrap"><table><thead><tr><th>الصورة</th><th>الاسم</th><th>الحالة</th><th></th></tr></thead><tbody>'+
+            bb.map(b=>'<tr><td>'+(b.photo?'<img src="'+API+b.photo+'">':'✂️')+'</td><td>'+b.name+'</td><td>'+(b.is_active?'🟢':'🔴')+'</td><td><div class="tbl-acts"><button class="tbl-edit" onclick="showBarberModal('+b.id+',\''+b.name.replace(/'/g,"\\'")+'\')">تعديل</button>'+(b.is_active?'<button class="tbl-del" onclick="delBarber('+b.id+')">حذف</button>':'')+'</div></td></tr>').join('')+'</tbody></table></div>';
+    } catch(e){}
+}
+
+window.showBarberModal = function(id, name){
+    document.getElementById('modalBg').classList.add('show');
+    document.getElementById('modalBox').innerHTML = '<h2>'+(id?'تعديل حلاق':'إضافة حلاق')+'</h2>'+
+        '<div class="form-group"><label>الاسم</label><input type="text" id="mBarberName" value="'+(id?name:'')+'" placeholder="اسم الحلاق"></div>'+
+        '<div class="form-group"><label>الصورة</label><input type="file" id="mBarberPhoto" accept="image/*"></div>'+
+        '<div class="modal-acts"><button class="btn btn-gold" onclick="saveBarber('+(id||'null')+')">'+(id?'💾 حفظ':'➕ إضافة')+'</button><button class="btn btn-outline" onclick="closeModal()">إلغاء</button></div>';
+};
+
+window.saveBarber = async function(id){
+    let name = document.getElementById('mBarberName').value.trim();
+    if(!name) return toast('⚠️','خطأ','الاسم مطلوب');
+    let file = document.getElementById('mBarberPhoto').files[0];
+    try {
+        if(id){
+            if(file){ let fd=new FormData(); fd.append('name',name); fd.append('photo',file); fd.append('type','barbers'); await formDataApi('/api/barbers/'+id,'PUT',fd); }
+            else await api('/api/barbers/'+id, {method:'PUT', body:JSON.stringify({name})});
+        } else {
+            let fd=new FormData(); fd.append('name',name); fd.append('type','barbers'); if(file) fd.append('photo',file);
+            await formDataApi('/api/barbers','POST',fd);
+        }
+        closeModal(); loadABarbers(); toast('✅','تم');
+    } catch(e){ toast('⚠️','خطأ',e.message); }
+};
+
+window.delBarber = async function(id){
+    if(!confirm('حذف هذا الحلاق؟')) return;
+    try{ await api('/api/barbers/'+id, {method:'DELETE'}); loadABarbers(); toast('✅','تم الحذف'); } catch(e){ toast('⚠️','خطأ',e.message); }
+};
+
+// STYLES ADMIN
+async function loadAStyles(){
+    try {
+        let ss = await api('/api/styles');
+        let el = document.getElementById('ap-astyles');
+        el.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px"><div class="card-title" style="margin-bottom:0">💈 أنواع الحلاقة</div><button class="btn btn-sm btn-gold" onclick="showStyleModal()">+ إضافة</button></div>';
+        if(!ss.length) { el.innerHTML += '<p style="color:var(--gray)">لا يوجد</p>'; return; }
+        el.innerHTML += '<div class="tbl-wrap"><table><thead><tr><th>الصورة</th><th>الاسم</th><th>السعر</th><th>الوصف</th><th></th></tr></thead><tbody>'+
+            ss.map(s=>'<tr><td>'+(s.photo?'<img src="'+API+s.photo+'">':'💈')+'</td><td>'+s.name+'</td><td style="color:var(--gold2);font-weight:700">'+s.price+' ر.س</td><td style="color:var(--gray);font-size:11px">'+(s.description||'—')+'</td><td><div class="tbl-acts"><button class="tbl-edit" onclick="showStyleModal('+s.id+',\''+s.name.replace(/'/g,"\\'")+'\','+s.price+',\''+(s.description||'').replace(/'/g,"\\'")+'\')">تعديل</button><button class="tbl-del" onclick="delStyle('+s.id+')">حذف</button></div></td></tr>').join('')+'</tbody></table></div>';
+    } catch(e){}
+}
+
+window.showStyleModal = function(id, name, price, desc){
+    document.getElementById('modalBg').classList.add('show');
+    document.getElementById('modalBox').innerHTML = '<h2>'+(id?'تعديل نوع حلاقة':'إضافة نوع حلاقة')+'</h2>'+
+        '<div class="form-group"><label>الاسم</label><input type="text" id="mStyleName" value="'+(id?name:'')+'" placeholder="اسم الحلاقة"></div>'+
+        '<div class="form-group"><label>السعر (ر.س)</label><input type="number" id="mStylePrice" value="'+(id?price:'')+'" placeholder="10" step="0.5"></div>'+
+        '<div class="form-group"><label>الوصف</label><textarea id="mStyleDesc" rows="2">'+(id?(desc||''):'')+'</textarea></div>'+
+        '<div class="form-group"><label>الصورة</label><input type="file" id="mStylePhoto" accept="image/*"></div>'+
+        '<div class="modal-acts"><button class="btn btn-gold" onclick="saveStyle('+(id||'null')+')">'+(id?'💾 حفظ':'➕ إضافة')+'</button><button class="btn btn-outline" onclick="closeModal()">إلغاء</button></div>';
+};
+
+window.saveStyle = async function(id){
+    let name = document.getElementById('mStyleName').value.trim();
+    let price = document.getElementById('mStylePrice').value;
+    let desc = document.getElementById('mStyleDesc').value.trim();
+    if(!name||!price) return toast('⚠️','خطأ','الاسم والسعر مطلوبان');
+    let file = document.getElementById('mStylePhoto').files[0];
+    try {
+        if(id){
+            if(file){ let fd=new FormData(); fd.append('name',name); fd.append('price',price); fd.append('description',desc); fd.append('photo',file); fd.append('type','styles'); await formDataApi('/api/styles/'+id,'PUT',fd); }
+            else await api('/api/styles/'+id, {method:'PUT', body:JSON.stringify({name,price,description:desc})});
+        } else {
+            let fd=new FormData(); fd.append('name',name); fd.append('price',price); fd.append('description',desc); fd.append('type','styles'); if(file) fd.append('photo',file);
+            await formDataApi('/api/styles','POST',fd);
+        }
+        closeModal(); loadAStyles(); toast('✅','تم');
+    } catch(e){ toast('⚠️','خطأ',e.message); }
+};
+
+window.delStyle = async function(id){
+    if(!confirm('حذف هذا النوع؟')) return;
+    try{ await api('/api/styles/'+id, {method:'DELETE'}); loadAStyles(); toast('✅','تم الحذف'); } catch(e){ toast('⚠️','خطأ',e.message); }
+};
+
+// SETTINGS
+function loadASet(){
+    document.getElementById('ap-aset').innerHTML = '<div class="card-title">🔧 الإعدادات</div>'+
+        '<div class="form-group"><label>تغيير كلمة المرور</label><div style="display:flex;gap:10px"><input type="password" id="newPass" placeholder="كلمة سر جديدة" style="flex:1;padding:11px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.04);color:#fff;font-family:inherit;outline:none"><button class="btn btn-sm btn-gold" onclick="changePass()">تغيير</button></div><p id="passMsg" style="font-size:11px;color:var(--gray);margin-top:4px"></p></div>'+
+        '<div class="form-group" style="margin-top:12px"><label>رابط الموقع</label><div style="display:flex;gap:10px"><input type="text" id="siteUrl" style="flex:1;padding:11px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.04);color:#fff;font-family:inherit;outline:none;direction:ltr;text-align:left" readonly><button class="btn btn-sm btn-outline" onclick="copyURL()">📋 نسخ</button></div></div>';
+    document.getElementById('siteUrl').value = location.origin;
+}
+
+window.changePass = async function(){
+    let p = document.getElementById('newPass').value;
+    if(!p||p.length<4) return toast('⚠️','خطأ','4 أحرف على الأقل');
+    try{ await api('/api/admin/password', {method:'PUT', body:JSON.stringify({newPassword:p})}); document.getElementById('passMsg').textContent='✅ تم التغيير'; document.getElementById('newPass').value=''; toast('✅','تم'); } catch(e){ toast('⚠️','خطأ',e.message); }
+};
+
+window.copyURL = function(){
+    navigator.clipboard.writeText(location.origin).then(()=>toast('📋','تم النسخ',''));
+};
+
+// MODAL
+window.closeModal = function(){ document.getElementById('modalBg').classList.remove('show'); };
+document.getElementById('modalBg').addEventListener('click',function(e){ if(e.target===this) closeModal(); });
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded',()=>{
+    initSocket();
+    refreshHomeQ();
+    refreshQueue();
+    setInterval(refreshHomeQ, 10000);
+    setInterval(refreshQueue, 10000);
+    if(location.pathname==='/admin') goPage('admin');
+});
+</script>
+</body>
+</html>
