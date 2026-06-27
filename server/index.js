@@ -440,3 +440,5 @@ app.get('/admin', (req, res) => {
         console.log('');
     });
 })();
+
+app.get('/health', (req, res) => res.json({status: 'ok'}));

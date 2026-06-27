@@ -580,7 +580,7 @@ window.doTrack = async function(){
             document.getElementById('tStatus').textContent='لا يوجد حجز';
             el.classList.add('show'); return;
         }
-        document.getElementById('tAhead').textContent = r.status==='in_progress'?'✨現在':r.ahead;
+        document.getElementById('tAhead').textContent = r.status==='in_progress'?'✨ قيد الخدمة':r.ahead;
         document.getElementById('tNum').textContent = r.queue_number;
         document.getElementById('tBarber').textContent = r.barber_name;
         document.getElementById('tStyle').textContent = r.style_name;
