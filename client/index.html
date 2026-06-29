@@ -1,863 +1,754 @@
 ﻿<!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BarberShop Pro - صالون الحلاقة</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>✂️ Blade &amp; Razor | Premium Barbershop</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--primary:#1A3A5C;--primaryL:#2A5A8C;--gold:#C9A84C;--gold2:#D4AF37;--gold3:#B8962E;--bg:#F5F5F0;--bg2:#FFFFFF;--bg3:#EDEDE8;--text:#2D2D2D;--text2:#666;--text3:#999;--red:#DC143C;--blue:#1E6EB5;--shadow:0 2px 16px rgba(0,0,0,.06);--shadowH:0 8px 30px rgba(201,168,76,.2)}
-*{margin:0;padding:0;box-sizing:border-box;scrollbar-width:thin;scrollbar-color:var(--gold) transparent}
-::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:#f0ede8}::-webkit-scrollbar-thumb{background:var(--gold);border-radius:10px}
+/* === RESET === */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+body{font-family:'Inter',sans-serif;background:#111;color:#fff;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
 
-/* POLE */
-.pole{position:fixed;top:0;left:0;right:0;height:5px;z-index:9999;display:flex}
-.pole div{flex:1;animation:poleMove 1.5s linear infinite}
-.pole div:nth-child(1){background:var(--red)}
-.pole div:nth-child(2){background:#fff}
-.pole div:nth-child(3){background:var(--blue)}
-.pole div:nth-child(4){background:var(--red)}
-.pole div:nth-child(5){background:#fff}
-.pole div:nth-child(6){background:var(--blue)}
-@keyframes poleMove{0%{transform:translateY(-100%)}100%{transform:translateY(100%)}}
+/* === SCROLLBAR === */
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:#111}
+::-webkit-scrollbar-thumb{background:rgba(201,168,76,.3);border-radius:3px}
 
-/* NAV */
-nav{position:fixed;top:5px;left:0;right:0;z-index:9998;background:rgba(245,245,240,.97);backdrop-filter:blur(12px);border-bottom:2px solid var(--primary);display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:60px;box-shadow:0 1px 6px rgba(0,0,0,.03)}
-.nav-logo{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:900;color:var(--primary);font-family:'Playfair Display',serif}
-.nav-logo span{color:var(--gold2);font-family:'Tajawal',sans-serif;font-weight:300}
-.nav-links{display:flex;gap:4px}
-.nav-links button{padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;color:var(--text3);border:none;background:none;cursor:pointer;font-family:inherit;transition:.3s;white-space:nowrap}
-.nav-links button:hover{color:var(--text);background:rgba(201,168,76,.08)}
-.nav-links button.active{color:var(--primary);background:rgba(26,58,92,.08)}
-.nav-toggle{display:none;background:none;border:none;color:var(--primary);font-size:24px;cursor:pointer;padding:8px}
+/* === TYPOGRAPHY === */
+h1,h2,h3{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:1px}
+.section-title{font-size:clamp(26px,5vw,48px);text-align:center;margin-bottom:6px;color:#fff}
+.section-title span{color:#C9A84C}
+.section-sub{text-align:center;color:rgba(255,255,255,.35);font-size:12px;margin-bottom:32px;letter-spacing:2px;text-transform:uppercase}
 
-/* MAIN */
-.main{max-width:1060px;margin:0 auto;padding:85px 16px 40px}
-.page{display:none;animation:fadeIn .45s ease}
-.page.show{display:block}
-@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+/* === CONTAINER === */
+.container{max-width:1100px;margin:0 auto;padding:0 20px}
 
-/* BUTTONS */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 28px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;transition:.3s;border:none;font-family:inherit;text-decoration:none}
-.btn-gold{background:var(--primary);color:#fff}
-.btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(26,58,92,.25)}
-.btn-outline{background:transparent;border:1.5px solid rgba(0,0,0,.1);color:var(--text)}
-.btn-outline:hover{background:rgba(26,58,92,.04);border-color:var(--primary)}
-.btn-sm{padding:8px 16px;font-size:12px;border-radius:8px}
-.btn-block{width:100%}
-.btn:disabled{opacity:.3;cursor:not-allowed;transform:none!important}
-.btn-danger{background:rgba(220,20,60,.08);color:var(--red);border:1px solid rgba(220,20,60,.15)}
-.btn-danger:hover{background:rgba(220,20,60,.15)}
-.btn-ghost{background:rgba(0,0,0,.03);color:var(--text3)}
-.btn-ghost:hover{background:rgba(0,0,0,.06);color:var(--text)}
-.btn-green{background:rgba(0,200,80,.08);color:#0A8;border:1px solid rgba(0,200,80,.15)}
-.btn-green:hover{background:rgba(0,200,80,.15)}
+/* === NAV === */
+nav{position:fixed;top:0;left:0;right:0;z-index:999;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;transition:background .4s,backdrop-filter .4s}
+nav.scrolled{background:rgba(17,17,17,.92);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.04)}
+.nav-logo{font-family:'Oswald',sans-serif;font-size:20px;font-weight:700;letter-spacing:2px;display:flex;align-items:center;gap:10px}
+.nav-logo span{color:#C9A84C}
+.nav-links{display:flex;gap:2px;align-items:center}
+.nav-links a{padding:7px 14px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.45);transition:color .3s;border-radius:6px;font-family:'Inter',sans-serif}
+.nav-links a:hover{color:#fff}
+.nav-links a.cta{background:rgba(201,168,76,.12);color:#C9A84C;border:1px solid rgba(201,168,76,.2)}
+.nav-links a.cta:hover{background:rgba(201,168,76,.2)}
+.nav-toggle{display:none;background:none;border:none;color:#fff;font-size:26px;cursor:pointer}
 
-/* CARDS */
-.card{background:var(--bg2);border:1px solid rgba(0,0,0,.04);border-radius:16px;padding:28px;margin-bottom:16px;box-shadow:var(--shadow)}
-.card-gold{border-color:rgba(26,58,92,.1);background:linear-gradient(135deg,#F0F4F8,#E8EEF5)}
-.card-title{font-size:18px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:10px}
-.badge{background:rgba(26,58,92,.1);color:var(--primary);font-size:10px;padding:3px 10px;border-radius:20px;font-weight:700;letter-spacing:.5px;display:inline-block}
+/* === BARBER POLE IN NAV === */
+.pole-mini{display:inline-flex;height:28px;width:8px;border-radius:2px;overflow:hidden;position:relative}
+.pole-mini .stripes{width:100%;height:100%;background:repeating-linear-gradient(180deg,#DC143C 0,#DC143C 4px,#fff 4px,#fff 8px,#1E6EB5 8px,#1E6EB5 12px);background-size:100% 24px;animation:spinPoleMini .6s linear infinite;border-radius:2px;box-shadow:0 0 6px rgba(201,168,76,.2)}
+.pole-mini:hover .stripes{animation-duration:.15s}
+@keyframes spinPoleMini{0%{background-position:0 0}100%{background-position:0 24px}}
 
-/* FORM */
-.form-group{margin-bottom:14px}
-.form-group label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bottom:5px;letter-spacing:.3px}
-.form-group input,.form-group select,.form-group textarea{width:100%;padding:11px 14px;border-radius:10px;border:1px solid rgba(0,0,0,.08);background:var(--bg2);color:var(--text);font-size:14px;font-family:inherit;outline:none;transition:.3s}
-.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(26,58,92,.1)}
-.form-group select option{background:#fff;color:var(--text)}
-.form-group input::placeholder{color:var(--text3)}
-
-/* HERO */
-.hero{text-align:center;padding:30px 10px 20px}
-.hero-img-wrap{width:100%;height:280px;border-radius:18px;overflow:hidden;margin-bottom:24px;position:relative;box-shadow:var(--shadow)}
-.hero-img-wrap img{width:100%;height:100%;object-fit:cover}
-.hero-img-wrap .overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(180deg,transparent 30%,rgba(245,245,240,.95) 100%)}
-.hero h1{font-size:42px;font-weight:900;line-height:1.2;margin-bottom:6px}
-.hero h1 .gold{color:var(--primary)}
-.hero p{color:var(--text2);font-size:15px;margin-bottom:24px;max-width:500px;margin-left:auto;margin-right:auto}
+/* === HERO === */
+.hero{position:relative;height:100vh;min-height:580px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-vid{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
+.hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,rgba(17,17,17,.92) 25%,rgba(17,17,17,.4) 55%,rgba(17,17,17,.75) 100%);z-index:1}
+.hero-overlay::after{content:'';position:absolute;bottom:0;left:0;right:0;height:100px;background:linear-gradient(transparent,#111)}
+.hero-content{position:relative;z-index:2;text-align:center;padding:20px;max-width:720px}
+.hero-badge{display:inline-block;padding:5px 18px;border:1px solid rgba(201,168,76,.35);border-radius:50px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#C9A84C;margin-bottom:16px;background:rgba(201,168,76,.05)}
+.hero-content h1{font-size:clamp(38px,10vw,88px);line-height:.95;margin-bottom:8px}
+.hero-content h1 span{color:#C9A84C;display:block;font-size:clamp(26px,6vw,56px)}
+.hero-content p{font-size:clamp(13px,1.8vw,16px);color:rgba(255,255,255,.5);max-width:480px;margin:0 auto 24px;line-height:1.7}
 .hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.hero-scroll{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:3;color:rgba(255,255,255,.2);font-size:10px;letter-spacing:2px;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:4px;animation:bounceDown 2.4s infinite}
+.hero-scroll .arrow{width:16px;height:16px;border-right:2px solid rgba(255,255,255,.2);border-bottom:2px solid rgba(255,255,255,.2);transform:rotate(45deg)}
+@keyframes bounceDown{0%,100%{opacity:.4;transform:translateX(-50%) translateY(0)}50%{opacity:1;transform:translateX(-50%) translateY(6px)}}
 
-/* HOME FEATURES */
-.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:8px}
-.feature{background:var(--bg2);border:1px solid rgba(0,0,0,.04);border-radius:14px;padding:20px;text-align:center;box-shadow:var(--shadow);transition:.3s}
-.feature:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(26,58,92,.12)}
-.feature .icon{font-size:32px;margin-bottom:8px;display:block}
-.feature h3{font-size:14px;font-weight:700;margin-bottom:4px}
-.feature p{font-size:12px;color:var(--text2)}
+/* === RAZOR SLIDE === */
+.razor-slide{position:fixed;top:0;left:-120px;z-index:9999;font-size:50px;opacity:.06;pointer-events:none;animation:razorSweep 2.8s cubic-bezier(.22,1,.36,1) .6s 1 forwards}
+@keyframes razorSweep{0%{left:-120px;top:30%;transform:rotate(-25deg) scale(.8)}45%{left:40%;top:18%;transform:rotate(12deg) scale(1)}72%{left:70%;top:32%;transform:rotate(-6deg) scale(.9)}100%{left:120vw;top:22%;transform:rotate(0) scale(1)}}
 
-/* QUEUE MINI */
-.queue-mini .q-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;margin-bottom:4px;background:rgba(0,0,0,.02)}
-.queue-mini .q-num{font-size:18px;font-weight:900;color:var(--primary);min-width:32px;text-align:center}
-.queue-mini .q-name{font-size:14px;font-weight:600}
-.queue-mini .q-det{font-size:11px;color:var(--text2)}
-.queue-mini .q-status{font-size:10px;padding:2px 10px;border-radius:20px;font-weight:600;margin-right:auto}
-.queue-mini .q-wait{background:rgba(0,0,0,.04);color:var(--text2)}
-.queue-mini .q-prog{background:rgba(26,58,92,.1);color:var(--primary)}
-.empty-msg{padding:24px;text-align:center;color:var(--text2);font-size:13px}
+/* === BUTTONS === */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 32px;font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:2px;border:none;cursor:pointer;transition:all .35s cubic-bezier(.25,.46,.45,.94);position:relative;overflow:hidden}
+.btn-primary{background:#C9A84C;color:#111}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(201,168,76,.25)}
+.btn-primary::before{content:'';position:absolute;top:-50%;left:-60%;width:35%;height:200%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);transform:rotate(25deg);transition:left .6s}
+.btn-primary:hover::before{left:120%}
+.btn-outline{background:transparent;border:2px solid rgba(255,255,255,.12);color:#fff}
+.btn-outline:hover{background:rgba(255,255,255,.04);border-color:#C9A84C;transform:translateY(-2px)}
+.btn-sm{padding:10px 20px;font-size:11px}
+.btn-block{width:100%}
+.btn-danger{background:rgba(220,50,50,.15);color:#e44;border:1px solid rgba(220,50,50,.2)}
+.btn-danger:hover{background:rgba(220,50,50,.25)}
+.btn-ghost{background:rgba(255,255,255,.03);color:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.06)}
+.btn-ghost:hover{background:rgba(255,255,255,.06);color:#fff}
+.btn-gold-outline{background:transparent;border:1.5px solid rgba(201,168,76,.3);color:#C9A84C}
+.btn-gold-outline:hover{background:rgba(201,168,76,.1)}
 
-/* BOOK PAGE */
-.book-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-@media(max-width:700px){.book-grid{grid-template-columns:1fr}}
-.barber-grid,.style-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px}
-.b-card,.s-card{padding:12px 8px;border-radius:12px;border:1px solid rgba(0,0,0,.06);background:var(--bg2);text-align:center;cursor:pointer;transition:.3s;position:relative;box-shadow:0 1px 4px rgba(0,0,0,.03)}
-.b-card:hover,.s-card:hover{border-color:rgba(26,58,92,.3);transform:translateY(-2px)}
-.b-card.chosen,.s-card.chosen{border-color:var(--primary);background:rgba(26,58,92,.06);box-shadow:0 0 24px rgba(26,58,92,.12)}
-.b-card img,.s-card img{width:52px;height:52px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 6px;border:2px solid rgba(26,58,92,.1)}
-.b-card .name,.s-card .name{font-size:12px;font-weight:600;display:block}
-.s-card .price{font-size:11px;color:var(--primary);font-weight:700;display:block;margin-top:2px}
-.placeholder-avatar{width:52px;height:52px;border-radius:50%;background:rgba(26,58,92,.08);display:flex;align-items:center;justify-content:center;margin:0 auto 6px;font-size:20px;color:var(--primary)}
+/* === SCROLL SECTIONS === */
+section{padding:70px 0;opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+section.visible{opacity:1;transform:translateY(0)}
 
-.confirm-box{display:none;margin-top:14px;padding:18px;border-radius:12px;background:rgba(26,58,92,.04);border:1px solid rgba(26,58,92,.15)}
-.confirm-box.show{display:block}
-.confirm-box p{font-size:13px;color:var(--text2);margin-bottom:4px}
-.confirm-box .hl{color:var(--primary);font-weight:700}
-.success-box{display:none;text-align:center;padding:32px 16px}
-.success-box.show{display:block}
-.success-box .big{font-size:48px;margin-bottom:8px;display:block}
-.success-box h2{font-size:24px;font-weight:700;margin-bottom:4px}
-.success-box .num{font-size:40px;font-weight:900;color:var(--primary)}
-.success-box p{color:var(--text2);font-size:14px;margin-bottom:4px}
+/* === GALLERY === */
+.gallery-wrap{overflow:hidden;position:relative}
+.gallery-track{display:flex;gap:12px;animation:scrollGallery 40s linear infinite;width:max-content;padding:0 10px}
+.gallery-track:hover{animation-play-state:paused}
+.gallery-track img{height:180px;border-radius:8px;object-fit:cover;flex-shrink:0;transition:transform .4s;border:1px solid rgba(255,255,255,.03)}
+.gallery-track img:hover{transform:scale(1.03)}
+.gallery-track img:nth-child(1){width:260px}
+.gallery-track img:nth-child(2){width:200px}
+.gallery-track img:nth-child(3){width:280px}
+.gallery-track img:nth-child(4){width:220px}
+.gallery-track img:nth-child(5){width:240px}
+.gallery-track img:nth-child(6){width:190px}
+.gallery-track img:nth-child(7){width:270px}
+@keyframes scrollGallery{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
-/* QUEUE PAGE */
-.queue-stats{display:flex;gap:10px;margin-bottom:14px}
-.que-stat{padding:8px 14px;border-radius:8px;background:var(--bg2);border:1px solid rgba(0,0,0,.04);text-align:center;min-width:80px;box-shadow:var(--shadow)}
-.que-stat .num{font-size:18px;font-weight:800;display:block}
-.que-stat .lbl{font-size:10px;color:var(--text2)}
-.q-list{margin-top:8px}
-.ql-item{display:flex;align-items:center;gap:14px;padding:12px 14px;border-radius:12px;border:1px solid rgba(0,0,0,.04);margin-bottom:6px;transition:.3s;background:var(--bg2);box-shadow:0 1px 4px rgba(0,0,0,.03)}
-.ql-item.in-progress{border-color:rgba(26,58,92,.2);background:rgba(26,58,92,.04);box-shadow:0 0 16px rgba(26,58,92,.06)}
-.ql-item .num{font-size:20px;font-weight:900;color:var(--primary);min-width:36px;text-align:center}
-.ql-item .info{flex:1}
-.ql-item .name{font-size:14px;font-weight:600}
-.ql-item .det{font-size:11px;color:var(--text2)}
-.ql-item .tag{font-size:10px;padding:3px 10px;border-radius:20px;font-weight:600}
+/* === SERVICES === */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.service-card{position:relative;border-radius:12px;overflow:hidden;min-height:280px;display:flex;flex-direction:column;justify-content:flex-end;padding:24px;border:1px solid rgba(255,255,255,.04);transition:transform .5s cubic-bezier(.22,1,.36,1),box-shadow .5s;cursor:default;background:#1a1a1a}
+.service-card .bg{position:absolute;top:0;left:0;width:100%;height:100%;background-size:cover;background-position:center;opacity:.12;transition:opacity .6s,transform .6s;z-index:0}
+.service-card:hover .bg{opacity:.3;transform:scale(1.08)}
+.service-card .shade{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,transparent 30%,rgba(17,17,17,.95) 100%);z-index:1}
+.service-card:hover{transform:translateY(-5px);box-shadow:0 10px 35px rgba(201,168,76,.1);border-color:rgba(201,168,76,.15)}
+.service-card>*{position:relative;z-index:2}
+.service-card .ic{font-size:28px;margin-bottom:6px;display:block}
+.service-card h3{font-size:20px;margin-bottom:2px;display:flex;align-items:center;gap:8px}
+.service-card h3 .pr{font-family:'Inter',sans-serif;font-size:13px;color:#C9A84C;font-weight:600;margin-right:auto}
+.service-card p{font-size:12px;color:rgba(255,255,255,.45);line-height:1.6}
+.service-card .tags{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap}
+.service-card .tags span{padding:2px 8px;border-radius:20px;font-size:9px;border:1px solid rgba(255,255,255,.07);color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.5px}
 
-/* TRACK PAGE */
-.track-wrap{max-width:440px;margin:0 auto}
-.track-input{display:flex;gap:10px;margin-bottom:16px}
-.track-input input{flex:1;padding:12px 14px;border-radius:10px;border:1px solid rgba(0,0,0,.08);background:var(--bg2);color:var(--text);font-size:14px;font-family:inherit;outline:none;transition:.3s}
-.track-input input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(26,58,92,.1)}
-.track-result{display:none}
-.track-result.show{display:block}
-.track-pos{text-align:center;padding:24px}
-.track-pos .big{font-size:60px;font-weight:900;color:var(--primary);line-height:1}
-.track-pos .lbl{color:var(--text2);font-size:14px;margin-top:4px}
-.track-detail{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
-.td-item{padding:12px;border-radius:10px;background:var(--bg2);text-align:center;box-shadow:var(--shadow)}
-.td-item .val{font-size:15px;font-weight:600;display:block}
-.td-item .lbl{font-size:10px;color:var(--text2);margin-top:2px;display:block}
+/* === BARBERS === */
+.barbers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px}
+.barber-card{text-align:center;padding:22px 14px;border-radius:12px;background:rgba(255,255,255,.015);border:1px solid rgba(255,255,255,.04);transition:transform .4s,box-shadow .4s}
+.barber-card:hover{transform:translateY(-3px);box-shadow:0 6px 24px rgba(201,168,76,.06);border-color:rgba(201,168,76,.12)}
+.barber-card .av{width:72px;height:72px;border-radius:50%;margin:0 auto 10px;object-fit:cover;border:3px solid rgba(201,168,76,.12);transition:border-color .4s}
+.barber-card:hover .av{border-color:#C9A84C}
+.barber-card h4{font-size:16px;margin-bottom:2px}
+.barber-card .sp{font-size:10px;color:rgba(255,255,255,.3);letter-spacing:1px;text-transform:uppercase}
+.barber-card .hrs{font-size:10px;color:rgba(255,255,255,.15);margin-top:4px}
 
-/* ADMIN */
-.admin-login-box{max-width:360px;margin:30px auto;text-align:center}
-.admin-login-box input{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(0,0,0,.08);background:var(--bg2);color:var(--text);font-size:15px;text-align:center;font-family:inherit;outline:none;margin-bottom:12px;box-shadow:var(--shadow)}
-.admin-login-box input:focus{border-color:var(--gold2);box-shadow:0 0 0 3px rgba(201,168,76,.1)}
-.admin-layout{display:grid;grid-template-columns:220px 1fr;gap:16px;min-height:50vh}
-@media(max-width:768px){.admin-layout{grid-template-columns:1fr}}
-.admin-side{background:var(--bg2);border:1px solid rgba(0,0,0,.04);border-radius:14px;padding:14px;position:sticky;top:82px;box-shadow:var(--shadow)}
-.admin-side .a-btn{display:block;width:100%;padding:9px 12px;border-radius:8px;border:none;background:none;color:var(--text3);font-size:13px;font-weight:600;cursor:pointer;text-align:right;font-family:inherit;transition:.3s;margin-bottom:3px}
-.admin-side .a-btn:hover{color:var(--text);background:rgba(26,58,92,.06)}
-.admin-side .a-btn.on{color:var(--primary);background:rgba(26,58,92,.08)}
-.admin-side .a-logout{display:block;width:100%;margin-top:10px;padding:9px;border-radius:8px;border:1px solid rgba(0,0,0,.06);background:none;color:var(--text3);font-size:12px;cursor:pointer;text-align:center;font-family:inherit;transition:.3s}
-.admin-side .a-logout:hover{color:var(--red);border-color:rgba(220,20,60,.2)}
-.admin-panel{display:none}
-.admin-panel.on{display:block}
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:16px}
-.stat-box{padding:16px;border-radius:12px;background:var(--bg2);border:1px solid rgba(0,0,0,.04);text-align:center;box-shadow:var(--shadow)}
-.stat-box .num{font-size:26px;font-weight:800;display:block;color:var(--primary)}
-.stat-box .lbl{font-size:10px;color:var(--text2);margin-top:3px}
-.tbl-wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:13px}
-th{padding:8px 10px;text-align:right;color:var(--text2);font-weight:600;font-size:10px;letter-spacing:.4px;border-bottom:2px solid rgba(26,58,92,.15)}
-td{padding:8px 10px;border-bottom:1px solid rgba(0,0,0,.04);color:var(--text)}
-tr:hover td{background:rgba(26,58,92,.02)}
-td img{width:32px;height:32px;border-radius:50%;object-fit:cover;vertical-align:middle;border:2px solid rgba(26,58,92,.1)}
-.tbl-acts{display:flex;gap:4px;flex-wrap:wrap}
-.tbl-acts button{padding:4px 10px;border-radius:6px;border:none;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;transition:.3s}
-.tbl-edit{background:rgba(26,58,92,.1);color:var(--primary)}
-.tbl-edit:hover{background:rgba(26,58,92,.18)}
-.tbl-del{background:rgba(220,20,60,.08);color:var(--red)}
-.tbl-del:hover{background:rgba(220,20,60,.16)}
-.tbl-go{background:rgba(30,110,181,.1);color:var(--blue)}
-.tbl-go:hover{background:rgba(30,110,181,.18)}
-.tbl-end{background:rgba(0,200,80,.08);color:#0A8}
-.tbl-end:hover{background:rgba(0,200,80,.16)}
+/* === DIVIDER === */
+.divider{display:flex;align-items:center;justify-content:center;gap:12px;margin:16px 0;opacity:.1}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent)}
+.divider svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;color:rgba(255,255,255,.3)}
 
-/* MODAL */
-.modal-bg{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.4);backdrop-filter:blur(4px);z-index:10000;display:none;align-items:center;justify-content:center;padding:16px}
-.modal-bg.show{display:flex}
-.modal-box{background:var(--bg2);border:1px solid rgba(0,0,0,.06);border-radius:18px;padding:28px;max-width:450px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.1)}
-.modal-box h2{font-size:18px;margin-bottom:16px}
-.modal-acts{display:flex;gap:10px;margin-top:16px}
+/* === BOOKING === */
+.booking-wrap{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start}
+.booking-info h2{font-size:clamp(22px,4vw,38px);margin-bottom:8px}
+.booking-info p{color:rgba(255,255,255,.45);line-height:1.7;font-size:13px;margin-bottom:16px}
+.booking-info .fi{display:flex;gap:10px;align-items:flex-start;margin-bottom:8px}
+.booking-info .fi .dot{width:5px;height:5px;border-radius:50%;background:#C9A84C;margin-top:7px;flex-shrink:0}
+.booking-info .fi .tx{font-size:12px;color:rgba(255,255,255,.4);line-height:1.5}
+.booking-form{background:rgba(255,255,255,.015);border:1px solid rgba(255,255,255,.05);border-radius:14px;padding:28px}
+.fg{margin-bottom:14px}
+.fg label{display:block;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,.35);margin-bottom:5px}
+.fg input,.fg select{width:100%;padding:11px 13px;border-radius:8px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.035);color:#fff;font-size:13px;font-family:'Inter',sans-serif;outline:none;transition:border-color .3s}
+.fg input:focus,.fg select:focus{border-color:#C9A84C;box-shadow:0 0 0 2px rgba(201,168,76,.08)}
+.fg input::placeholder{color:rgba(255,255,255,.15)}
+.fg select option{background:#1a1a1a;color:#fff}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* === TOAST === */
+.toast-wrap{position:fixed;bottom:24px;right:24px;z-index:99999;display:flex;flex-direction:column;gap:6px}
+.toast{padding:12px 18px;border-radius:10px;background:rgba(30,30,30,.95);border:1px solid rgba(255,255,255,.06);backdrop-filter:blur(12px);min-width:200px;max-width:320px;display:flex;align-items:center;gap:8px;animation:toastIn .4s cubic-bezier(.16,1,.3,1);font-size:12px;color:#fff;box-shadow:0 6px 24px rgba(0,0,0,.3)}
+.toast.gold{border-color:rgba(201,168,76,.25)}
+@keyframes toastIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:translateX(0)}}
+.toast .tc{background:none;border:none;color:rgba(255,255,255,.25);cursor:pointer;font-size:14px;margin-right:auto;padding:0 4px}
+
+/* === ADMIN FAB === */
+.admin-fab{position:fixed;bottom:20px;right:20px;z-index:9998;width:44px;height:44px;border-radius:50%;background:#C9A84C;color:#111;border:none;font-size:18px;cursor:pointer;box-shadow:0 4px 16px rgba(201,168,76,.2);transition:transform .3s}
+.admin-fab:hover{transform:scale(1.1)}
+
+/* === ADMIN OVERLAY === */
+.admin-overlay{position:fixed;top:0;left:0;right:0;bottom:0;z-index:10000;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);display:none}
+.admin-overlay.open{display:flex;align-items:center;justify-content:center}
+.admin-login{background:#1a1a1a;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:32px;width:340px;max-width:90vw;text-align:center}
+.admin-login h2{font-size:20px;margin-bottom:6px}
+.admin-login p{font-size:12px;color:rgba(255,255,255,.35);margin-bottom:16px}
+.admin-login input{width:100%;padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);color:#fff;font-size:14px;text-align:center;outline:none;font-family:'Inter',sans-serif;margin-bottom:12px}
+.admin-login input:focus{border-color:#C9A84C}
+
+/* === ADMIN DASHBOARD === */
+.admin-dash{position:fixed;top:0;left:0;right:0;bottom:0;z-index:10001;background:#111;display:none;overflow:hidden}
+.admin-dash.open{display:flex}
+.admin-side{width:200px;background:rgba(255,255,255,.02);border-left:1px solid rgba(255,255,255,.04);padding:16px;display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
+.admin-side h3{font-size:13px;margin-bottom:14px;color:#C9A84C;letter-spacing:1px;display:flex;align-items:center;gap:8px}
+.admin-side .ab{display:block;width:100%;padding:9px 12px;border-radius:8px;border:none;background:none;color:rgba(255,255,255,.35);font-size:12px;font-weight:600;cursor:pointer;text-align:right;font-family:'Inter',sans-serif;transition:.25s;margin-bottom:2px}
+.admin-side .ab:hover{color:#fff;background:rgba(255,255,255,.04)}
+.admin-side .ab.on{color:#C9A84C;background:rgba(201,168,76,.08)}
+.admin-side .spacer{flex:1}
+.admin-side .logout{width:100%;padding:9px;border-radius:8px;border:1px solid rgba(255,255,255,.06);background:none;color:rgba(255,255,255,.25);font-size:11px;cursor:pointer;font-family:'Inter',sans-serif;transition:.3s;margin-top:10px}
+.admin-side .logout:hover{color:#e44;border-color:rgba(220,50,50,.2)}
+
+.admin-main{flex:1;overflow-y:auto;padding:20px 24px}
+.admin-main h2{font-size:20px;margin-bottom:16px;display:flex;align-items:center;gap:10px;justify-content:space-between}
+.admin-main h2 .hdr-l{display:flex;align-items:center;gap:10px}
+.admin-pane{display:none}
+.admin-pane.on{display:block}
+
+/* === ADMIN TABLES === */
+.adm-tbl{width:100%;border-collapse:collapse;font-size:12px}
+.adm-tbl th{padding:8px 10px;text-align:right;color:rgba(255,255,255,.35);font-weight:600;font-size:9px;letter-spacing:.5px;text-transform:uppercase;border-bottom:2px solid rgba(201,168,76,.15)}
+.adm-tbl td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.03);color:rgba(255,255,255,.7)}
+.adm-tbl tr:hover td{background:rgba(255,255,255,.015)}
+.adm-tbl .acts{display:flex;gap:4px}
+.adm-tbl .acts button{padding:3px 8px;border-radius:5px;border:none;font-size:9px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:.2s}
+
+/* === ADMIN MODAL === */
+.modal-bg{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);z-index:10002;display:none;align-items:center;justify-content:center;padding:16px}
+.modal-bg.open{display:flex}
+.modal-box{background:#1a1a1a;border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:24px;width:420px;max-width:100%;max-height:85vh;overflow-y:auto}
+.modal-box h3{font-size:16px;margin-bottom:14px}
+.modal-box .fg{margin-bottom:12px}
+.modal-box .fg label{font-size:9px;letter-spacing:1px}
+.modal-box .fg input,.modal-box .fg select,.modal-box .fg textarea{font-size:12px;padding:9px 12px}
+.modal-acts{display:flex;gap:8px;margin-top:14px}
 .modal-acts button{flex:1}
 
-/* TOAST */
-.toasts{position:fixed;bottom:20px;right:20px;z-index:99999;display:flex;flex-direction:column;gap:8px}
-.toast{padding:14px 18px;border-radius:12px;background:#fff;border:1px solid rgba(0,0,0,.06);box-shadow:0 8px 30px rgba(0,0,0,.1);min-width:260px;max-width:380px;display:flex;align-items:center;gap:10px;animation:slideUp .5s cubic-bezier(.16,1,.3,1)}
-.toast.gold{border-color:rgba(26,58,92,.2);background:rgba(240,245,250,1)}
-@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.toast .ti{font-size:20px;flex-shrink:0}
-.toast .tt{font-size:13px;font-weight:700;display:block}
-.toast .td{font-size:11px;color:var(--text2);margin-top:1px}
-.toast .tc{background:none;border:none;color:var(--text3);cursor:pointer;font-size:16px;margin-right:auto;padding:0 4px;font-family:inherit}
-
-/* RESPONSIVE */
-@media(max-width:600px){
-nav{padding:0 12px;height:54px}
-.nav-links{position:fixed;top:59px;left:0;right:0;background:rgba(245,245,240,.98);backdrop-filter:blur(12px);flex-direction:column;padding:8px;border-bottom:1px solid rgba(0,0,0,.06);display:none;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+/* === RESPONSIVE === */
+@media(max-width:768px){
+nav{padding:10px 16px}
+.nav-links{position:fixed;top:0;left:0;width:100%;height:100vh;background:rgba(17,17,17,.98);backdrop-filter:blur(20px);flex-direction:column;justify-content:center;align-items:center;gap:10px;display:none;z-index:998}
 .nav-links.open{display:flex}
-.nav-toggle{display:block}
-.main{padding:75px 10px 30px}
-.hero h1{font-size:30px}
-.hero-img-wrap{height:180px}
-.stats-grid{grid-template-columns:1fr 1fr}
+.nav-links a{font-size:16px;padding:10px 20px}
+.nav-toggle{display:block;z-index:999}
+.booking-wrap{grid-template-columns:1fr}
+.booking-form{padding:20px}
+.fr{grid-template-columns:1fr}
+.barbers-grid{grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+.gallery-track img{height:120px}
+.gallery-track img:nth-child(1){width:180px}
+.gallery-track img:nth-child(2){width:140px}
+.gallery-track img:nth-child(3){width:200px}
+.gallery-track img:nth-child(4){width:150px}
+.gallery-track img:nth-child(5){width:170px}
+.gallery-track img:nth-child(6){width:130px}
+.gallery-track img:nth-child(7){width:190px}
+section{padding:45px 0}
+.admin-dash{flex-direction:column}
+.admin-side{width:100%;flex-direction:row;padding:10px 14px;overflow-x:auto;border-left:none;border-bottom:1px solid rgba(255,255,255,.04);gap:4px}
+.admin-side h3{display:none}
+.admin-side .ab{white-space:nowrap;font-size:10px;padding:6px 10px}
+.admin-side .spacer{display:none}
+.admin-side .logout{display:none}
+.admin-main{padding:14px}
+.admin-main h2{font-size:16px;flex-direction:column;align-items:flex-start;gap:8px}
+.adm-tbl{font-size:10px}
+.adm-tbl th,.adm-tbl td{padding:5px 6px}
+.razor-slide{display:none}
 }
+
+@media(max-width:480px){
+.hero-content h1{font-size:30px}
+.hero-content h1 span{font-size:20px}
+.btn{padding:12px 20px;font-size:11px}
+.services-grid{grid-template-columns:1fr}
+}
+
+/* === ADMIN SCROLLBAR === */
+.admin-main::-webkit-scrollbar{width:4px}
+.admin-main::-webkit-scrollbar-track{background:transparent}
+.admin-main::-webkit-scrollbar-thumb{background:rgba(201,168,76,.2);border-radius:2px}
 </style>
 </head>
 <body>
 
-<div class="pole"><div></div><div></div><div></div><div></div><div></div><div></div></div>
+<!-- RAZOR SLIDE -->
+<div class="razor-slide" aria-hidden="true">✂️</div>
 
-<nav>
-    <div class="nav-logo">✦ <span id="shopNameDisplay">Barber<span>Shop</span></span></div>
-    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
-    <div class="nav-links">
-        <button class="active" data-page="home">الرئيسية</button>
-        <button data-page="book">حجز دور</button>
-        <button data-page="queue">الطابور</button>
-        <button data-page="track">دوري</button>
-        <button data-page="admin">الإدارة</button>
-    </div>
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo"><span class="pole-mini"><div class="stripes"></div></span> Blade <span>&amp; Razor</span></div>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+  <div class="nav-links" id="navLinks">
+    <a href="#hero">Home</a>
+    <a href="#services">Services</a>
+    <a href="#barbers">Barbers</a>
+    <a href="#booking" class="cta">Book Now</a>
+  </div>
 </nav>
 
-<div class="main">
+<!-- HERO -->
+<section id="hero" class="hero" style="opacity:1;transform:none">
+  <video class="hero-vid" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1585747861115-93e382e01d72?w=1200&q=80">
+    <source src="https://videos.pexels.com/video-files/852399/852399-hd_1920_1080_25fps.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content" id="heroContent">
+    <div class="hero-badge">✂️ Est. 2018</div>
+    <h1>Sharp Looks<br><span>Fresh Cuts</span></h1>
+    <p>Step into a world where every snip is precision. Book with our master barbers today.</p>
+    <div class="hero-actions">
+      <a href="#booking" class="btn btn-primary">Book Now</a>
+      <a href="#services" class="btn btn-outline">Services</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><span>Scroll</span><div class="arrow"></div></div>
+</section>
 
-<!-- HOME -->
-<div class="page show" id="p-home">
-    <div class="hero">
-        <div class="hero-img-wrap">
-            <img src="https://images.unsplash.com/photo-1585747861115-93e382e01d72?w=1000&q=80" alt="" onerror="this.style.display='none'">
-            <div class="overlay"></div>
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="container">
+    <h2 class="section-title">Our <span>Studio</span></h2>
+    <p class="section-sub">Where craftsmanship meets style</p>
+  </div>
+  <div class="gallery-wrap">
+    <div class="gallery-track" id="galleryTrack"></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <h2 class="section-title">Premium <span>Services</span></h2>
+    <p class="section-sub" id="servicesSub">Every cut tells a story</p>
+    <div class="services-grid" id="servicesGrid"></div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="container"><div class="divider">
+  <svg viewBox="0 0 24 24"><path d="M6 4L18 20M18 4L6 20"/><circle cx="6" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+</div></div>
+
+<!-- BARBERS -->
+<section id="barbers">
+  <div class="container">
+    <h2 class="section-title">Meet The <span>Masters</span></h2>
+    <p class="section-sub">Craftsmen behind the chair</p>
+    <div class="barbers-grid" id="barbersGrid"></div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section id="booking">
+  <div class="container">
+    <div class="booking-wrap">
+      <div class="booking-info">
+        <div class="hero-badge" style="margin-bottom:10px">✂️ Book Your Visit</div>
+        <h2>Ready for a<br><span style="color:#C9A84C">Fresh Look?</span></h2>
+        <p>Book online and skip the wait. Walk-ins welcome, but reserving guarantees your spot.</p>
+        <div class="fi"><div class="dot"></div><div class="tx">No waiting — your appointment is ready when you arrive</div></div>
+        <div class="fi"><div class="dot"></div><div class="tx">Choose your preferred barber and service</div></div>
+        <div class="fi"><div class="dot"></div><div class="tx">Free consultation before every service</div></div>
+        <div class="fi"><div class="dot"></div><div class="tx">Premium products used on every client</div></div>
+      </div>
+      <form class="booking-form" id="bookingForm" onsubmit="return handleBooking(event)">
+        <div class="fg"><label>Full Name</label><input type="text" id="bkName" placeholder="e.g. John Doe" required></div>
+        <div class="fr">
+          <div class="fg"><label>Phone</label><input type="tel" id="bkPhone" placeholder="+1 555-1234" required></div>
+          <div class="fg"><label>Service</label><select id="bkService" required></select></div>
         </div>
-        <h1>صالون <span class="gold">الحلاقة</span> الفاخر</h1>
-        <p>احجز دورك الآن عند أفضل الحلاقين المحترفين واستمتع بتجربة حلاقة راقية</p>
-        <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:14px;font-size:13px;color:var(--text2)">
-            <span id="shopAddressDisplay2" style="display:none"></span>
+        <div class="fr">
+          <div class="fg"><label>Barber</label><select id="bkBarber" required></select></div>
+          <div class="fg"><label>Date &amp; Time</label><input type="datetime-local" id="bkDateTime" required></div>
         </div>
-        <div class="hero-actions">
-            <button class="btn btn-gold" onclick="goPage('book')">📅 احجز دورك</button>
-            <button class="btn btn-outline" onclick="goPage('queue')">👥 عرض الطابور</button>
-        </div>
+        <button type="submit" class="btn btn-primary btn-block form-submit" style="margin-top:4px">✂️ Confirm Booking</button>
+        <p id="bkMsg" style="text-align:center;margin-top:10px;font-size:12px;color:rgba(255,255,255,.3);display:none"></p>
+      </form>
     </div>
-    <div class="features">
-        <div class="feature"><span class="icon">✂️</span><h3>حلاقين محترفين</h3><p>نخبة من أفضل الحلاقين ذوي الخبرة</p></div>
-        <div class="feature"><span class="icon">💈</span><h3>جميع أنواع الحلاقة</h3><p>كلاسيك، مودرن، زيرو، لحية وأكثر</p></div>
-        <div class="feature"><span class="icon">⏱️</span><h3>انتظار ذكي</h3><p>تتبع دورك لحظة بلحظة عبر الجوال</p></div>
-    </div>
-    <div class="card card-gold" style="margin-top:8px">
-        <div class="card-title">👥 الطابور الحالي <span class="badge">مباشر</span></div>
-        <div class="queue-mini" id="homeQueue"></div>
-    </div>
-    <div class="features" style="margin-top:12px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr))">
-        <div class="feature" style="padding:8px"><img src="https://images.unsplash.com/photo-1596728325488-58c87691e9af?w=300&q=80" alt="" style="width:100%;height:110px;object-fit:cover;border-radius:10px;display:block;margin-bottom:6px" onerror="this.style.display='none'"><h3 style="font-size:11px">صالون عصري</h3></div>
-        <div class="feature" style="padding:8px"><img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=300&q=80" alt="" style="width:100%;height:110px;object-fit:cover;border-radius:10px;display:block;margin-bottom:6px" onerror="this.style.display='none'"><h3 style="font-size:11px">أجواء احترافية</h3></div>
-        <div class="feature" style="padding:8px"><img src="https://images.unsplash.com/photo-1599351431202-1e0f1e7a3e2d?w=300&q=80" alt="" style="width:100%;height:110px;object-fit:cover;border-radius:10px;display:block;margin-bottom:6px" onerror="this.style.display='none'"><h3 style="font-size:11px">أحدث التصاميم</h3></div>
-        <div class="feature" style="padding:8px"><img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=300&q=80" alt="" style="width:100%;height:110px;object-fit:cover;border-radius:10px;display:block;margin-bottom:6px" onerror="this.style.display='none'"><h3 style="font-size:11px">حلاقة كلاسيك</h3></div>
-        <div class="feature" style="padding:8px"><img src="https://images.unsplash.com/photo-1621605815971-fbc98d665666?w=300&q=80" alt="" style="width:100%;height:110px;object-fit:cover;border-radius:10px;display:block;margin-bottom:6px" onerror="this.style.display='none'"><h3 style="font-size:11px">تصفيف لحية</h3></div>
-        <div class="feature" style="padding:8px"><img src="https://images.unsplash.com/photo-1593702288056-996c0f12a5b4?w=300&q=80" alt="" style="width:100%;height:110px;object-fit:cover;border-radius:10px;display:block;margin-bottom:6px" onerror="this.style.display='none'"><h3 style="font-size:11px">منتجات عناية</h3></div>
-    </div>
-    <div id="shopAddressDisplay" style="display:none"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="padding:24px 20px;text-align:center;border-top:1px solid rgba(255,255,255,.03);margin-top:10px">
+  <p style="font-size:11px;color:rgba(255,255,255,.15);letter-spacing:1px">✂️ Blade &amp; Razor — Premium Barbershop &copy; 2026</p>
+</footer>
+
+<!-- ADMIN FAB -->
+<button class="admin-fab" id="adminFab" title="Admin Panel">⚙</button>
+
+<!-- ADMIN LOGIN OVERLAY -->
+<div class="admin-overlay" id="adminLoginOverlay">
+  <div class="admin-login">
+    <h2>🔐 Admin</h2>
+    <p>Enter password to access dashboard</p>
+    <input type="password" id="adminPassInput" placeholder="Password" onkeydown="if(event.key==='Enter')adminLogin()">
+    <button class="btn btn-primary btn-block" onclick="adminLogin()">Login</button>
+    <p id="adminErr" style="color:#e44;font-size:11px;margin-top:8px;display:none"></p>
+    <button class="btn btn-ghost btn-sm" style="margin-top:8px;width:100%" onclick="closeAdminLogin()">Cancel</button>
+  </div>
 </div>
 
-<!-- BOOK -->
-<div class="page" id="p-book">
-    <div class="card">
-        <div style="width:100%;height:140px;border-radius:12px;overflow:hidden;margin-bottom:14px">
-            <img src="https://images.unsplash.com/photo-1596728325488-58c87691e9af?w=800&q=80" alt="" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none'">
-        </div>
-        <div class="card-title">✂️ حجز دور جديد</div>
-        <p style="color:var(--text2);font-size:13px;margin-bottom:14px">اختر الحلاق، نوع الحلاقة، ثم أدخل بياناتك واحجز</p>
-
-        <div class="book-grid">
-            <div>
-                <div class="form-group">
-                    <label>اختر الحلاق</label>
-                    <div class="barber-grid" id="barberGrid"></div>
-                </div>
-                <div class="form-group">
-                    <label>👤 اسمك الكامل</label>
-                    <input type="text" id="custName" placeholder="أدخل اسمك">
-                </div>
-            </div>
-            <div>
-                <div class="form-group">
-                    <label>اختر نوع الحلاقة</label>
-                    <div class="style-grid" id="styleGrid"></div>
-                </div>
-                <div class="form-group">
-                    <label>📱 رقم الجوال</label>
-                    <input type="text" id="custPhone" placeholder="مثال: 966555555555">
-                </div>
-            </div>
-        </div>
-
-        <!-- Confirmation -->
-        <div class="confirm-box" id="confirmBox">
-            <p>لدى <span class="hl" id="cBarber">—</span></p>
-            <p>حلاقة: <span class="hl" id="cStyle">—</span> | السعر: <span class="hl" id="cPrice">—</span></p>
-            <button class="btn btn-gold btn-block" style="margin-top:10px" onclick="confirmBooking()">✅ تأكيد الحجز</button>
-        </div>
-
-        <!-- Success -->
-        <div class="success-box" id="successBox">
-            <span class="big">✅</span>
-            <h2>تم الحجز بنجاح!</h2>
-            <p>رقم دورك</p>
-            <div class="num" id="sNum">—</div>
-            <p style="margin-top:4px" id="sDetail"></p>
-            <button class="btn btn-outline" style="margin-top:12px" onclick="goPage('track')">🔍 تابع دورك</button>
-        </div>
+<!-- ADMIN DASHBOARD -->
+<div class="admin-dash" id="adminDash">
+  <div class="admin-side">
+    <h3>⚙ Admin</h3>
+    <button class="ab on" data-pane="services">💈 Services</button>
+    <button class="ab" data-pane="barbers">✂️ Barbers</button>
+    <button class="ab" data-pane="currency">💰 Currency</button>
+    <button class="ab" data-pane="bookings">📋 Bookings</button>
+    <div class="spacer"></div>
+    <button class="logout" onclick="adminLogout()">🚪 Logout</button>
+  </div>
+  <div class="admin-main">
+    <!-- Services Pane -->
+    <div class="admin-pane on" id="pane-services">
+      <h2><span class="hdr-l">💈 Services</span><button class="btn btn-sm btn-primary" onclick="openServiceModal()">+ Add</button></h2>
+      <div style="overflow-x:auto"><table class="adm-tbl" id="svcTable"><thead><tr><th>Name</th><th>Description</th><th>Price</th><th>Image</th><th></th></tr></thead><tbody></tbody></table></div>
     </div>
+    <!-- Barbers Pane -->
+    <div class="admin-pane" id="pane-barbers">
+      <h2><span class="hdr-l">✂️ Barbers</span><button class="btn btn-sm btn-primary" onclick="openBarberModal()">+ Add</button></h2>
+      <div style="overflow-x:auto"><table class="adm-tbl" id="brbTable"><thead><tr><th>Name</th><th>Specialty</th><th>Hours</th><th>Photo</th><th></th></tr></thead><tbody></tbody></table></div>
+    </div>
+    <!-- Currency Pane -->
+    <div class="admin-pane" id="pane-currency">
+      <h2>💰 Currency &amp; Pricing</h2>
+      <div class="fg" style="max-width:320px"><label>Currency</label>
+        <select id="currencySelect" onchange="changeCurrency(this.value)" style="padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.035);color:#fff;font-size:13px;font-family:'Inter',sans-serif;width:100%;outline:none">
+          <option value="USD,$">USD ($)</option><option value="EUR,€">EUR (€)</option><option value="GBP,£">GBP (£)</option>
+          <option value="SAR,ر.س">SAR (ر.س)</option><option value="AED,د.إ">AED (د.إ)</option><option value="KWD,د.ك">KWD (د.ك)</option>
+          <option value="MAD,د.م">MAD (د.م)</option><option value="DZD,دج">DZD (دج)</option><option value="TND,د.ت">TND (د.ت)</option>
+          <option value="EGP,£E">EGP (£E)</option>
+        </select>
+      </div>
+      <p style="font-size:11px;color:rgba(255,255,255,.3);margin-bottom:12px">Changing the currency updates all displayed prices instantly.</p>
+      <div style="overflow-x:auto"><table class="adm-tbl" id="priceTable"><thead><tr><th>Service</th><th>Current Price</th><th>New Price</th><th></th></tr></thead><tbody></tbody></table></div>
+    </div>
+    <!-- Bookings Pane -->
+    <div class="admin-pane" id="pane-bookings">
+      <h2><span class="hdr-l">📋 Bookings</span><span style="font-size:12px;color:rgba(255,255,255,.25);font-weight:400;font-family:'Inter',sans-serif;text-transform:none" id="bkCount"></span></h2>
+      <div style="overflow-x:auto"><table class="adm-tbl" id="bkTable"><thead><tr><th>Name</th><th>Phone</th><th>Service</th><th>Barber</th><th>Date/Time</th><th>Status</th><th></th></tr></thead><tbody></tbody></table></div>
+    </div>
+  </div>
 </div>
 
-<!-- QUEUE -->
-<div class="page" id="p-queue">
-    <div class="card">
-        <div style="width:100%;height:100px;border-radius:12px;overflow:hidden;margin-bottom:12px">
-            <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&q=80" alt="" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none'">
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:8px">
-            <div class="card-title" style="margin-bottom:0">👥 طابور الانتظار</div>
-            <div class="queue-stats" style="margin-bottom:0">
-                <div class="que-stat"><span class="num" id="qWait">0</span><span class="lbl">انتظار</span></div>
-                <div class="que-stat"><span class="num" id="qProg">0</span><span class="lbl">بالخدمة</span></div>
-            </div>
-        </div>
-        <div class="q-list" id="queueList"></div>
-    </div>
-</div>
-
-<!-- TRACK -->
-<div class="page" id="p-track">
-    <div class="card track-wrap">
-        <div style="width:100%;height:100px;border-radius:12px;overflow:hidden;margin-bottom:12px">
-            <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665666?w=800&q=80" alt="" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none'">
-        </div>
-        <div class="card-title" style="justify-content:center">🔍 تتبع دورك</div>
-        <p style="color:var(--text2);font-size:13px;text-align:center;margin-bottom:14px">أدخل رقم جوالك لمعرفة موقعك في الطابور</p>
-        <div class="track-input">
-            <input type="text" id="tPhone" placeholder="رقم الجوال" onkeydown="if(event.key==='Enter')doTrack()">
-            <button class="btn btn-gold" onclick="doTrack()">🔍 بحث</button>
-        </div>
-        <div class="track-result" id="trackResult">
-            <div class="track-pos">
-                <div class="big" id="tAhead">—</div>
-                <div class="lbl">أشخاص قبلك</div>
-            </div>
-            <div class="track-detail">
-                <div class="td-item"><span class="val" id="tNum">—</span><span class="lbl">رقم دورك</span></div>
-                <div class="td-item"><span class="val" id="tBarber">—</span><span class="lbl">الحلاق</span></div>
-                <div class="td-item"><span class="val" id="tStyle">—</span><span class="lbl">الحلاقة</span></div>
-                <div class="td-item"><span class="val" id="tStatus">—</span><span class="lbl">الحالة</span></div>
-            </div>
-            <button class="btn btn-sm btn-outline" style="margin:12px auto 0;display:block" onclick="requestNotify()">🔔 تفعيل الإشعارات</button>
-        </div>
-    </div>
-</div>
-
-<!-- ADMIN -->
-<div class="page" id="p-admin">
-    <div id="adminLogin">
-        <div class="card admin-login-box">
-            <div style="font-size:40px;margin-bottom:8px">🔐</div>
-            <h2 style="font-size:20px;margin-bottom:12px">دخول الإدارة</h2>
-            <input type="password" id="adminPass" placeholder="كلمة المرور" onkeydown="if(event.key==='Enter')doAdminLogin()">
-            <button class="btn btn-gold btn-block" onclick="doAdminLogin()">دخول</button>
-            <p id="adminErr" style="color:var(--red);font-size:12px;margin-top:8px;display:none"></p>
-        </div>
-    </div>
-    <div id="adminDash" style="display:none">
-        <div class="admin-layout">
-            <div class="admin-side">
-                <div style="padding:9px 12px;color:var(--gold2);font-weight:700;font-size:14px;margin-bottom:6px">⚙️ القائمة</div>
-                <button class="a-btn on" data-ap="stats">📊 الإحصائيات</button>
-                <button class="a-btn" data-ap="aqueue">👥 الطابور</button>
-                <button class="a-btn" data-ap="abarbers">✂️ الحلاقين</button>
-                <button class="a-btn" data-ap="astyles">💈 الحلاقات</button>
-                <button class="a-btn" data-ap="aset">🔧 الإعدادات</button>
-                <button class="a-logout" onclick="doLogout()">🚪 خروج</button>
-            </div>
-            <div class="admin-content">
-                <div class="admin-panel on" id="ap-stats"></div>
-                <div class="admin-panel" id="ap-aqueue"></div>
-                <div class="admin-panel" id="ap-abarbers"></div>
-                <div class="admin-panel" id="ap-astyles"></div>
-                <div class="admin-panel" id="ap-aset"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-</div>
-
-<div class="toasts" id="toasts"></div>
+<!-- MODAL -->
 <div class="modal-bg" id="modalBg"><div class="modal-box" id="modalBox"></div></div>
 
-<script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+<!-- TOASTS -->
+<div class="toast-wrap" id="toastWrap"></div>
+
 <script>
-// ===== CONFIG =====
-const API = location.origin;
-let socket = null;
-let adminToken = localStorage.getItem('atok') || '';
-let selBarber = null;
-let selStyle = null;
-let trackPhone = '';
+// ======================== DATA LAYER ========================
+const LS = { svc:'barbershop_services', brb:'barbershop_barbers', cur:'barbershop_currency', bk:'barbershop_bookings' };
+const CURRENCIES = ['USD,$','EUR,€','GBP,£','SAR,ر.س','AED,د.إ','KWD,د.ك','MAD,د.م','DZD,دج','TND,د.ت','EGP,£E'];
 
-// ===== SOCKET =====
-function initSocket(){
-    try {
-        socket = io(API, {transports:['websocket','polling']});
-        socket.on('connect', () => {});
-        socket.on('queue-updated', () => { refreshQueue(); refreshHomeQ(); if(adminToken) refreshAQueue(); });
-        socket.on('queue-counts', d => {
-            document.getElementById('qWait').textContent = (d.waiting||0);
-            document.getElementById('qProg').textContent = (d.in_progress||0);
-        });
-        socket.on('your-turn', d => {
-            if(trackPhone && d.phone === trackPhone) {
-                toast('🎯', 'دورك الآن!', d.booking.barber_name + ' في انتظارك', true);
-                beep(); notifyBrowser('🎯 دورك الآن!', 'الحلاق في انتظارك');
-            }
-        });
-        socket.on('nearly-your-turn', d => {
-            if(trackPhone && d.booking && d.booking.customer_phone === trackPhone) {
-                toast('⏳', 'دورك يقترب!', 'أنت التالي', true);
-                beep(); notifyBrowser('⏳ دورك يقترب', 'استعد');
-            }
-        });
-    } catch(e){}
+const DEFAULT_SERVICES = [
+  { id:1,name:'Classic Haircut',desc:'Precision scissor & clipper work with hot towel finish.',price:35,tags:['Scissor','Clipper','Hot Towel'],img:'https://images.unsplash.com/photo-1596728325488-58c87691e9af?w=400&q=80' },
+  { id:2,name:'Fade Cut',desc:'Modern fade haircut — low, mid, high, or skin fade.',price:40,tags:['Fade','Modern','Style'],img:'https://images.unsplash.com/photo-1599351431202-1e0f1e7a3e2d?w=400&q=80' },
+  { id:3,name:'Beard Trim',desc:'Full beard shape-up with hot towel and oil finish.',price:25,tags:['Beard','Shape','Oil'],img:'https://images.unsplash.com/photo-1621605815971-fbc98d665666?w=400&q=80' },
+  { id:4,name:'Hot Towel Shave',desc:'Straight razor shave with hot lather and cold towel.',price:45,tags:['Razor','Lather','Aftershave'],img:'https://images.unsplash.com/photo-1585747861115-93e382e01d72?w=400&q=80' },
+  { id:5,name:"Kids Cut",desc:'Friendly, patient haircut for children under 12.',price:20,tags:['Kids','Gentle','Quick'],img:'https://images.unsplash.com/photo-1593702288056-996c0f12a5b4?w=400&q=80' }
+];
+
+const DEFAULT_BARBERS = [
+  { id:1,name:'Ahmed',specialty:'Master Barber',hours:'9AM-6PM',img:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80' },
+  { id:2,name:'Karim',specialty:'Fade Specialist',hours:'10AM-7PM',img:'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&q=80' },
+  { id:3,name:'Youssef',specialty:'Beard Expert',hours:'11AM-8PM',img:'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80' }
+];
+
+function loadData(k, def){ try{ var d=localStorage.getItem(k); return d?JSON.parse(d):def; }catch(e){return def} }
+function saveData(k, v){ localStorage.setItem(k, JSON.stringify(v)); }
+
+function getServices(){ return loadData(LS.svc, DEFAULT_SERVICES); }
+function setServices(s){ saveData(LS.svc, s); }
+function getBarbers(){ return loadData(LS.brb, DEFAULT_BARBERS); }
+function setBarbers(b){ saveData(LS.brb, b); }
+function getCurrency(){ var c=loadData(LS.cur, 'USD,$'); if(typeof c==='string')return c; return 'USD,$'; }
+function setCurrency(c){ saveData(LS.cur, c); }
+function getBookings(){ return loadData(LS.bk, []); }
+function setBookings(b){ saveData(LS.bk, b); }
+
+function currencySymbol(){ return getCurrency().split(',')[1]; }
+function nextId(arr){ return arr.length?Math.max(...arr.map(x=>x.id))+1:1; }
+
+// ======================== TOAST ========================
+function toast(msg, gold){
+  var w=document.getElementById('toastWrap'), t=document.createElement('div');
+  t.className='toast'+(gold?' gold':''); t.innerHTML='<span>'+msg+'</span><button class="tc" onclick="this.parentElement.remove()">✕</button>';
+  w.appendChild(t); setTimeout(function(){if(t.parentElement)t.remove()},3500);
 }
 
-function beep(){
-    try {
-        let ctx = new (window.AudioContext||window.webkitAudioContext)();
-        let o = ctx.createOscillator(), g = ctx.createGain();
-        o.connect(g); g.connect(ctx.destination);
-        o.frequency.setValueAtTime(800, ctx.currentTime);
-        o.frequency.setValueAtTime(1000, ctx.currentTime+.15);
-        g.gain.setValueAtTime(.2, ctx.currentTime);
-        g.gain.exponentialRampToValueAtTime(.01, ctx.currentTime+.4);
-        o.start(); o.stop(ctx.currentTime+.4);
-    } catch(e){}
+// ======================== PUBLIC RENDER ========================
+function renderServices(){
+  var g=document.getElementById('servicesGrid'), sym=currencySymbol(), sv=getServices();
+  g.innerHTML=sv.map(function(s){
+    var tags=s.tags? s.tags.map(function(t){return '<span>'+t+'</span>'}).join('') :'';
+    return '<div class="service-card"><div class="bg" style="background-image:url('+s.img+')"></div><div class="shade"></div><span class="ic">💈</span><h3>'+s.name+' <span class="pr">'+sym+s.price+'</span></h3><p>'+s.desc+'</p><div class="tags">'+tags+'</div></div>';
+  }).join('');
+  document.getElementById('servicesSub').textContent=sv.length+' premium services available';
 }
 
-function notifyBrowser(t, d){
-    if('Notification' in window && Notification.permission==='granted')
-        try{ new Notification(t, {body:d}) }catch(e){}
+function renderBarbers(){
+  var g=document.getElementById('barbersGrid'), br=getBarbers();
+  g.innerHTML=br.map(function(b){
+    return '<div class="barber-card"><img class="av" src="'+b.img+'" alt="" loading="lazy"><h4>'+b.name+'</h4><div class="sp">'+b.specialty+'</div><div class="hrs">📅 '+b.hours+'</div></div>';
+  }).join('');
 }
 
-// ===== TOAST =====
-function toast(icon, title, desc, gold){
-    let c = document.getElementById('toasts');
-    let t = document.createElement('div');
-    t.className = 'toast' + (gold?' gold':'');
-    t.innerHTML = '<span class="ti">'+icon+'</span><div><span class="tt">'+title+'</span><span class="td">'+(desc||'')+'</span></div><button class="tc" onclick="this.parentElement.remove()">✕</button>';
-    c.appendChild(t);
-    setTimeout(()=>{if(t.parentElement)t.remove()}, 5000);
+function renderBookingDropdowns(){
+  var ss=document.getElementById('bkService'), bs=document.getElementById('bkBarber');
+  var sv=getServices(), br=getBarbers(), sym=currencySymbol();
+  ss.innerHTML='<option value="">Select service</option>'+sv.map(function(s){return '<option value="'+s.id+'">'+s.name+' — '+sym+s.price+'</option>';}).join('');
+  bs.innerHTML='<option value="">Choose barber</option>'+br.map(function(b){return '<option value="'+b.id+'">'+b.name+'</option>';}).join('');
 }
 
-// ===== NAV =====
-function goPage(name){
-    document.querySelectorAll('.page').forEach(p=>p.classList.remove('show'));
-    document.querySelectorAll('.nav-links button').forEach(b=>b.classList.remove('active'));
-    document.getElementById('p-'+name).classList.add('show');
-    let btn = document.querySelector('.nav-links button[data-page="'+name+'"]');
-    if(btn) btn.classList.add('active');
-    document.querySelector('.nav-links').classList.remove('open');
-    window.scrollTo({top:0,behavior:'smooth'});
-
-    if(name==='book') loadBook();
-    else if(name==='queue') refreshQueue();
-    else if(name==='admin') handleAdmin();
+function renderPublic(){
+  renderServices(); renderBarbers(); renderBookingDropdowns();
 }
 
-document.querySelectorAll('.nav-links button').forEach(b=>{
-    b.addEventListener('click',()=>goPage(b.dataset.page));
+// ======================== HERO GALLERY ========================
+(function(){
+  var urls=[
+    'https://images.unsplash.com/photo-1585747861115-93e382e01d72?w=400&q=80',
+    'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=400&q=80',
+    'https://images.unsplash.com/photo-1596728325488-58c87691e9af?w=400&q=80',
+    'https://images.unsplash.com/photo-1599351431202-1e0f1e7a3e2d?w=400&q=80',
+    'https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=400&q=80',
+    'https://images.unsplash.com/photo-1621605815971-fbc98d665666?w=400&q=80',
+    'https://images.unsplash.com/photo-1593702288056-996c0f12a5b4?w=400&q=80'
+  ];
+  var t=document.getElementById('galleryTrack');
+  t.innerHTML=urls.concat(urls).map(function(u){return '<img src="'+u+'" alt="" loading="lazy">';}).join('');
+})();
+
+// ======================== BOOKING ========================
+window.handleBooking = function(e){
+  e.preventDefault();
+  var name=document.getElementById('bkName').value.trim();
+  var phone=document.getElementById('bkPhone').value.trim();
+  var svc=document.getElementById('bkService').value;
+  var brb=document.getElementById('bkBarber').value;
+  var dt=document.getElementById('bkDateTime').value;
+  var msg=document.getElementById('bkMsg');
+  if(!name||!phone||!svc||!brb||!dt){
+    msg.style.display='block'; msg.style.color='rgba(255,80,80,.7)';
+    msg.textContent='⚠️ Please fill in all fields.'; return false;
+  }
+  var sv=getServices(), br=getBarbers();
+  var sn=sv.find(function(s){return s.id==svc}); sn=sn?sn.name:'—';
+  var bn=br.find(function(b){return b.id==brb}); bn=bn?bn.name:'—';
+  var bk=getBookings();
+  bk.push({ id:nextId(bk), name:name, phone:phone, service:sn, barber:bn, datetime:dt, status:'pending' });
+  setBookings(bk);
+  msg.style.display='block'; msg.style.color='rgba(201,168,76,.8)';
+  msg.textContent='✅ Booking confirmed! We\'ll see you at '+dt.replace('T',' ')+'.';
+  document.getElementById('bookingForm').reset();
+  toast('✅ Booked! See you soon.', true);
+  renderAdminBookings();
+  setTimeout(function(){msg.style.display='none';},4000);
+  return false;
+};
+
+(function(){
+  var n=new Date();
+  document.getElementById('bkDateTime').min=n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0')+'T'+String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');
+})();
+
+// ======================== INTERSECTION OBSERVER ========================
+var obs=new IntersectionObserver(function(es){
+  es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+},{threshold:.12,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('section').forEach(function(s){ if(!s.classList.contains('hero')) obs.observe(s); });
+
+// ======================== NAV ========================
+var nav=document.getElementById('nav');
+window.addEventListener('scroll',function(){ nav.classList.toggle('scrolled',window.scrollY>50); });
+
+document.getElementById('navToggle').addEventListener('click',function(){
+  document.getElementById('navLinks').classList.toggle('open');
+});
+document.querySelectorAll('.nav-links a').forEach(function(a){
+  a.addEventListener('click',function(){ document.getElementById('navLinks').classList.remove('open'); });
 });
 
-// ===== API =====
-async function api(url, opts={}){
-    let h = {'Content-Type':'application/json', ...opts.headers};
-    if(adminToken) h['Authorization'] = 'Bearer '+adminToken;
-    let r = await fetch(API+url, {...opts, headers:h});
-    let d = await r.json();
-    if(!r.ok) throw new Error(d.error||'خطأ');
-    return d;
-}
-
-async function formDataApi(url, method, fd){
-    let h = {};
-    if(adminToken) h['Authorization'] = 'Bearer '+adminToken;
-    let r = await fetch(API+url, {method, headers:h, body:fd});
-    let d = await r.json();
-    if(!r.ok) throw new Error(d.error||'خطأ');
-    return d;
-}
-
-// ===== HOME =====
-async function refreshHomeQ(){
-    try {
-        let q = await api('/api/queue');
-        let el = document.getElementById('homeQueue');
-        if(!q.length) { el.innerHTML='<div class="empty-msg">💈 لا يوجد حجوزات حالياً</div>'; return; }
-        el.innerHTML = q.slice(0,5).map(b=>'<div class="q-item"><div class="q-num">'+b.queue_number+'</div><div class="q-info"><div class="q-name">'+b.customer_name+'</div><div class="q-det">'+b.barber_name+' · '+b.style_name+'</div></div><span class="q-status '+(b.status==='in_progress'?'q-prog':'q-wait')+'">'+(b.status==='in_progress'?'قيد الخدمة':'انتظار')+'</span></div>').join('');
-    } catch(e){}
-}
-
-// ===== BOOK =====
-async function loadBook(){
-    selBarber=null; selStyle=null;
-    document.getElementById('confirmBox').classList.remove('show');
-    document.getElementById('successBox').classList.remove('show');
-    try {
-        let [barbers, styles] = await Promise.all([api('/api/barbers'), api('/api/styles')]);
-        let bg = document.getElementById('barberGrid');
-        bg.innerHTML = barbers.length ? barbers.map(b=>'<div class="b-card" data-id="'+b.id+'" onclick="pickBarber('+b.id+')"><div style="position:absolute;top:5px;left:5px;width:16px;height:16px;border-radius:50%;background:var(--primary);color:#fff;font-size:9px;display:none;align-items:center;justify-content:center;font-weight:700">✓</div>'+(b.photo?'<img src="'+(b.photo.startsWith('http')?b.photo:API+b.photo)+'" onerror="this.onerror=null;this.parentElement.innerHTML=\'<div class=placeholder-avatar>✂️</div>\'">':'<div class="placeholder-avatar">✂️</div>')+'<span class="name">'+b.name+'</span>'+(b.phone?'<span style="font-size:9px;color:var(--text2);display:block;margin-top:1px">'+b.phone+'</span>':'')+'</div>').join('') : '<p style="color:var(--text2);font-size:12px;grid-column:1/-1">لا يوجد حلاقين</p>';
-
-        let sg = document.getElementById('styleGrid');
-        sg.innerHTML = styles.length ? styles.map(s=>'<div class="s-card" data-id="'+s.id+'" onclick="pickStyle('+s.id+')"><div style="position:absolute;top:5px;left:5px;width:16px;height:16px;border-radius:50%;background:var(--primary);color:#fff;font-size:9px;display:none;align-items:center;justify-content:center;font-weight:700">✓</div>'+(s.photo?'<img src="'+(s.photo.startsWith('http')?s.photo:API+s.photo)+'" onerror="this.onerror=null;this.parentElement.innerHTML=\'<div class=placeholder-avatar>💈</div>\'">':'<div class="placeholder-avatar">💈</div>')+'<span class="name">'+s.name+'</span><span class="price">'+s.price+' دج</span></div>').join('') : '<p style="color:var(--text2);font-size:12px;grid-column:1/-1">لا توجد أنواع</p>';
-    } catch(e){ toast('⚠️','خطأ','فشل تحميل البيانات'); }
-}
-
-window.pickBarber = function(id){
-    selBarber=id;
-    document.querySelectorAll('.b-card').forEach(c=>{c.classList.toggle('chosen',parseInt(c.dataset.id)===id); c.querySelector('div:first-child').style.display=parseInt(c.dataset.id)===id?'flex':'none'});
-    updateConfirm();
-};
-
-window.pickStyle = function(id){
-    selStyle=id;
-    document.querySelectorAll('.s-card').forEach(c=>{c.classList.toggle('chosen',parseInt(c.dataset.id)===id); c.querySelector('div:first-child').style.display=parseInt(c.dataset.id)===id?'flex':'none'});
-    updateConfirm();
-};
-
-function updateConfirm(){
-    let el = document.getElementById('confirmBox');
-    if(selBarber && selStyle){
-        let bn = document.querySelector('.b-card.chosen .name')?.textContent||'—';
-        let sn = document.querySelector('.s-card.chosen .name')?.textContent||'—';
-        let sp = document.querySelector('.s-card.chosen .price')?.textContent||'—';
-        document.getElementById('cBarber').textContent = bn;
-        document.getElementById('cStyle').textContent = sn;
-        document.getElementById('cPrice').textContent = sp;
-        el.classList.add('show');
-    } else el.classList.remove('show');
-}
-
-window.confirmBooking = async function(){
-    let name = document.getElementById('custName').value.trim();
-    let phone = document.getElementById('custPhone').value.trim();
-    if(!name) return toast('⚠️','خطأ','أدخل اسمك');
-    if(!phone) return toast('⚠️','خطأ','أدخل رقم الجوال');
-    if(!selBarber) return toast('⚠️','خطأ','اختر حلاق');
-    if(!selStyle) return toast('⚠️','خطأ','اختر نوع الحلاقة');
-    try {
-        let r = await api('/api/book', {method:'POST', body:JSON.stringify({customer_name:name, customer_phone:phone, barber_id:selBarber, style_id:selStyle})});
-        document.getElementById('confirmBox').classList.remove('show');
-        document.getElementById('sNum').textContent = r.queue_number;
-        document.getElementById('sDetail').textContent = 'عند '+r.barber_name+' · '+r.style_name;
-        document.getElementById('successBox').classList.add('show');
-        trackPhone = phone;
-        toast('✅','تم الحجز!','رقم دورك '+r.queue_number, true);
-        beep();
-        notifyBrowser('✅ تم الحجز','رقم دورك: '+r.queue_number);
-    } catch(e){ toast('⚠️','خطأ',e.message); }
-};
-
-// ===== QUEUE =====
-async function refreshQueue(){
-    try {
-        let q = await api('/api/queue');
-        let el = document.getElementById('queueList');
-        if(!q.length) { el.innerHTML='<div class="empty-msg" style="padding:30px">💈 الطابور فارغ</div>'; return; }
-        let w = q.filter(b=>b.status==='waiting'), p = q.filter(b=>b.status==='in_progress');
-        document.getElementById('qWait').textContent = w.length;
-        document.getElementById('qProg').textContent = p.length;
-        el.innerHTML = [...p,...w].map(b=>'<div class="ql-item '+(b.status==='in_progress'?'in-progress':'')+'"><div class="num">'+b.queue_number+'</div><div class="info"><div class="name">'+b.customer_name+'</div><div class="det">'+b.barber_name+' · '+b.style_name+' · '+b.price+' دج</div></div><span class="tag" style="background:'+(b.status==='in_progress'?'rgba(201,168,76,.15);color:var(--gold2)':'rgba(0,0,0,.04);color:var(--text2)')+'">'+(b.status==='in_progress'?'✨ قيد الخدمة':'⏳ انتظار')+'</span></div>').join('');
-    } catch(e){}
-}
-
-// ===== TRACK =====
-window.doTrack = async function(){
-    let phone = document.getElementById('tPhone').value.trim();
-    if(!phone && !trackPhone) return toast('⚠️','خطأ','أدخل رقم الجوال');
-    let sp = phone || trackPhone;
-    trackPhone = sp;
-    try {
-        let r = await api('/api/queue/check/'+encodeURIComponent(sp));
-        let el = document.getElementById('trackResult');
-        if(!r){
-            document.getElementById('tAhead').textContent='—';
-            document.getElementById('tNum').textContent='—';
-            document.getElementById('tBarber').textContent='—';
-            document.getElementById('tStyle').textContent='—';
-            document.getElementById('tStatus').textContent='لا يوجد حجز';
-            el.classList.add('show'); return;
-        }
-        document.getElementById('tAhead').textContent = r.status==='in_progress'?'✨ قيد الخدمة':r.ahead;
-        document.getElementById('tNum').textContent = r.queue_number;
-        document.getElementById('tBarber').textContent = r.barber_name;
-        document.getElementById('tStyle').textContent = r.style_name;
-        document.getElementById('tStatus').textContent = r.status==='waiting'?'⏳ انتظار':r.status==='in_progress'?'✨ قيد الخدمة':'✅ تم';
-        el.classList.add('show');
-        if(r.status==='in_progress'){ toast('🎯','دورك الآن!',r.barber_name+' في انتظارك',true); beep(); notifyBrowser('🎯 دورك الآن!','الحلاق في انتظارك'); }
-        if(socket) socket.emit('join-queue-track', sp);
-    } catch(e){ toast('⚠️','خطأ','فشل البحث'); }
-};
-
-window.requestNotify = function(){
-    if('Notification' in window) Notification.requestPermission().then(p=>{
-        if(p==='granted') toast('🔔','مفعل','الإشعارات مفعلة');
-    });
-};
-
-// ===== ADMIN =====
-function handleAdmin(){
-    if(adminToken){ document.getElementById('adminLogin').style.display='none'; document.getElementById('adminDash').style.display='block'; loadADash(); }
-    else { document.getElementById('adminLogin').style.display='block'; document.getElementById('adminDash').style.display='none'; }
-}
-
-window.doAdminLogin = async function(){
-    let p = document.getElementById('adminPass').value;
-    try {
-        let r = await api('/api/admin/login', {method:'POST', body:JSON.stringify({password:p})});
-        adminToken = r.token; localStorage.setItem('atok', adminToken);
-        document.getElementById('adminErr').style.display='none';
-        handleAdmin();
-        if(socket) socket.emit('join-admin');
-    } catch(e){
-        document.getElementById('adminErr').textContent='❌ '+e.message;
-        document.getElementById('adminErr').style.display='block';
-    }
-};
-
-window.doLogout = function(){ adminToken=''; localStorage.removeItem('atok'); handleAdmin(); };
-
-document.querySelectorAll('.a-btn').forEach(b=>{
-    b.addEventListener('click',()=>{
-        document.querySelectorAll('.a-btn').forEach(x=>x.classList.remove('on'));
-        document.querySelectorAll('.admin-panel').forEach(x=>x.classList.remove('on'));
-        b.classList.add('on');
-        let el = document.getElementById('ap-'+b.dataset.ap);
-        if(el) el.classList.add('on');
-        if(b.dataset.ap==='stats') loadADash();
-        else if(b.dataset.ap==='aqueue') refreshAQueue();
-        else if(b.dataset.ap==='abarbers') loadABarbers();
-        else if(b.dataset.ap==='astyles') loadAStyles();
-        else if(b.dataset.ap==='aset') loadASet();
-    });
+// ======================== PARALLAX ========================
+window.addEventListener('scroll',function(){
+  var y=window.scrollY, hc=document.getElementById('heroContent');
+  if(hc) hc.style.transform='translateY('+(y*.12)+'px)';
 });
 
-async function loadADash(){
-    try {
-        let s = await api('/api/admin/stats');
-        document.getElementById('ap-stats').innerHTML = '<div class="card-title">📊 الإحصائيات</div><div class="stats-grid">'+
-            '<div class="stat-box"><span class="num">'+s.todayBookings+'</span><span class="lbl">حجوزات اليوم</span></div>'+
-            '<div class="stat-box"><span class="num">'+s.waiting+'</span><span class="lbl">انتظار</span></div>'+
-            '<div class="stat-box"><span class="num">'+s.totalBookings+'</span><span class="lbl">إجمالي</span></div>'+
-            '<div class="stat-box"><span class="num">'+s.done+'</span><span class="lbl">تم</span></div>'+
-            '<div class="stat-box"><span class="num">'+s.barbersCount+'</span><span class="lbl">حلاقين</span></div>'+
-            '<div class="stat-box"><span class="num">'+s.stylesCount+'</span><span class="lbl">حلاقات</span></div>'+
-        '</div>';
-    } catch(e){ document.getElementById('ap-stats').innerHTML='<p style="color:var(--text2)">فشل التحميل</p>'; }
+// ======================== ADMIN ========================
+var ADMIN_PASS = 'admin123';
+var adminLoggedIn = false;
+
+function openAdminLogin(){
+  document.getElementById('adminLoginOverlay').classList.add('open');
+  document.getElementById('adminPassInput').value=''; document.getElementById('adminErr').style.display='none';
+  document.getElementById('adminPassInput').focus();
 }
 
-async function refreshAQueue(){
-    try {
-        let q = await api('/api/queue/full');
-        let el = document.getElementById('ap-aqueue');
-        if(!q.length) { el.innerHTML='<div class="card-title">👥 الطابور</div><p style="color:var(--text2)">لا يوجد حجوزات</p>'; return; }
-        el.innerHTML = '<div class="card-title">👥 الطابور</div><div class="tbl-wrap"><table><thead><tr><th>#</th><th>الاسم</th><th>الجوال</th><th>الحلاق</th><th>النوع</th><th>الحالة</th><th></th></tr></thead><tbody>'+
-            q.map(b=>'<tr><td><strong>'+b.queue_number+'</strong></td><td>'+b.customer_name+'</td><td style="direction:ltr;text-align:right">'+b.customer_phone+'</td><td>'+b.barber_name+'</td><td>'+b.style_name+'</td><td>'+(b.status==='waiting'?'⏳':b.status==='in_progress'?'✨':'✅')+'</td><td><div class="tbl-acts">'+
-            (b.status==='waiting'?'<button class="tbl-go" onclick="updQ('+b.id+',\'in_progress\')">▶ ابدأ</button>':'')+
-            (b.status==='in_progress'||b.status==='waiting'?'<button class="tbl-end" onclick="updQ('+b.id+',\'done\')" style="background:rgba(0,200,80,.1)">✅ تم</button>':'')+
-            '<button class="tbl-del" onclick="cancelQ('+b.id+')">✕</button></div></td></tr>').join('')+'</tbody></table></div>';
-    } catch(e){ document.getElementById('ap-aqueue').innerHTML='<p style="color:var(--red)">فشل</p>'; }
+function closeAdminLogin(){ document.getElementById('adminLoginOverlay').classList.remove('open'); }
+
+document.getElementById('adminFab').addEventListener('click',openAdminLogin);
+
+window.adminLogin = function(){
+  var p=document.getElementById('adminPassInput').value;
+  if(p===ADMIN_PASS){
+    adminLoggedIn=true;
+    closeAdminLogin();
+    document.getElementById('adminDash').classList.add('open');
+    renderAdminAll();
+    toast('🔐 Welcome, admin', true);
+  } else {
+    document.getElementById('adminErr').textContent='❌ Wrong password';
+    document.getElementById('adminErr').style.display='block';
+  }
+};
+
+window.adminLogout = function(){
+  adminLoggedIn=false;
+  document.getElementById('adminDash').classList.remove('open');
+  toast('🔒 Logged out');
+};
+
+// === ADMIN SIDEBAR ===
+document.querySelectorAll('.admin-side .ab').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('.admin-side .ab').forEach(function(x){x.classList.remove('on');});
+    document.querySelectorAll('.admin-pane').forEach(function(x){x.classList.remove('on');});
+    b.classList.add('on');
+    document.getElementById('pane-'+b.dataset.pane).classList.add('on');
+    if(b.dataset.pane==='services') renderAdminServices();
+    else if(b.dataset.pane==='barbers') renderAdminBarbers();
+    else if(b.dataset.pane==='currency') renderAdminCurrency();
+    else if(b.dataset.pane==='bookings') renderAdminBookings();
+  });
+});
+
+// === ADMIN RENDERS ===
+function renderAdminAll(){ renderAdminServices(); renderAdminBarbers(); renderAdminCurrency(); renderAdminBookings(); }
+
+function renderAdminServices(){
+  var sv=getServices(), sym=currencySymbol(), tb=document.getElementById('svcTable').querySelector('tbody');
+  tb.innerHTML=sv.map(function(s){
+    return '<tr><td>'+s.name+'</td><td style="color:rgba(255,255,255,.4);font-size:11px">'+(s.desc||'')+'</td><td style="color:#C9A84C;font-weight:600">'+sym+s.price+'</td><td>'+(s.img?'<img src="'+s.img+'" style="width:32px;height:32px;border-radius:50%;object-fit:cover">':'—')+'</td><td><div class="acts"><button class="btn-gold-outline btn-sm" onclick="openServiceModal('+s.id+')">Edit</button><button class="btn-danger btn-sm" onclick="deleteService('+s.id+')">Del</button></div></td></tr>';
+  }).join('');
 }
 
-window.updQ = async function(id, st){
-    try{ await api('/api/queue/'+id+'/status', {method:'PUT', body:JSON.stringify({status:st})}); refreshAQueue(); toast('✅','تم'); } catch(e){ toast('⚠️','خطأ',e.message); }
-};
-
-window.cancelQ = async function(id){
-    if(!confirm('إلغاء الحجز؟')) return;
-    try{ await api('/api/queue/'+id, {method:'DELETE'}); refreshAQueue(); toast('✅','ألغي'); } catch(e){ toast('⚠️','خطأ',e.message); }
-};
-
-// BARBERS ADMIN
-async function loadABarbers(){
-    try {
-        let bb = await api('/api/barbers/all');
-        let el = document.getElementById('ap-abarbers');
-        el.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px"><div class="card-title" style="margin-bottom:0">✂️ الحلاقين</div><button class="btn btn-sm btn-gold" onclick="showBarberModal()">+ إضافة</button></div>';
-        if(!bb.length) { el.innerHTML += '<p style="color:var(--text2)">لا يوجد</p>'; return; }
-        el.innerHTML += '<div class="tbl-wrap"><table><thead><tr><th>الصورة</th><th>الاسم</th><th>الجوال</th><th>الحالة</th><th></th></tr></thead><tbody>'+
-            bb.map(b=>'<tr><td>'+(b.photo?'<img src="'+(b.photo.startsWith('http')?b.photo:API+b.photo)+'">':'✂️')+'</td><td>'+b.name+'</td><td style="direction:ltr;text-align:right;font-size:12px">'+(b.phone||'—')+'</td><td>'+(b.is_active?'🟢':'🔴')+'</td><td><div class="tbl-acts"><button class="tbl-edit" onclick="showBarberModal('+b.id+',\''+b.name.replace(/'/g,"\\'")+'\',\''+((b.phone||'').replace(/'/g,"\\'"))+'\')">تعديل</button>'+(b.is_active?'<button class="tbl-del" onclick="delBarber('+b.id+')">حذف</button>':'')+'</div></td></tr>').join('')+'</tbody></table></div>';
-    } catch(e){}
+function renderAdminBarbers(){
+  var br=getBarbers(), tb=document.getElementById('brbTable').querySelector('tbody');
+  tb.innerHTML=br.map(function(b){
+    return '<tr><td>'+b.name+'</td><td style="color:rgba(255,255,255,.4);font-size:11px">'+b.specialty+'</td><td style="font-size:11px;color:rgba(255,255,255,.35)">'+b.hours+'</td><td>'+(b.img?'<img src="'+b.img+'" style="width:32px;height:32px;border-radius:50%;object-fit:cover">':'—')+'</td><td><div class="acts"><button class="btn-gold-outline btn-sm" onclick="openBarberModal('+b.id+')">Edit</button><button class="btn-danger btn-sm" onclick="deleteBarber('+b.id+')">Del</button></div></td></tr>';
+  }).join('');
 }
 
-window.showBarberModal = function(id, name, phone){
-    document.getElementById('modalBg').classList.add('show');
-    document.getElementById('modalBox').innerHTML = '<h2>'+(id?'تعديل حلاق':'إضافة حلاق')+'</h2>'+
-        '<div class="form-group"><label>الاسم</label><input type="text" id="mBarberName" value="'+(id?name:'')+'" placeholder="اسم الحلاق"></div>'+
-        '<div class="form-group"><label>رقم الجوال</label><input type="text" id="mBarberPhone" value="'+(id?phone:'')+'" placeholder="مثال: 0555123456" style="direction:ltr;text-align:left"></div>'+
-        '<div class="form-group"><label>الصورة</label><input type="file" id="mBarberPhoto" accept="image/*"></div>'+
-        '<div class="modal-acts"><button class="btn btn-gold" onclick="saveBarber('+(id||'null')+')">'+(id?'💾 حفظ':'➕ إضافة')+'</button><button class="btn btn-outline" onclick="closeModal()">إلغاء</button></div>';
-};
-
-window.saveBarber = async function(id){
-    let name = document.getElementById('mBarberName').value.trim();
-    let phone = document.getElementById('mBarberPhone').value.trim();
-    if(!name) return toast('⚠️','خطأ','الاسم مطلوب');
-    let file = document.getElementById('mBarberPhoto').files[0];
-    try {
-        if(id){
-            if(file){ let fd=new FormData(); fd.append('name',name); fd.append('phone',phone); fd.append('photo',file); fd.append('type','barbers'); await formDataApi('/api/barbers/'+id,'PUT',fd); }
-            else await api('/api/barbers/'+id, {method:'PUT', body:JSON.stringify({name, phone})});
-        } else {
-            let fd=new FormData(); fd.append('name',name); fd.append('phone',phone); fd.append('type','barbers'); if(file) fd.append('photo',file);
-            await formDataApi('/api/barbers','POST',fd);
-        }
-        closeModal(); loadABarbers(); toast('✅','تم');
-    } catch(e){ toast('⚠️','خطأ',e.message); }
-};
-
-window.delBarber = async function(id){
-    if(!confirm('حذف هذا الحلاق؟')) return;
-    try{ await api('/api/barbers/'+id, {method:'DELETE'}); loadABarbers(); toast('✅','تم الحذف'); } catch(e){ toast('⚠️','خطأ',e.message); }
-};
-
-// STYLES ADMIN
-async function loadAStyles(){
-    try {
-        let ss = await api('/api/styles');
-        let el = document.getElementById('ap-astyles');
-        el.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px"><div class="card-title" style="margin-bottom:0">💈 أنواع الحلاقة</div><button class="btn btn-sm btn-gold" onclick="showStyleModal()">+ إضافة</button></div>';
-        if(!ss.length) { el.innerHTML += '<p style="color:var(--text2)">لا يوجد</p>'; return; }
-        el.innerHTML += '<div class="tbl-wrap"><table><thead><tr><th>الصورة</th><th>الاسم</th><th>السعر</th><th>الوصف</th><th></th></tr></thead><tbody>'+
-            ss.map(s=>'<tr><td>'+(s.photo?'<img src="'+(s.photo.startsWith('http')?s.photo:API+s.photo)+'">':'💈')+'</td><td>'+s.name+'</td><td style="color:var(--gold2);font-weight:700">'+s.price+' دج</td><td style="color:var(--text2);font-size:11px">'+(s.description||'—')+'</td><td><div class="tbl-acts"><button class="tbl-edit" onclick="showStyleModal('+s.id+',\''+s.name.replace(/'/g,"\\'")+'\','+s.price+',\''+(s.description||'').replace(/'/g,"\\'")+'\')">تعديل</button><button class="tbl-del" onclick="delStyle('+s.id+')">حذف</button></div></td></tr>').join('')+'</tbody></table></div>';
-    } catch(e){}
+function renderAdminCurrency(){
+  var cur=getCurrency(), sel=document.getElementById('currencySelect');
+  sel.value=cur;
+  var sv=getServices(), sym=currencySymbol(), tb=document.getElementById('priceTable').querySelector('tbody');
+  tb.innerHTML=sv.map(function(s){
+    return '<tr><td>'+s.name+'</td><td style="color:#C9A84C;font-weight:600">'+sym+s.price+'</td><td><input type="number" id="np_'+s.id+'" value="'+s.price+'" style="width:80px;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.035);color:#fff;font-size:12px;font-family:inherit;outline:none"></td><td><button class="btn-sm" style="background:rgba(201,168,76,.12);color:#C9A84C;border:none;padding:5px 12px;border-radius:5px;cursor:pointer;font-size:10px;font-weight:600;font-family:inherit" onclick="updateServicePrice('+s.id+')">Update</button></td></tr>';
+  }).join('');
 }
 
-window.showStyleModal = function(id, name, price, desc){
-    document.getElementById('modalBg').classList.add('show');
-    document.getElementById('modalBox').innerHTML = '<h2>'+(id?'تعديل نوع حلاقة':'إضافة نوع حلاقة')+'</h2>'+
-        '<div class="form-group"><label>الاسم</label><input type="text" id="mStyleName" value="'+(id?name:'')+'" placeholder="اسم الحلاقة"></div>'+
-        '<div class="form-group"><label>السعر (دج)</label><input type="number" id="mStylePrice" value="'+(id?price:'')+'" placeholder="10" step="0.5"></div>'+
-        '<div class="form-group"><label>الوصف</label><textarea id="mStyleDesc" rows="2">'+(id?(desc||''):'')+'</textarea></div>'+
-        '<div class="form-group"><label>الصورة</label><input type="file" id="mStylePhoto" accept="image/*"></div>'+
-        '<div class="modal-acts"><button class="btn btn-gold" onclick="saveStyle('+(id||'null')+')">'+(id?'💾 حفظ':'➕ إضافة')+'</button><button class="btn btn-outline" onclick="closeModal()">إلغاء</button></div>';
-};
-
-window.saveStyle = async function(id){
-    let name = document.getElementById('mStyleName').value.trim();
-    let price = document.getElementById('mStylePrice').value;
-    let desc = document.getElementById('mStyleDesc').value.trim();
-    if(!name||!price) return toast('⚠️','خطأ','الاسم والسعر مطلوبان');
-    let file = document.getElementById('mStylePhoto').files[0];
-    try {
-        if(id){
-            if(file){ let fd=new FormData(); fd.append('name',name); fd.append('price',price); fd.append('description',desc); fd.append('photo',file); fd.append('type','styles'); await formDataApi('/api/styles/'+id,'PUT',fd); }
-            else await api('/api/styles/'+id, {method:'PUT', body:JSON.stringify({name,price,description:desc})});
-        } else {
-            let fd=new FormData(); fd.append('name',name); fd.append('price',price); fd.append('description',desc); fd.append('type','styles'); if(file) fd.append('photo',file);
-            await formDataApi('/api/styles','POST',fd);
-        }
-        closeModal(); loadAStyles(); toast('✅','تم');
-    } catch(e){ toast('⚠️','خطأ',e.message); }
-};
-
-window.delStyle = async function(id){
-    if(!confirm('حذف هذا النوع؟')) return;
-    try{ await api('/api/styles/'+id, {method:'DELETE'}); loadAStyles(); toast('✅','تم الحذف'); } catch(e){ toast('⚠️','خطأ',e.message); }
-};
-
-// SETTINGS
-function loadASet(){
-    document.getElementById('ap-aset').innerHTML = '<div class="card-title">🔧 الإعدادات</div>'+
-        '<div class="form-group"><label>اسم الصالون</label><div style="display:flex;gap:10px"><input type="text" id="shopNameInput" placeholder="اسم الصالون" style="flex:1;padding:11px 14px;border-radius:10px;border:1px solid rgba(0,0,0,.08);background:#fff;color:var(--text);font-family:inherit;outline:none"><button class="btn btn-sm btn-gold" onclick="saveShopName()">حفظ</button></div><p id="shopMsg" style="font-size:11px;color:var(--text2);margin-top:4px"></p></div>'+
-        '<div class="form-group"><label>عنوان المحل</label><div style="display:flex;gap:10px"><input type="text" id="shopAddressInput" placeholder="مثال: شارع الجمهورية، المدينة" style="flex:1;padding:11px 14px;border-radius:10px;border:1px solid rgba(0,0,0,.08);background:#fff;color:var(--text);font-family:inherit;outline:none"><button class="btn btn-sm btn-gold" onclick="saveShopAddress()">حفظ</button></div><p id="addrMsg" style="font-size:11px;color:var(--text2);margin-top:4px"></p></div>'+
-        '<div class="form-group" style="margin-top:12px"><label>تغيير كلمة المرور</label><div style="display:flex;gap:10px"><input type="password" id="newPass" placeholder="كلمة سر جديدة" style="flex:1;padding:11px 14px;border-radius:10px;border:1px solid rgba(0,0,0,.08);background:#fff;color:var(--text);font-family:inherit;outline:none"><button class="btn btn-sm btn-gold" onclick="changePass()">تغيير</button></div><p id="passMsg" style="font-size:11px;color:var(--text2);margin-top:4px"></p></div>'+
-        '<div class="form-group" style="margin-top:12px"><label>رابط الموقع</label><div style="display:flex;gap:10px"><input type="text" id="siteUrl" style="flex:1;padding:11px 14px;border-radius:10px;border:1px solid rgba(0,0,0,.08);background:#fff;color:var(--text);font-family:inherit;outline:none;direction:ltr;text-align:left" readonly><button class="btn btn-sm btn-outline" onclick="copyURL()">📋 نسخ</button></div></div>';
-    document.getElementById('siteUrl').value = location.origin;
-    loadAllSettings();
+function renderAdminBookings(){
+  var bk=getBookings(), tb=document.getElementById('bkTable').querySelector('tbody');
+  document.getElementById('bkCount').textContent='('+bk.length+' total)';
+  if(!bk.length){ tb.innerHTML='<tr><td colspan="7" style="text-align:center;color:rgba(255,255,255,.2);padding:20px">No bookings yet</td></tr>'; return; }
+  tb.innerHTML=bk.map(function(b){
+    var st=b.status==='confirmed'?'✅ Confirmed':'⏳ Pending';
+    return '<tr><td>'+b.name+'</td><td style="direction:ltr;text-align:right;font-size:11px">'+b.phone+'</td><td>'+b.service+'</td><td>'+b.barber+'</td><td style="font-size:11px;color:rgba(255,255,255,.4)">'+b.datetime.replace('T',' ')+'</td><td>'+st+'</td><td><div class="acts">'+(b.status!=='confirmed'?'<button class="btn-sm" style="background:rgba(0,200,80,.12);color:#4c4;border:none;padding:3px 8px;border-radius:4px;cursor:pointer;font-size:9px;font-weight:600;font-family:inherit" onclick="confirmBooking('+b.id+')">Confirm</button>':'')+'<button class="btn-danger btn-sm" onclick="deleteBooking('+b.id+')">Del</button></div></td></tr>';
+  }).join('');
 }
 
-window.loadAllSettings = async function(){
-    try{ const s = await api('/api/settings');
-        if(s.shop_name){ document.getElementById('shopNameInput').value = s.shop_name; updateShopName(s.shop_name); }
-        if(s.address !== undefined){ document.getElementById('shopAddressInput').value = s.address||''; updateShopAddress(s.address||''); }
-    } catch(e){}
+// === ADMIN CRUD ===
+window.openServiceModal = function(id){
+  var sv=getServices(), s=id?sv.find(function(x){return x.id===id}):null;
+  showModal(
+    '<h3>'+(s?'Edit Service':'Add Service')+'</h3>'+
+    '<div class="fg"><label>Name</label><input type="text" id="mSvcName" value="'+(s?s.name:'')+'" placeholder="Service name"></div>'+
+    '<div class="fg"><label>Description</label><textarea id="mSvcDesc" rows="2" style="width:100%;padding:9px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.035);color:#fff;font-family:\'Inter\',sans-serif;font-size:12px;outline:none;resize:vertical">'+(s?s.desc||'':'')+'</textarea></div>'+
+    '<div class="fg"><label>Price</label><input type="number" id="mSvcPrice" value="'+(s?s.price:'')+'" placeholder="35" step="0.5"></div>'+
+    '<div class="fg"><label>Image URL</label><input type="text" id="mSvcImg" value="'+(s?s.img||'')+'" placeholder="https://..."></div>'+
+    '<div class="fg"><label>Tags (comma separated)</label><input type="text" id="mSvcTags" value="'+(s&&s.tags?s.tags.join(', '):'')+'" placeholder="e.g. Scissor, Clipper"></div>'+
+    '<div class="modal-acts"><button class="btn btn-primary btn-sm" onclick="saveService('+(id||'null')+')">'+(s?'Update':'Add')+'</button><button class="btn btn-ghost btn-sm" onclick="closeModal()">Cancel</button></div>'
+  );
 };
 
-window.saveShopName = async function(){
-    let n = document.getElementById('shopNameInput').value.trim();
-    if(!n) return toast('⚠️','خطأ','أدخل اسم الصالون');
-    try{ await api('/api/settings', {method:'PUT', body:JSON.stringify({shop_name:n})}); updateShopName(n); document.getElementById('shopMsg').textContent='✅ تم الحفظ'; toast('✅','تم الحفظ'); } catch(e){ toast('⚠️','خطأ',e.message); }
+window.saveService = function(id){
+  var name=document.getElementById('mSvcName').value.trim();
+  var desc=document.getElementById('mSvcDesc').value.trim();
+  var price=parseFloat(document.getElementById('mSvcPrice').value);
+  var img=document.getElementById('mSvcImg').value.trim();
+  var tagsStr=document.getElementById('mSvcTags').value.trim();
+  if(!name||isNaN(price)) return toast('⚠️ Name and price required');
+  var sv=getServices();
+  var tags=tagsStr? tagsStr.split(',').map(function(t){return t.trim();}).filter(function(t){return t;}) :[];
+  if(id){
+    var s=sv.find(function(x){return x.id===id});
+    if(s){ s.name=name; s.desc=desc; s.price=price; s.img=img||s.img; s.tags=tags; }
+  } else {
+    sv.push({ id:nextId(sv), name:name, desc:desc, price:price, img:img||'https://images.unsplash.com/photo-1596728325488-58c87691e9af?w=400&q=80', tags:tags });
+  }
+  setServices(sv); closeModal(); renderAdminServices(); renderPublic(); toast('✅ Service saved', true);
 };
 
-window.saveShopAddress = async function(){
-    let a = document.getElementById('shopAddressInput').value.trim();
-    try{ await api('/api/settings', {method:'PUT', body:JSON.stringify({address:a})}); updateShopAddress(a); document.getElementById('addrMsg').textContent='✅ تم الحفظ'; toast('✅','تم الحفظ'); } catch(e){ toast('⚠️','خطأ',e.message); }
+window.deleteService = function(id){
+  if(!confirm('Delete this service?')) return;
+  var sv=getServices().filter(function(x){return x.id!==id});
+  setServices(sv); renderAdminServices(); renderAdminCurrency(); renderPublic(); toast('🗑️ Deleted');
 };
 
-function updateShopName(name){
-    let el = document.getElementById('shopNameDisplay');
-    if(el) el.textContent = name;
+window.openBarberModal = function(id){
+  var br=getBarbers(), b=id?br.find(function(x){return x.id===id}):null;
+  showModal(
+    '<h3>'+(b?'Edit Barber':'Add Barber')+'</h3>'+
+    '<div class="fg"><label>Name</label><input type="text" id="mBrbName" value="'+(b?b.name:'')+'" placeholder="Barber name"></div>'+
+    '<div class="fg"><label>Specialty</label><input type="text" id="mBrbSpec" value="'+(b?b.specialty:'')+'" placeholder="e.g. Master Barber"></div>'+
+    '<div class="fg"><label>Working Hours</label><input type="text" id="mBrbHours" value="'+(b?b.hours:'')+'" placeholder="e.g. 9AM-6PM"></div>'+
+    '<div class="fg"><label>Photo URL</label><input type="text" id="mBrbImg" value="'+(b?b.img:'')+'" placeholder="https://..."></div>'+
+    '<div class="modal-acts"><button class="btn btn-primary btn-sm" onclick="saveBarber('+(id||'null')+')">'+(b?'Update':'Add')+'</button><button class="btn btn-ghost btn-sm" onclick="closeModal()">Cancel</button></div>'
+  );
+};
+
+window.saveBarber = function(id){
+  var name=document.getElementById('mBrbName').value.trim();
+  var spec=document.getElementById('mBrbSpec').value.trim();
+  var hours=document.getElementById('mBrbHours').value.trim();
+  var img=document.getElementById('mBrbImg').value.trim();
+  if(!name) return toast('⚠️ Name is required');
+  var br=getBarbers();
+  if(id){
+    var b=br.find(function(x){return x.id===id});
+    if(b){ b.name=name; b.specialty=spec||b.specialty; b.hours=hours||b.hours; b.img=img||b.img; }
+  } else {
+    br.push({ id:nextId(br), name:name, specialty:spec||'Barber', hours:hours||'9AM-6PM', img:img||'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80' });
+  }
+  setBarbers(br); closeModal(); renderAdminBarbers(); renderPublic(); toast('✅ Barber saved', true);
+};
+
+window.deleteBarber = function(id){
+  if(!confirm('Delete this barber?')) return;
+  setBarbers(getBarbers().filter(function(x){return x.id!==id}));
+  renderAdminBarbers(); renderPublic(); toast('🗑️ Deleted');
+};
+
+window.changeCurrency = function(val){
+  setCurrency(val); renderPublic(); renderAdminServices(); renderAdminCurrency(); toast('💰 Currency changed to '+val.split(',')[1], true);
+};
+
+window.updateServicePrice = function(id){
+  var np=parseFloat(document.getElementById('np_'+id).value);
+  if(isNaN(np)||np<=0) return toast('⚠️ Invalid price');
+  var sv=getServices(), s=sv.find(function(x){return x.id===id});
+  if(s){ s.price=np; setServices(sv); renderAdminServices(); renderAdminCurrency(); renderPublic(); toast('✅ Price updated', true); }
+};
+
+window.confirmBooking = function(id){
+  var bk=getBookings(), b=bk.find(function(x){return x.id===id});
+  if(b){ b.status='confirmed'; setBookings(bk); renderAdminBookings(); toast('✅ Booking confirmed', true); }
+};
+
+window.deleteBooking = function(id){
+  if(!confirm('Delete this booking?')) return;
+  setBookings(getBookings().filter(function(x){return x.id!==id}));
+  renderAdminBookings(); toast('🗑️ Deleted');
+};
+
+// === MODAL ===
+function showModal(html){
+  document.getElementById('modalBox').innerHTML=html;
+  document.getElementById('modalBg').classList.add('open');
 }
-
-function updateShopAddress(addr){
-    let el = document.getElementById('shopAddressDisplay');
-    if(el){
-        if(addr){
-            el.style.display = 'block';
-            el.innerHTML = '<div style="text-align:center;margin-top:8px;font-size:13px;color:var(--text2)">📍 ' + addr + '</div>';
-        } else { el.style.display = 'none'; }
-    }
-    let el2 = document.getElementById('shopAddressDisplay2');
-    if(el2){
-        if(addr){
-            el2.style.display = 'inline';
-            el2.textContent = '📍 ' + addr;
-        } else { el2.style.display = 'none'; }
-    }
-}
-
-window.changePass = async function(){
-    let p = document.getElementById('newPass').value;
-    if(!p||p.length<4) return toast('⚠️','خطأ','4 أحرف على الأقل');
-    try{ await api('/api/admin/password', {method:'PUT', body:JSON.stringify({newPassword:p})}); document.getElementById('passMsg').textContent='✅ تم التغيير'; document.getElementById('newPass').value=''; toast('✅','تم'); } catch(e){ toast('⚠️','خطأ',e.message); }
-};
-
-window.copyURL = function(){
-    navigator.clipboard.writeText(location.origin).then(()=>toast('📋','تم النسخ',''));
-};
-
-// MODAL
-window.closeModal = function(){ document.getElementById('modalBg').classList.remove('show'); };
+window.closeModal = function(){ document.getElementById('modalBg').classList.remove('open'); };
 document.getElementById('modalBg').addEventListener('click',function(e){ if(e.target===this) closeModal(); });
 
-// ===== INIT =====
-document.addEventListener('DOMContentLoaded',()=>{
-    initSocket();
-    refreshHomeQ();
-    refreshQueue();
-    setInterval(refreshHomeQ, 10000);
-    setInterval(refreshQueue, 10000);
-    loadAllSettings();
-    if(location.pathname==='/admin') goPage('admin');
-});
+// ======================== LOG ========================
+console.log('✂️ Blade & Razor — Sharp Looks. Fresh Cuts.');
+
+// ======================== INIT ========================
+renderPublic();
 </script>
 </body>
 </html>
