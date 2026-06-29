@@ -3,134 +3,113 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>✂️ Blade &amp; Razor | Premium Barbershop</title>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>Blade &amp; Razor | Premium Barbershop</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-/* === RESET === */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
+html[dir="rtl"] body{font-family:'Cairo',sans-serif}
 body{font-family:'Inter',sans-serif;background:#111;color:#fff;overflow-x:hidden}
 a{text-decoration:none;color:inherit}
 img{max-width:100%;display:block}
-
-/* === SCROLLBAR === */
-::-webkit-scrollbar{width:5px}
-::-webkit-scrollbar-track{background:#111}
-::-webkit-scrollbar-thumb{background:rgba(201,168,76,.3);border-radius:3px}
-
-/* === TYPOGRAPHY === */
 h1,h2,h3{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:1px}
+html[dir="rtl"] h1,html[dir="rtl"] h2,html[dir="rtl"] h3{font-family:'Cairo',sans-serif;letter-spacing:0}
 .section-title{font-size:clamp(26px,5vw,48px);text-align:center;margin-bottom:6px;color:#fff}
 .section-title span{color:#C9A84C}
 .section-sub{text-align:center;color:rgba(255,255,255,.35);font-size:12px;margin-bottom:32px;letter-spacing:2px;text-transform:uppercase}
-
-/* === CONTAINER === */
 .container{max-width:1100px;margin:0 auto;padding:0 20px}
 
-/* === NAV === */
-nav{position:fixed;top:0;left:0;right:0;z-index:999;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;transition:background .4s,backdrop-filter .4s}
-nav.scrolled{background:rgba(17,17,17,.92);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.04)}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:999;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;background:rgba(17,17,17,.92);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.04)}
 .nav-logo{font-family:'Oswald',sans-serif;font-size:20px;font-weight:700;letter-spacing:2px;display:flex;align-items:center;gap:10px}
 .nav-logo span{color:#C9A84C}
+html[dir="rtl"] .nav-logo{font-family:'Cairo',sans-serif;letter-spacing:0}
 .nav-links{display:flex;gap:2px;align-items:center}
-.nav-links a{padding:7px 14px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.45);transition:color .3s;border-radius:6px;font-family:'Inter',sans-serif}
+.nav-links a{padding:7px 14px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.45);transition:color .3s;border-radius:6px;cursor:pointer}
 .nav-links a:hover{color:#fff}
-.nav-links a.cta{background:rgba(201,168,76,.12);color:#C9A84C;border:1px solid rgba(201,168,76,.2)}
-.nav-links a.cta:hover{background:rgba(201,168,76,.2)}
+.nav-links a.cta-btn{background:rgba(201,168,76,.12);color:#C9A84C;border:1px solid rgba(201,168,76,.2)}
+.nav-links a.cta-btn:hover{background:rgba(201,168,76,.2)}
+html[dir="rtl"] .nav-links a{font-family:'Cairo',sans-serif;letter-spacing:0}
 .nav-toggle{display:none;background:none;border:none;color:#fff;font-size:26px;cursor:pointer}
 
-/* === BARBER POLE IN NAV === */
-.pole-mini{display:inline-flex;height:28px;width:8px;border-radius:2px;overflow:hidden;position:relative}
-.pole-mini .stripes{width:100%;height:100%;background:repeating-linear-gradient(180deg,#DC143C 0,#DC143C 4px,#fff 4px,#fff 8px,#1E6EB5 8px,#1E6EB5 12px);background-size:100% 24px;animation:spinPoleMini .6s linear infinite;border-radius:2px;box-shadow:0 0 6px rgba(201,168,76,.2)}
-.pole-mini:hover .stripes{animation-duration:.15s}
-@keyframes spinPoleMini{0%{background-position:0 0}100%{background-position:0 24px}}
+/* BARBER POLE */
+.barber-pole{width:20px;height:60px;border-radius:10px;overflow:hidden;background:repeating-linear-gradient(45deg,#cc0000 0px,#cc0000 8px,#ffffff 8px,#ffffff 16px,#0000cc 16px,#0000cc 24px);animation:spinPole 2s linear infinite;background-size:100% 48px;flex-shrink:0}
+@keyframes spinPole{0%{background-position:0 0}100%{background-position:0 48px}}
 
-/* === HERO === */
-.hero{position:relative;height:100vh;min-height:580px;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.hero-vid{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
-.hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,rgba(17,17,17,.92) 25%,rgba(17,17,17,.4) 55%,rgba(17,17,17,.75) 100%);z-index:1}
-.hero-overlay::after{content:'';position:absolute;bottom:0;left:0;right:0;height:100px;background:linear-gradient(transparent,#111)}
+/* LANGUAGE */
+.lang-switch{display:flex;gap:3px;margin:0 6px}
+.lang-btn{background:none;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.35);font-size:10px;font-weight:600;padding:3px 7px;border-radius:4px;cursor:pointer;transition:all .25s}
+.lang-btn:hover{color:#fff;border-color:rgba(255,255,255,.2)}
+.lang-btn.active{color:#C9A84C;border-color:#C9A84C}
+
+/* HERO */
+.hero{position:relative;height:100vh;min-height:580px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.85)),url('https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=1920&q=80') center/cover no-repeat fixed}
 .hero-content{position:relative;z-index:2;text-align:center;padding:20px;max-width:720px}
 .hero-badge{display:inline-block;padding:5px 18px;border:1px solid rgba(201,168,76,.35);border-radius:50px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#C9A84C;margin-bottom:16px;background:rgba(201,168,76,.05)}
 .hero-content h1{font-size:clamp(38px,10vw,88px);line-height:.95;margin-bottom:8px}
 .hero-content h1 span{color:#C9A84C;display:block;font-size:clamp(26px,6vw,56px)}
 .hero-content p{font-size:clamp(13px,1.8vw,16px);color:rgba(255,255,255,.5);max-width:480px;margin:0 auto 24px;line-height:1.7}
 .hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.hero-scroll{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:3;color:rgba(255,255,255,.2);font-size:10px;letter-spacing:2px;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:4px;animation:bounceDown 2.4s infinite}
-.hero-scroll .arrow{width:16px;height:16px;border-right:2px solid rgba(255,255,255,.2);border-bottom:2px solid rgba(255,255,255,.2);transform:rotate(45deg)}
-@keyframes bounceDown{0%,100%{opacity:.4;transform:translateX(-50%) translateY(0)}50%{opacity:1;transform:translateX(-50%) translateY(6px)}}
 
-/* === RAZOR SLIDE === */
-.razor-slide{position:fixed;top:0;left:-120px;z-index:9999;font-size:50px;opacity:.06;pointer-events:none;animation:razorSweep 2.8s cubic-bezier(.22,1,.36,1) .6s 1 forwards}
-@keyframes razorSweep{0%{left:-120px;top:30%;transform:rotate(-25deg) scale(.8)}45%{left:40%;top:18%;transform:rotate(12deg) scale(1)}72%{left:70%;top:32%;transform:rotate(-6deg) scale(.9)}100%{left:120vw;top:22%;transform:rotate(0) scale(1)}}
-
-/* === BUTTONS === */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 32px;font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:2px;border:none;cursor:pointer;transition:all .35s cubic-bezier(.25,.46,.45,.94);position:relative;overflow:hidden}
-.btn-primary{background:#C9A84C;color:#111}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(201,168,76,.25)}
-.btn-primary::before{content:'';position:absolute;top:-50%;left:-60%;width:35%;height:200%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);transform:rotate(25deg);transition:left .6s}
-.btn-primary:hover::before{left:120%}
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 32px;font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:2px;border:none;cursor:pointer;transition:all .35s;background:#C9A84C;color:#111}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(201,168,76,.25)}
 .btn-outline{background:transparent;border:2px solid rgba(255,255,255,.12);color:#fff}
-.btn-outline:hover{background:rgba(255,255,255,.04);border-color:#C9A84C;transform:translateY(-2px)}
+.btn-outline:hover{background:rgba(255,255,255,.04);border-color:#C9A84C}
 .btn-sm{padding:10px 20px;font-size:11px}
 .btn-block{width:100%}
-.btn-danger{background:rgba(220,50,50,.15);color:#e44;border:1px solid rgba(220,50,50,.2)}
-.btn-danger:hover{background:rgba(220,50,50,.25)}
-.btn-ghost{background:rgba(255,255,255,.03);color:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.06)}
-.btn-ghost:hover{background:rgba(255,255,255,.06);color:#fff}
-.btn-gold-outline{background:transparent;border:1.5px solid rgba(201,168,76,.3);color:#C9A84C}
-.btn-gold-outline:hover{background:rgba(201,168,76,.1)}
+html[dir="rtl"] .btn{font-family:'Cairo',sans-serif;letter-spacing:0}
 
-/* === SCROLL SECTIONS === */
-section{padding:70px 0;opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
-section.visible{opacity:1;transform:translateY(0)}
+/* SECTIONS */
+section{padding:70px 0;display:block}
+.card{animation:fadeUp 0.5s ease forwards;opacity:0}
+.card:nth-child(1){animation-delay:0.1s}
+.card:nth-child(2){animation-delay:0.2s}
+.card:nth-child(3){animation-delay:0.3s}
+.card:nth-child(4){animation-delay:0.4s}
+.card:nth-child(5){animation-delay:0.5s}
+.card:nth-child(6){animation-delay:0.6s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
-/* === GALLERY === */
-.gallery-wrap{overflow:hidden;position:relative}
-.gallery-track{display:flex;gap:12px;animation:scrollGallery 40s linear infinite;width:max-content;padding:0 10px}
-.gallery-track:hover{animation-play-state:paused}
-.gallery-track img{height:180px;border-radius:8px;object-fit:cover;flex-shrink:0;transition:transform .4s;border:1px solid rgba(255,255,255,.03)}
-.gallery-track img:hover{transform:scale(1.03)}
-.gallery-track img:nth-child(1){width:260px}
-.gallery-track img:nth-child(2){width:200px}
-.gallery-track img:nth-child(3){width:280px}
-.gallery-track img:nth-child(4){width:220px}
-.gallery-track img:nth-child(5){width:240px}
-.gallery-track img:nth-child(6){width:190px}
-.gallery-track img:nth-child(7){width:270px}
-@keyframes scrollGallery{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+/* SERVICES */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.s-card{background:#1a1a1a;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.04);transition:transform .4s,box-shadow .4s}
+.s-card:hover{transform:translateY(-5px);box-shadow:0 10px 35px rgba(201,168,76,.1);border-color:rgba(201,168,76,.15)}
+.s-card img{width:100%;height:200px;object-fit:cover;display:block}
+.s-card-body{padding:20px}
+.s-card-body h3{font-size:20px;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.s-card-body h3 .price{font-family:'Inter',sans-serif;font-size:14px;color:#C9A84C;font-weight:600;margin-left:auto}
+html[dir="rtl"] .s-card-body h3 .price{font-family:'Cairo',sans-serif;margin-left:0;margin-right:auto}
+.s-card-body p{font-size:12px;color:rgba(255,255,255,.45);line-height:1.6}
+.s-card-body .tags{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap}
+.s-card-body .tags span{padding:2px 8px;border-radius:20px;font-size:9px;border:1px solid rgba(255,255,255,.07);color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.5px}
 
-/* === SERVICES === */
-.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-.service-card{position:relative;border-radius:12px;overflow:hidden;min-height:280px;display:flex;flex-direction:column;justify-content:flex-end;padding:24px;border:1px solid rgba(255,255,255,.04);transition:transform .5s cubic-bezier(.22,1,.36,1),box-shadow .5s;cursor:default;background:#1a1a1a}
-.service-card .bg{position:absolute;top:0;left:0;width:100%;height:100%;background-size:cover;background-position:center;opacity:.12;transition:opacity .6s,transform .6s;z-index:0}
-.service-card:hover .bg{opacity:.3;transform:scale(1.08)}
-.service-card .shade{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,transparent 30%,rgba(17,17,17,.95) 100%);z-index:1}
-.service-card:hover{transform:translateY(-5px);box-shadow:0 10px 35px rgba(201,168,76,.1);border-color:rgba(201,168,76,.15)}
-.service-card>*{position:relative;z-index:2}
-.service-card .ic{font-size:28px;margin-bottom:6px;display:block}
-.service-card h3{font-size:20px;margin-bottom:2px;display:flex;align-items:center;gap:8px}
-.service-card h3 .pr{font-family:'Inter',sans-serif;font-size:13px;color:#C9A84C;font-weight:600;margin-right:auto}
-.service-card p{font-size:12px;color:rgba(255,255,255,.45);line-height:1.6}
-.service-card .tags{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap}
-.service-card .tags span{padding:2px 8px;border-radius:20px;font-size:9px;border:1px solid rgba(255,255,255,.07);color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.5px}
+/* STATS */
+.stats-sec{padding:70px 0;text-align:center}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px}
+.st-item .num{font-size:clamp(36px,5vw,52px);font-weight:700;color:#C9A84C;font-family:'Oswald',sans-serif;line-height:1}
+html[dir="rtl"] .st-item .num{font-family:'Cairo',sans-serif;letter-spacing:0}
+.st-item .lbl{font-size:12px;color:rgba(255,255,255,.5);margin-top:4px;text-transform:uppercase;letter-spacing:1px}
+.st-item .ico{font-size:28px;margin-bottom:8px;display:block}
 
-/* === BARBERS === */
-.barbers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px}
-.barber-card{text-align:center;padding:22px 14px;border-radius:12px;background:rgba(255,255,255,.015);border:1px solid rgba(255,255,255,.04);transition:transform .4s,box-shadow .4s}
-.barber-card:hover{transform:translateY(-3px);box-shadow:0 6px 24px rgba(201,168,76,.06);border-color:rgba(201,168,76,.12)}
-.barber-card .av{width:72px;height:72px;border-radius:50%;margin:0 auto 10px;object-fit:cover;border:3px solid rgba(201,168,76,.12);transition:border-color .4s}
-.barber-card:hover .av{border-color:#C9A84C}
-.barber-card h4{font-size:16px;margin-bottom:2px}
-.barber-card .sp{font-size:10px;color:rgba(255,255,255,.3);letter-spacing:1px;text-transform:uppercase}
-.barber-card .hrs{font-size:10px;color:rgba(255,255,255,.15);margin-top:4px}
+/* BARBERS */
+.barbers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
+.br-card{text-align:center;padding:24px 14px;border-radius:12px;background:rgba(255,255,255,.015);border:1px solid rgba(255,255,255,.04);transition:transform .4s}
+.br-card:hover{transform:translateY(-3px);border-color:rgba(201,168,76,.12)}
+.br-card img{width:150px;height:150px;border-radius:50%;object-fit:cover;margin:0 auto 12px;border:3px solid rgba(201,168,76,.12);transition:border-color .4s}
+.br-card:hover img{border-color:#C9A84C}
+.br-card h4{font-size:16px;margin-bottom:2px}
+.br-card .sp{font-size:10px;color:rgba(255,255,255,.3);letter-spacing:1px;text-transform:uppercase}
 
-/* === DIVIDER === */
-.divider{display:flex;align-items:center;justify-content:center;gap:12px;margin:16px 0;opacity:.1}
-.divider::before,.divider::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent)}
-.divider svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;color:rgba(255,255,255,.3)}
+/* GALLERY */
+.gallery-wrap{overflow:hidden;position:relative;padding:10px 0}
+.gal-track{display:flex;gap:14px;width:max-content;animation:scrollGal 50s linear infinite}
+.gal-track:hover{animation-play-state:paused}
+.gal-track img{height:250px;border-radius:10px;object-fit:cover;flex-shrink:0;transition:transform .4s;border:1px solid rgba(255,255,255,.03)}
+.gal-track img:hover{transform:scale(1.04)}
+@keyframes scrollGal{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
-/* === BOOKING === */
+/* BOOKING */
 .booking-wrap{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start}
 .booking-info h2{font-size:clamp(22px,4vw,38px);margin-bottom:8px}
 .booking-info p{color:rgba(255,255,255,.45);line-height:1.7;font-size:13px;margin-bottom:16px}
@@ -141,181 +120,168 @@ section.visible{opacity:1;transform:translateY(0)}
 .fg{margin-bottom:14px}
 .fg label{display:block;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,.35);margin-bottom:5px}
 .fg input,.fg select{width:100%;padding:11px 13px;border-radius:8px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.035);color:#fff;font-size:13px;font-family:'Inter',sans-serif;outline:none;transition:border-color .3s}
-.fg input:focus,.fg select:focus{border-color:#C9A84C;box-shadow:0 0 0 2px rgba(201,168,76,.08)}
+.fg input:focus,.fg select:focus{border-color:#C9A84C}
 .fg input::placeholder{color:rgba(255,255,255,.15)}
 .fg select option{background:#1a1a1a;color:#fff}
 .fr{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+html[dir="rtl"] .fg input,html[dir="rtl"] .fg select{font-family:'Cairo',sans-serif}
 
-/* === TOAST === */
-.toast-wrap{position:fixed;bottom:24px;right:24px;z-index:99999;display:flex;flex-direction:column;gap:6px}
-.toast{padding:12px 18px;border-radius:10px;background:rgba(30,30,30,.95);border:1px solid rgba(255,255,255,.06);backdrop-filter:blur(12px);min-width:200px;max-width:320px;display:flex;align-items:center;gap:8px;animation:toastIn .4s cubic-bezier(.16,1,.3,1);font-size:12px;color:#fff;box-shadow:0 6px 24px rgba(0,0,0,.3)}
-.toast.gold{border-color:rgba(201,168,76,.25)}
-@keyframes toastIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:translateX(0)}}
-.toast .tc{background:none;border:none;color:rgba(255,255,255,.25);cursor:pointer;font-size:14px;margin-right:auto;padding:0 4px}
-
-/* === ADMIN FAB === */
+/* ADMIN FAB */
 .admin-fab{position:fixed;bottom:20px;right:20px;z-index:9998;width:44px;height:44px;border-radius:50%;background:#C9A84C;color:#111;border:none;font-size:18px;cursor:pointer;box-shadow:0 4px 16px rgba(201,168,76,.2);transition:transform .3s}
 .admin-fab:hover{transform:scale(1.1)}
+html[dir="rtl"] .admin-fab{right:auto;left:20px}
 
-/* === ADMIN OVERLAY === */
-.admin-overlay{position:fixed;top:0;left:0;right:0;bottom:0;z-index:10000;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);display:none}
-.admin-overlay.open{display:flex;align-items:center;justify-content:center}
-.admin-login{background:#1a1a1a;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:32px;width:340px;max-width:90vw;text-align:center}
-.admin-login h2{font-size:20px;margin-bottom:6px}
-.admin-login p{font-size:12px;color:rgba(255,255,255,.35);margin-bottom:16px}
-.admin-login input{width:100%;padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);color:#fff;font-size:14px;text-align:center;outline:none;font-family:'Inter',sans-serif;margin-bottom:12px}
-.admin-login input:focus{border-color:#C9A84C}
-
-/* === ADMIN DASHBOARD === */
-.admin-dash{position:fixed;top:0;left:0;right:0;bottom:0;z-index:10001;background:#111;display:none;overflow:hidden}
-.admin-dash.open{display:flex}
-.admin-side{width:200px;background:rgba(255,255,255,.02);border-left:1px solid rgba(255,255,255,.04);padding:16px;display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
-.admin-side h3{font-size:13px;margin-bottom:14px;color:#C9A84C;letter-spacing:1px;display:flex;align-items:center;gap:8px}
-.admin-side .ab{display:block;width:100%;padding:9px 12px;border-radius:8px;border:none;background:none;color:rgba(255,255,255,.35);font-size:12px;font-weight:600;cursor:pointer;text-align:right;font-family:'Inter',sans-serif;transition:.25s;margin-bottom:2px}
-.admin-side .ab:hover{color:#fff;background:rgba(255,255,255,.04)}
-.admin-side .ab.on{color:#C9A84C;background:rgba(201,168,76,.08)}
-.admin-side .spacer{flex:1}
-.admin-side .logout{width:100%;padding:9px;border-radius:8px;border:1px solid rgba(255,255,255,.06);background:none;color:rgba(255,255,255,.25);font-size:11px;cursor:pointer;font-family:'Inter',sans-serif;transition:.3s;margin-top:10px}
-.admin-side .logout:hover{color:#e44;border-color:rgba(220,50,50,.2)}
-
+/* ADMIN PANEL */
+#adminPanel{position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;background:#111;display:none;overflow:hidden}
+.admin-layout{display:flex;height:100%}
+.admin-sidebar{width:200px;background:rgba(255,255,255,.02);border-right:1px solid rgba(255,255,255,.04);padding:16px;display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
+.admin-sidebar h3{font-size:13px;margin-bottom:14px;color:#C9A84C;letter-spacing:1px}
+.admin-sidebar .abtn{display:block;width:100%;padding:9px 12px;border-radius:8px;border:none;background:none;color:rgba(255,255,255,.35);font-size:12px;font-weight:600;cursor:pointer;text-align:left;font-family:'Inter',sans-serif;transition:.25s;margin-bottom:2px}
+.admin-sidebar .abtn:hover{color:#fff;background:rgba(255,255,255,.04)}
+.admin-sidebar .abtn.active{color:#C9A84C;background:rgba(201,168,76,.08)}
+.admin-sidebar .spacer{flex:1}
+.admin-sidebar .close-btn{width:100%;padding:9px;border-radius:8px;border:1px solid rgba(255,255,255,.06);background:none;color:rgba(255,255,255,.25);font-size:11px;cursor:pointer;font-family:'Inter',sans-serif;transition:.3s;margin-top:10px}
+.admin-sidebar .close-btn:hover{color:#e44;border-color:rgba(220,50,50,.2)}
+html[dir="rtl"] .admin-sidebar .abtn{font-family:'Cairo',sans-serif;text-align:right}
+html[dir="rtl"] .admin-sidebar{border-right:none;border-left:1px solid rgba(255,255,255,.04)}
 .admin-main{flex:1;overflow-y:auto;padding:20px 24px}
 .admin-main h2{font-size:20px;margin-bottom:16px;display:flex;align-items:center;gap:10px;justify-content:space-between}
-.admin-main h2 .hdr-l{display:flex;align-items:center;gap:10px}
 .admin-pane{display:none}
-.admin-pane.on{display:block}
-
-/* === ADMIN TABLES === */
+.admin-pane.active{display:block}
 .adm-tbl{width:100%;border-collapse:collapse;font-size:12px}
-.adm-tbl th{padding:8px 10px;text-align:right;color:rgba(255,255,255,.35);font-weight:600;font-size:9px;letter-spacing:.5px;text-transform:uppercase;border-bottom:2px solid rgba(201,168,76,.15)}
+.adm-tbl th{padding:8px 10px;text-align:left;color:rgba(255,255,255,.35);font-weight:600;font-size:9px;letter-spacing:.5px;text-transform:uppercase;border-bottom:2px solid rgba(201,168,76,.15)}
 .adm-tbl td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.03);color:rgba(255,255,255,.7)}
 .adm-tbl tr:hover td{background:rgba(255,255,255,.015)}
 .adm-tbl .acts{display:flex;gap:4px}
 .adm-tbl .acts button{padding:3px 8px;border-radius:5px;border:none;font-size:9px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:.2s}
+html[dir="rtl"] .adm-tbl th,html[dir="rtl"] .adm-tbl td{text-align:right}
+.admin-close-top{position:absolute;top:12px;right:12px;z-index:10;background:none;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.4);font-size:12px;padding:6px 14px;border-radius:6px;cursor:pointer;font-family:'Inter',sans-serif;transition:.3s}
+.admin-close-top:hover{color:#e44;border-color:rgba(220,50,50,.3)}
+html[dir="rtl"] .admin-close-top{right:auto;left:12px}
 
-/* === ADMIN MODAL === */
-.modal-bg{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);z-index:10002;display:none;align-items:center;justify-content:center;padding:16px}
-.modal-bg.open{display:flex}
+/* MODAL */
+#modalOverlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.65);z-index:10001;display:none;align-items:center;justify-content:center;padding:16px}
+#modalOverlay.open{display:flex}
 .modal-box{background:#1a1a1a;border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:24px;width:420px;max-width:100%;max-height:85vh;overflow-y:auto}
 .modal-box h3{font-size:16px;margin-bottom:14px}
 .modal-box .fg{margin-bottom:12px}
-.modal-box .fg label{font-size:9px;letter-spacing:1px}
-.modal-box .fg input,.modal-box .fg select,.modal-box .fg textarea{font-size:12px;padding:9px 12px}
+.modal-box .fg input,.modal-box .fg select,.modal-box .fg textarea{font-size:12px;padding:9px 12px;width:100%;border-radius:8px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.035);color:#fff;font-family:'Inter',sans-serif;outline:none}
+.modal-box .fg textarea{resize:vertical;min-height:50px}
+.modal-box .fg label{font-size:9px;letter-spacing:1px;display:block;margin-bottom:4px;color:rgba(255,255,255,.35);text-transform:uppercase}
 .modal-acts{display:flex;gap:8px;margin-top:14px}
 .modal-acts button{flex:1}
+.modal-box img.preview{width:60px;height:60px;border-radius:8px;object-fit:cover;margin-top:6px;display:none}
 
-/* === RESPONSIVE === */
+/* TOAST */
+#toastWrap{position:fixed;bottom:24px;right:24px;z-index:99999;display:flex;flex-direction:column;gap:6px}
+html[dir="rtl"] #toastWrap{right:auto;left:24px}
+.toast{padding:12px 18px;border-radius:10px;background:rgba(30,30,30,.95);border:1px solid rgba(255,255,255,.06);min-width:200px;max-width:320px;display:flex;align-items:center;gap:8px;animation:ti .4s ease;font-size:12px;color:#fff}
+.toast.gold{border-color:rgba(201,168,76,.25)}
+@keyframes ti{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:translateX(0)}}
+.toast .tc{background:none;border:none;color:rgba(255,255,255,.25);cursor:pointer;font-size:14px;padding:0 4px}
+
+/* FOOTER */
+footer{padding:24px 20px;text-align:center;border-top:1px solid rgba(255,255,255,.03);margin-top:10px}
+footer p{font-size:11px;color:rgba(255,255,255,.15);letter-spacing:1px}
+
+/* RESPONSIVE */
 @media(max-width:768px){
 nav{padding:10px 16px}
-.nav-links{position:fixed;top:0;left:0;width:100%;height:100vh;background:rgba(17,17,17,.98);backdrop-filter:blur(20px);flex-direction:column;justify-content:center;align-items:center;gap:10px;display:none;z-index:998}
+.nav-links{position:fixed;top:0;left:0;width:100%;height:100vh;background:rgba(17,17,17,.98);flex-direction:column;justify-content:center;align-items:center;gap:10px;display:none;z-index:998}
 .nav-links.open{display:flex}
 .nav-links a{font-size:16px;padding:10px 20px}
 .nav-toggle{display:block;z-index:999}
+.lang-switch{margin:10px 0}
 .booking-wrap{grid-template-columns:1fr}
 .booking-form{padding:20px}
 .fr{grid-template-columns:1fr}
-.barbers-grid{grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
-.gallery-track img{height:120px}
-.gallery-track img:nth-child(1){width:180px}
-.gallery-track img:nth-child(2){width:140px}
-.gallery-track img:nth-child(3){width:200px}
-.gallery-track img:nth-child(4){width:150px}
-.gallery-track img:nth-child(5){width:170px}
-.gallery-track img:nth-child(6){width:130px}
-.gallery-track img:nth-child(7){width:190px}
+.gal-track img{height:160px}
 section{padding:45px 0}
-.admin-dash{flex-direction:column}
-.admin-side{width:100%;flex-direction:row;padding:10px 14px;overflow-x:auto;border-left:none;border-bottom:1px solid rgba(255,255,255,.04);gap:4px}
-.admin-side h3{display:none}
-.admin-side .ab{white-space:nowrap;font-size:10px;padding:6px 10px}
-.admin-side .spacer{display:none}
-.admin-side .logout{display:none}
+.admin-layout{flex-direction:column}
+.admin-sidebar{width:100%;flex-direction:row;padding:10px 14px;overflow-x:auto;border-right:none;border-bottom:1px solid rgba(255,255,255,.04)}
+.admin-sidebar h3{display:none}
+.admin-sidebar .abtn{white-space:nowrap;font-size:10px;padding:6px 10px}
+.admin-sidebar .spacer,.admin-sidebar .close-btn{display:none}
 .admin-main{padding:14px}
-.admin-main h2{font-size:16px;flex-direction:column;align-items:flex-start;gap:8px}
 .adm-tbl{font-size:10px}
 .adm-tbl th,.adm-tbl td{padding:5px 6px}
-.razor-slide{display:none}
+.stats-grid{grid-template-columns:1fr 1fr}
 }
-
 @media(max-width:480px){
 .hero-content h1{font-size:30px}
 .hero-content h1 span{font-size:20px}
 .btn{padding:12px 20px;font-size:11px}
 .services-grid{grid-template-columns:1fr}
 }
-
-/* === ADMIN SCROLLBAR === */
-.admin-main::-webkit-scrollbar{width:4px}
-.admin-main::-webkit-scrollbar-track{background:transparent}
-.admin-main::-webkit-scrollbar-thumb{background:rgba(201,168,76,.2);border-radius:2px}
 </style>
 </head>
 <body>
 
-<!-- RAZOR SLIDE -->
-<div class="razor-slide" aria-hidden="true">✂️</div>
-
 <!-- NAV -->
-<nav id="nav">
-  <div class="nav-logo"><span class="pole-mini"><div class="stripes"></div></span> Blade <span>&amp; Razor</span></div>
-  <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+<nav>
+  <div class="nav-logo"><div class="barber-pole"></div> <span>Blade</span> &amp; Razor</div>
   <div class="nav-links" id="navLinks">
-    <a href="#hero">Home</a>
-    <a href="#services">Services</a>
-    <a href="#barbers">Barbers</a>
-    <a href="#booking" class="cta">Book Now</a>
+    <div class="lang-switch">
+      <button class="lang-btn" onclick="setLang('en')" data-en="EN" data-fr="EN" data-ar="EN">🇬🇧 EN</button>
+      <button class="lang-btn" onclick="setLang('fr')" data-en="FR" data-fr="FR" data-ar="FR">🇫🇷 FR</button>
+      <button class="lang-btn" onclick="setLang('ar')" data-en="AR" data-fr="AR" data-ar="AR">🇸🇦 AR</button>
+    </div>
+    <a href="#services" onclick="scrollToSection('services')" data-en="SERVICES" data-fr="SERVICES" data-ar="الخدمات">SERVICES</a>
+    <a href="#barbers" onclick="scrollToSection('barbers')" data-en="BARBERS" data-fr="BARBIERS" data-ar="الحلاقون">BARBERS</a>
+    <a href="#gallery" onclick="scrollToSection('gallery')" data-en="GALLERY" data-fr="GALERIE" data-ar="المعرض">GALLERY</a>
+    <a href="#booking" onclick="scrollToSection('booking')" class="cta-btn" data-en="BOOK NOW" data-fr="RÉSERVER" data-ar="احجز الآن">BOOK NOW</a>
   </div>
+  <button class="nav-toggle" onclick="toggleNav()">☰</button>
 </nav>
 
 <!-- HERO -->
-<section id="hero" class="hero" style="opacity:1;transform:none">
-  <video class="hero-vid" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1585747861115-93e382e01d72?w=1200&q=80">
-    <source src="https://videos.pexels.com/video-files/852399/852399-hd_1920_1080_25fps.mp4" type="video/mp4">
-  </video>
-  <div class="hero-overlay"></div>
-  <div class="hero-content" id="heroContent">
-    <div class="hero-badge">✂️ Est. 2018</div>
-    <h1>Sharp Looks<br><span>Fresh Cuts</span></h1>
-    <p>Step into a world where every snip is precision. Book with our master barbers today.</p>
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <div class="hero-badge" data-en="✂️ Est. 2018" data-fr="✂️ Depuis 2018" data-ar="✂️ تأسست 2018">✂️ Est. 2018</div>
+    <h1><span data-en="SHARP LOOKS" data-fr="STYLE NET" data-ar="مظهر حاد">SHARP LOOKS</span><span data-en="FRESH CUTS" data-fr="COUPES FRAÎCHES" data-ar="قصة عصرية">FRESH CUTS</span></h1>
+    <p data-en="Step into a world where every snip is precision. Book with our master barbers today." data-fr="Entrez dans un monde où chaque coupe est précision. Réservez avec nos maîtres barbiers." data-ar="ادخل عالماً تكون فيه كل قصة بدقة متناهية. احجز مع حلاقينا المحترفين اليوم.">
+      Step into a world where every snip is precision. Book with our master barbers today.</p>
     <div class="hero-actions">
-      <a href="#booking" class="btn btn-primary">Book Now</a>
-      <a href="#services" class="btn btn-outline">Services</a>
+      <a href="#booking" class="btn" onclick="scrollToSection('booking')" data-en="BOOK NOW" data-fr="RÉSERVER" data-ar="احجز الآن">BOOK NOW</a>
+      <a href="#services" class="btn btn-outline" onclick="scrollToSection('services')" data-en="SERVICES" data-fr="SERVICES" data-ar="الخدمات">SERVICES</a>
     </div>
-  </div>
-  <div class="hero-scroll"><span>Scroll</span><div class="arrow"></div></div>
-</section>
-
-<!-- GALLERY -->
-<section id="gallery">
-  <div class="container">
-    <h2 class="section-title">Our <span>Studio</span></h2>
-    <p class="section-sub">Where craftsmanship meets style</p>
-  </div>
-  <div class="gallery-wrap">
-    <div class="gallery-track" id="galleryTrack"></div>
   </div>
 </section>
 
 <!-- SERVICES -->
 <section id="services">
   <div class="container">
-    <h2 class="section-title">Premium <span>Services</span></h2>
-    <p class="section-sub" id="servicesSub">Every cut tells a story</p>
-    <div class="services-grid" id="servicesGrid"></div>
+    <h2 class="section-title" data-en="PREMIUM <span>SERVICES</span>" data-fr="NOS <span>SERVICES</span>" data-ar="<span>خدماتنا</span> المميزة">PREMIUM <span>SERVICES</span></h2>
+    <p class="section-sub" data-en="Every cut tells a story" data-fr="Chaque coupe raconte une histoire" data-ar="كل قصة تحكي حكاية">Every cut tells a story</p>
+    <div class="services-grid" id="svcGrid"></div>
   </div>
 </section>
 
-<!-- DIVIDER -->
-<div class="container"><div class="divider">
-  <svg viewBox="0 0 24 24"><path d="M6 4L18 20M18 4L6 20"/><circle cx="6" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="18" cy="18" r="2"/></svg>
-</div></div>
+<!-- STATS -->
+<section class="stats-sec" id="stats">
+  <div class="container">
+    <h2 class="section-title" data-en="OUR <span>NUMBERS</span>" data-fr="NOS <span>CHIFFRES</span>" data-ar="<span>أرقامنا</span>">OUR <span>NUMBERS</span></h2>
+    <p class="section-sub" data-en="What drives us every day" data-fr="Ce qui nous anime chaque jour" data-ar="ما يدفعنا كل يوم">What drives us every day</p>
+    <div class="stats-grid" id="statsGrid"></div>
+  </div>
+</section>
 
 <!-- BARBERS -->
 <section id="barbers">
   <div class="container">
-    <h2 class="section-title">Meet The <span>Masters</span></h2>
-    <p class="section-sub">Craftsmen behind the chair</p>
-    <div class="barbers-grid" id="barbersGrid"></div>
+    <h2 class="section-title" data-en="MEET THE <span>MASTERS</span>" data-fr="NOS <span>MAÎTRES</span>" data-ar="تعرف على <span>أساتذتنا</span>">MEET THE <span>MASTERS</span></h2>
+    <p class="section-sub" data-en="Craftsmen behind the chair" data-fr="Artisans derrière le fauteuil" data-ar="حرفيون خلف الكرسي">Craftsmen behind the chair</p>
+    <div class="barbers-grid" id="brbGrid"></div>
   </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="container">
+    <h2 class="section-title" data-en="OUR <span>STUDIO</span>" data-fr="NOTRE <span>STUDIO</span>" data-ar="<span>صالوننا</span>">OUR <span>STUDIO</span></h2>
+    <p class="section-sub" data-en="Where craftsmanship meets style" data-fr="Là où l'artisanat rencontre le style" data-ar="حيث تلتقي الحرفية بالأناقة">Where craftsmanship meets style</p>
+  </div>
+  <div class="gallery-wrap"><div class="gal-track" id="galTrack"></div></div>
 </section>
 
 <!-- BOOKING -->
@@ -323,432 +289,586 @@ section{padding:45px 0}
   <div class="container">
     <div class="booking-wrap">
       <div class="booking-info">
-        <div class="hero-badge" style="margin-bottom:10px">✂️ Book Your Visit</div>
-        <h2>Ready for a<br><span style="color:#C9A84C">Fresh Look?</span></h2>
-        <p>Book online and skip the wait. Walk-ins welcome, but reserving guarantees your spot.</p>
-        <div class="fi"><div class="dot"></div><div class="tx">No waiting — your appointment is ready when you arrive</div></div>
-        <div class="fi"><div class="dot"></div><div class="tx">Choose your preferred barber and service</div></div>
-        <div class="fi"><div class="dot"></div><div class="tx">Free consultation before every service</div></div>
-        <div class="fi"><div class="dot"></div><div class="tx">Premium products used on every client</div></div>
+        <div class="hero-badge" style="margin-bottom:10px" data-en="✂️ Book Your Visit" data-fr="✂️ Réservez votre visite" data-ar="✂️ احجز موعدك">✂️ Book Your Visit</div>
+        <h2 data-en='READY FOR A<br><span style="color:#C9A84C">FRESH LOOK?</span>' data-fr='PRÊT POUR UN<br><span style="color:#C9A84C">NOUVEAU LOOK?</span>' data-ar='مستعد لـ<br><span style="color:#C9A84C">إطلالة جديدة؟</span>'>READY FOR A<br><span style="color:#C9A84C">FRESH LOOK?</span></h2>
+        <p data-en="Book online and skip the wait. Reserving guarantees your spot." data-fr="Réservez en ligne sans attendre. Réserver garantit votre place." data-ar="احجز عبر الإنترنت وتجاوز الانتظار. الحجز يضمن مكانك.">Book online and skip the wait. Reserving guarantees your spot.</p>
+        <div class="fi"><div class="dot"></div><div class="tx" data-en="No waiting — be ready when you arrive" data-fr="Pas d'attente — soyez prêt à votre arrivée" data-ar="لا انتظار — كن جاهزاً عند وصولك">No waiting — be ready when you arrive</div></div>
+        <div class="fi"><div class="dot"></div><div class="tx" data-en="Choose your preferred barber and service" data-fr="Choisissez votre barbier et service préférés" data-ar="اختر الحلاق والخدمة التي تفضلها">Choose your preferred barber and service</div></div>
+        <div class="fi"><div class="dot"></div><div class="tx" data-en="Free consultation before every service" data-fr="Consultation gratuite avant chaque service" data-ar="استشارة مجانية قبل كل خدمة">Free consultation before every service</div></div>
       </div>
-      <form class="booking-form" id="bookingForm" onsubmit="return handleBooking(event)">
-        <div class="fg"><label>Full Name</label><input type="text" id="bkName" placeholder="e.g. John Doe" required></div>
+      <form class="booking-form" onsubmit="return handleBooking(event)">
+        <div class="fg"><label data-en="Full Name" data-fr="Nom complet" data-ar="الاسم الكامل">Full Name</label><input type="text" id="bkName" required placeholder="e.g. John Doe"></div>
         <div class="fr">
-          <div class="fg"><label>Phone</label><input type="tel" id="bkPhone" placeholder="+1 555-1234" required></div>
-          <div class="fg"><label>Service</label><select id="bkService" required></select></div>
+          <div class="fg"><label data-en="Phone" data-fr="Téléphone" data-ar="رقم الهاتف">Phone</label><input type="tel" id="bkPhone" required placeholder="+1 555-1234"></div>
+          <div class="fg"><label data-en="Service" data-fr="Service" data-ar="الخدمة">Service</label><select id="bkService" required></select></div>
         </div>
         <div class="fr">
-          <div class="fg"><label>Barber</label><select id="bkBarber" required></select></div>
-          <div class="fg"><label>Date &amp; Time</label><input type="datetime-local" id="bkDateTime" required></div>
+          <div class="fg"><label data-en="Barber" data-fr="Barbier" data-ar="الحلاق">Barber</label><select id="bkBarber" required></select></div>
+          <div class="fg"><label data-en="Date &amp; Time" data-fr="Date et heure" data-ar="التاريخ والوقت">Date &amp; Time</label><input type="datetime-local" id="bkDateTime" required></div>
         </div>
-        <button type="submit" class="btn btn-primary btn-block form-submit" style="margin-top:4px">✂️ Confirm Booking</button>
+        <button type="submit" class="btn btn-block" style="margin-top:4px" data-en="✂️ CONFIRM BOOKING" data-fr="✂️ CONFIRMER" data-ar="✂️ تأكيد الحجز">✂️ CONFIRM BOOKING</button>
         <p id="bkMsg" style="text-align:center;margin-top:10px;font-size:12px;color:rgba(255,255,255,.3);display:none"></p>
       </form>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer style="padding:24px 20px;text-align:center;border-top:1px solid rgba(255,255,255,.03);margin-top:10px">
-  <p style="font-size:11px;color:rgba(255,255,255,.15);letter-spacing:1px">✂️ Blade &amp; Razor — Premium Barbershop &copy; 2026</p>
-</footer>
+<footer><p data-en="✂️ Blade &amp; Razor — Premium Barbershop &copy; 2026" data-fr="✂️ Blade &amp; Razor — Salon de coiffure &copy; 2026" data-ar="✂️ بليد آند ريزور — صالون حلاقة راقي &copy; 2026">✂️ Blade &amp; Razor — Premium Barbershop &copy; 2026</p></footer>
 
 <!-- ADMIN FAB -->
-<button class="admin-fab" id="adminFab" title="Admin Panel">⚙</button>
+<button class="admin-fab" onclick="openAdmin()">⚙</button>
 
-<!-- ADMIN LOGIN OVERLAY -->
-<div class="admin-overlay" id="adminLoginOverlay">
-  <div class="admin-login">
-    <h2>🔐 Admin</h2>
-    <p>Enter password to access dashboard</p>
-    <input type="password" id="adminPassInput" placeholder="Password" onkeydown="if(event.key==='Enter')adminLogin()">
-    <button class="btn btn-primary btn-block" onclick="adminLogin()">Login</button>
-    <p id="adminErr" style="color:#e44;font-size:11px;margin-top:8px;display:none"></p>
-    <button class="btn btn-ghost btn-sm" style="margin-top:8px;width:100%" onclick="closeAdminLogin()">Cancel</button>
-  </div>
-</div>
+<!-- ADMIN PANEL -->
+<div id="adminPanel">
+  <div class="admin-layout">
+    <div class="admin-sidebar">
+      <h3 data-en="⚙ Admin" data-fr="⚙ Admin" data-ar="⚙ الإدارة">⚙ Admin</h3>
+      <button class="abtn active" onclick="showPane('services')" data-en="💈 Services" data-fr="💈 Services" data-ar="💈 الخدمات">💈 Services</button>
+      <button class="abtn" onclick="showPane('barbers')" data-en="✂️ Barbers" data-fr="✂️ Barbiers" data-ar="✂️ الحلاقون">✂️ Barbers</button>
+      <button class="abtn" onclick="showPane('currency')" data-en="💰 Currency" data-fr="💰 Devise" data-ar="💰 العملة">💰 Currency</button>
+      <button class="abtn" onclick="showPane('bookings')" data-en="📋 Bookings" data-fr="📋 Réservations" data-ar="📋 الحجوزات">📋 Bookings</button>
+      <div class="spacer"></div>
+      <button class="abtn" onclick="resetData()" style="color:rgba(255,100,100,.5)" data-en="🔄 Reset Defaults" data-fr="🔄 Réinitialiser" data-ar="🔄 إعادة تعيين">🔄 Reset Defaults</button>
+      <button class="close-btn" onclick="closeAdmin()" data-en="✕ Close" data-fr="✕ Fermer" data-ar="✕ إغلاق">✕ Close</button>
+    </div>
+    <div class="admin-main">
+      <button class="admin-close-top" onclick="closeAdmin()" data-en="✕ Close" data-fr="✕ Fermer" data-ar="✕ إغلاق">✕ Close</button>
 
-<!-- ADMIN DASHBOARD -->
-<div class="admin-dash" id="adminDash">
-  <div class="admin-side">
-    <h3>⚙ Admin</h3>
-    <button class="ab on" data-pane="services">💈 Services</button>
-    <button class="ab" data-pane="barbers">✂️ Barbers</button>
-    <button class="ab" data-pane="currency">💰 Currency</button>
-    <button class="ab" data-pane="bookings">📋 Bookings</button>
-    <div class="spacer"></div>
-    <button class="logout" onclick="adminLogout()">🚪 Logout</button>
-  </div>
-  <div class="admin-main">
-    <!-- Services Pane -->
-    <div class="admin-pane on" id="pane-services">
-      <h2><span class="hdr-l">💈 Services</span><button class="btn btn-sm btn-primary" onclick="openServiceModal()">+ Add</button></h2>
-      <div style="overflow-x:auto"><table class="adm-tbl" id="svcTable"><thead><tr><th>Name</th><th>Description</th><th>Price</th><th>Image</th><th></th></tr></thead><tbody></tbody></table></div>
-    </div>
-    <!-- Barbers Pane -->
-    <div class="admin-pane" id="pane-barbers">
-      <h2><span class="hdr-l">✂️ Barbers</span><button class="btn btn-sm btn-primary" onclick="openBarberModal()">+ Add</button></h2>
-      <div style="overflow-x:auto"><table class="adm-tbl" id="brbTable"><thead><tr><th>Name</th><th>Specialty</th><th>Hours</th><th>Photo</th><th></th></tr></thead><tbody></tbody></table></div>
-    </div>
-    <!-- Currency Pane -->
-    <div class="admin-pane" id="pane-currency">
-      <h2>💰 Currency &amp; Pricing</h2>
-      <div class="fg" style="max-width:320px"><label>Currency</label>
-        <select id="currencySelect" onchange="changeCurrency(this.value)" style="padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.035);color:#fff;font-size:13px;font-family:'Inter',sans-serif;width:100%;outline:none">
-          <option value="USD,$">USD ($)</option><option value="EUR,€">EUR (€)</option><option value="GBP,£">GBP (£)</option>
-          <option value="SAR,ر.س">SAR (ر.س)</option><option value="AED,د.إ">AED (د.إ)</option><option value="KWD,د.ك">KWD (د.ك)</option>
-          <option value="MAD,د.م">MAD (د.م)</option><option value="DZD,دج">DZD (دج)</option><option value="TND,د.ت">TND (د.ت)</option>
-          <option value="EGP,£E">EGP (£E)</option>
-        </select>
+      <div class="admin-pane active" id="pane-services">
+        <h2><span data-en="💈 Services" data-fr="💈 Services" data-ar="💈 الخدمات">💈 Services</span><button class="btn btn-sm" onclick="openSvcModal()" data-en="+ Add" data-fr="+ Ajouter" data-ar="+ إضافة">+ Add</button></h2>
+        <div style="overflow-x:auto"><table class="adm-tbl"><thead><tr><th data-en="Name" data-fr="Nom" data-ar="الاسم">Name</th><th data-en="Description" data-fr="Description" data-ar="الوصف">Description</th><th data-en="Price" data-fr="Prix" data-ar="السعر">Price</th><th data-en="Image" data-fr="Image" data-ar="الصورة">Image</th><th></th></tr></thead><tbody id="admSvcBody"></tbody></table></div>
       </div>
-      <p style="font-size:11px;color:rgba(255,255,255,.3);margin-bottom:12px">Changing the currency updates all displayed prices instantly.</p>
-      <div style="overflow-x:auto"><table class="adm-tbl" id="priceTable"><thead><tr><th>Service</th><th>Current Price</th><th>New Price</th><th></th></tr></thead><tbody></tbody></table></div>
-    </div>
-    <!-- Bookings Pane -->
-    <div class="admin-pane" id="pane-bookings">
-      <h2><span class="hdr-l">📋 Bookings</span><span style="font-size:12px;color:rgba(255,255,255,.25);font-weight:400;font-family:'Inter',sans-serif;text-transform:none" id="bkCount"></span></h2>
-      <div style="overflow-x:auto"><table class="adm-tbl" id="bkTable"><thead><tr><th>Name</th><th>Phone</th><th>Service</th><th>Barber</th><th>Date/Time</th><th>Status</th><th></th></tr></thead><tbody></tbody></table></div>
+
+      <div class="admin-pane" id="pane-barbers">
+        <h2><span data-en="✂️ Barbers" data-fr="✂️ Barbiers" data-ar="✂️ الحلاقون">✂️ Barbers</span><button class="btn btn-sm" onclick="openBrbModal()" data-en="+ Add" data-fr="+ Ajouter" data-ar="+ إضافة">+ Add</button></h2>
+        <div style="overflow-x:auto"><table class="adm-tbl"><thead><tr><th data-en="Name" data-fr="Nom" data-ar="الاسم">Name</th><th data-en="Specialty" data-fr="Spécialité" data-ar="التخصص">Specialty</th><th data-en="Photo" data-fr="Photo" data-ar="الصورة">Photo</th><th></th></tr></thead><tbody id="admBrbBody"></tbody></table></div>
+      </div>
+
+      <div class="admin-pane" id="pane-currency">
+        <h2><span data-en="💰 Currency &amp; Pricing" data-fr="💰 Devise et prix" data-ar="💰 العملة والأسعار">💰 Currency &amp; Pricing</span></h2>
+        <div class="fg" style="max-width:320px">
+          <label data-en="Currency" data-fr="Devise" data-ar="العملة">Currency</label>
+          <select onchange="changeCur(this.value)" style="padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.035);color:#fff;font-size:13px;font-family:'Inter',sans-serif;width:100%;outline:none" id="curSelect">
+            <option value="$">USD ($)</option>
+            <option value="€">EUR (€)</option>
+            <option value="£">GBP (£)</option>
+            <option value="ر.س">SAR (ر.س)</option>
+            <option value="د.إ">AED (د.إ)</option>
+            <option value="دج">DZD (دج)</option>
+            <option value="د.م">MAD (د.م)</option>
+            <option value="د.ت">TND (د.ت)</option>
+          </select>
+        </div>
+        <p style="font-size:11px;color:rgba(255,255,255,.3);margin-bottom:12px" data-en="Select currency to change display symbol. Edit prices below per service." data-fr="Sélectionnez la devise. Modifiez les prix ci-dessous par service." data-ar="اختر العملة. عدل الأسعار أدناه لكل خدمة.">Select currency to change display symbol. Edit prices below per service.</p>
+        <div style="overflow-x:auto"><table class="adm-tbl"><thead><tr><th data-en="Service" data-fr="Service" data-ar="الخدمة">Service</th><th data-en="Current Price" data-fr="Prix actuel" data-ar="السعر الحالي">Current Price</th><th data-en="New Price" data-fr="Nouveau prix" data-ar="السعر الجديد">New Price</th><th></th></tr></thead><tbody id="admPriceBody"></tbody></table></div>
+      </div>
+
+      <div class="admin-pane" id="pane-bookings">
+        <h2><span data-en="📋 Bookings" data-fr="📋 Réservations" data-ar="📋 الحجوزات">📋 Bookings</span> <span style="font-size:12px;color:rgba(255,255,255,.25)" id="bkCount"></span></h2>
+        <div style="overflow-x:auto"><table class="adm-tbl"><thead><tr><th data-en="Name" data-fr="Nom" data-ar="الاسم">Name</th><th data-en="Phone" data-fr="Téléphone" data-ar="الهاتف">Phone</th><th data-en="Service" data-fr="Service" data-ar="الخدمة">Service</th><th data-en="Barber" data-fr="Barbier" data-ar="الحلاق">Barber</th><th data-en="Date/Time" data-fr="Date/Heure" data-ar="التاريخ/الوقت">Date/Time</th><th data-en="Status" data-fr="Statut" data-ar="الحالة">Status</th><th></th></tr></thead><tbody id="admBkBody"></tbody></table></div>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- MODAL -->
-<div class="modal-bg" id="modalBg"><div class="modal-box" id="modalBox"></div></div>
+<!-- MODAL OVERLAY -->
+<div id="modalOverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box" id="modalBox"></div>
+</div>
 
 <!-- TOASTS -->
-<div class="toast-wrap" id="toastWrap"></div>
+<div id="toastWrap"></div>
 
 <script>
-// ======================== DATA LAYER ========================
-const LS = { svc:'barbershop_services', brb:'barbershop_barbers', cur:'barbershop_currency', bk:'barbershop_bookings' };
-const CURRENCIES = ['USD,$','EUR,€','GBP,£','SAR,ر.س','AED,د.إ','KWD,د.ك','MAD,د.م','DZD,دج','TND,د.ت','EGP,£E'];
-
-const DEFAULT_SERVICES = [
-  { id:1,name:'Classic Haircut',desc:'Precision scissor & clipper work with hot towel finish.',price:35,tags:['Scissor','Clipper','Hot Towel'],img:'https://images.unsplash.com/photo-1596728325488-58c87691e9af?w=400&q=80' },
-  { id:2,name:'Fade Cut',desc:'Modern fade haircut — low, mid, high, or skin fade.',price:40,tags:['Fade','Modern','Style'],img:'https://images.unsplash.com/photo-1599351431202-1e0f1e7a3e2d?w=400&q=80' },
-  { id:3,name:'Beard Trim',desc:'Full beard shape-up with hot towel and oil finish.',price:25,tags:['Beard','Shape','Oil'],img:'https://images.unsplash.com/photo-1621605815971-fbc98d665666?w=400&q=80' },
-  { id:4,name:'Hot Towel Shave',desc:'Straight razor shave with hot lather and cold towel.',price:45,tags:['Razor','Lather','Aftershave'],img:'https://images.unsplash.com/photo-1585747861115-93e382e01d72?w=400&q=80' },
-  { id:5,name:"Kids Cut",desc:'Friendly, patient haircut for children under 12.',price:20,tags:['Kids','Gentle','Quick'],img:'https://images.unsplash.com/photo-1593702288056-996c0f12a5b4?w=400&q=80' }
-];
-
-const DEFAULT_BARBERS = [
-  { id:1,name:'Ahmed',specialty:'Master Barber',hours:'9AM-6PM',img:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80' },
-  { id:2,name:'Karim',specialty:'Fade Specialist',hours:'10AM-7PM',img:'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&q=80' },
-  { id:3,name:'Youssef',specialty:'Beard Expert',hours:'11AM-8PM',img:'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80' }
-];
-
-function loadData(k, def){ try{ var d=localStorage.getItem(k); return d?JSON.parse(d):def; }catch(e){return def} }
-function saveData(k, v){ localStorage.setItem(k, JSON.stringify(v)); }
-
-function getServices(){ return loadData(LS.svc, DEFAULT_SERVICES); }
-function setServices(s){ saveData(LS.svc, s); }
-function getBarbers(){ return loadData(LS.brb, DEFAULT_BARBERS); }
-function setBarbers(b){ saveData(LS.brb, b); }
-function getCurrency(){ var c=loadData(LS.cur, 'USD,$'); if(typeof c==='string')return c; return 'USD,$'; }
-function setCurrency(c){ saveData(LS.cur, c); }
-function getBookings(){ return loadData(LS.bk, []); }
-function setBookings(b){ saveData(LS.bk, b); }
-
-function currencySymbol(){ return getCurrency().split(',')[1]; }
-function nextId(arr){ return arr.length?Math.max(...arr.map(x=>x.id))+1:1; }
-
-// ======================== TOAST ========================
-function toast(msg, gold){
-  var w=document.getElementById('toastWrap'), t=document.createElement('div');
-  t.className='toast'+(gold?' gold':''); t.innerHTML='<span>'+msg+'</span><button class="tc" onclick="this.parentElement.remove()">✕</button>';
-  w.appendChild(t); setTimeout(function(){if(t.parentElement)t.remove()},3500);
-}
-
-// ======================== PUBLIC RENDER ========================
-function renderServices(){
-  var g=document.getElementById('servicesGrid'), sym=currencySymbol(), sv=getServices();
-  g.innerHTML=sv.map(function(s){
-    var tags=s.tags? s.tags.map(function(t){return '<span>'+t+'</span>'}).join('') :'';
-    return '<div class="service-card"><div class="bg" style="background-image:url('+s.img+')"></div><div class="shade"></div><span class="ic">💈</span><h3>'+s.name+' <span class="pr">'+sym+s.price+'</span></h3><p>'+s.desc+'</p><div class="tags">'+tags+'</div></div>';
-  }).join('');
-  document.getElementById('servicesSub').textContent=sv.length+' premium services available';
-}
-
-function renderBarbers(){
-  var g=document.getElementById('barbersGrid'), br=getBarbers();
-  g.innerHTML=br.map(function(b){
-    return '<div class="barber-card"><img class="av" src="'+b.img+'" alt="" loading="lazy"><h4>'+b.name+'</h4><div class="sp">'+b.specialty+'</div><div class="hrs">📅 '+b.hours+'</div></div>';
-  }).join('');
-}
-
-function renderBookingDropdowns(){
-  var ss=document.getElementById('bkService'), bs=document.getElementById('bkBarber');
-  var sv=getServices(), br=getBarbers(), sym=currencySymbol();
-  ss.innerHTML='<option value="">Select service</option>'+sv.map(function(s){return '<option value="'+s.id+'">'+s.name+' — '+sym+s.price+'</option>';}).join('');
-  bs.innerHTML='<option value="">Choose barber</option>'+br.map(function(b){return '<option value="'+b.id+'">'+b.name+'</option>';}).join('');
-}
-
-function renderPublic(){
-  renderServices(); renderBarbers(); renderBookingDropdowns();
-}
-
-// ======================== HERO GALLERY ========================
-(function(){
-  var urls=[
-    'https://images.unsplash.com/photo-1585747861115-93e382e01d72?w=400&q=80',
-    'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=400&q=80',
-    'https://images.unsplash.com/photo-1596728325488-58c87691e9af?w=400&q=80',
-    'https://images.unsplash.com/photo-1599351431202-1e0f1e7a3e2d?w=400&q=80',
-    'https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=400&q=80',
-    'https://images.unsplash.com/photo-1621605815971-fbc98d665666?w=400&q=80',
-    'https://images.unsplash.com/photo-1593702288056-996c0f12a5b4?w=400&q=80'
-  ];
-  var t=document.getElementById('galleryTrack');
-  t.innerHTML=urls.concat(urls).map(function(u){return '<img src="'+u+'" alt="" loading="lazy">';}).join('');
-})();
-
-// ======================== BOOKING ========================
-window.handleBooking = function(e){
-  e.preventDefault();
-  var name=document.getElementById('bkName').value.trim();
-  var phone=document.getElementById('bkPhone').value.trim();
-  var svc=document.getElementById('bkService').value;
-  var brb=document.getElementById('bkBarber').value;
-  var dt=document.getElementById('bkDateTime').value;
-  var msg=document.getElementById('bkMsg');
-  if(!name||!phone||!svc||!brb||!dt){
-    msg.style.display='block'; msg.style.color='rgba(255,80,80,.7)';
-    msg.textContent='⚠️ Please fill in all fields.'; return false;
-  }
-  var sv=getServices(), br=getBarbers();
-  var sn=sv.find(function(s){return s.id==svc}); sn=sn?sn.name:'—';
-  var bn=br.find(function(b){return b.id==brb}); bn=bn?bn.name:'—';
-  var bk=getBookings();
-  bk.push({ id:nextId(bk), name:name, phone:phone, service:sn, barber:bn, datetime:dt, status:'pending' });
-  setBookings(bk);
-  msg.style.display='block'; msg.style.color='rgba(201,168,76,.8)';
-  msg.textContent='✅ Booking confirmed! We\'ll see you at '+dt.replace('T',' ')+'.';
-  document.getElementById('bookingForm').reset();
-  toast('✅ Booked! See you soon.', true);
-  renderAdminBookings();
-  setTimeout(function(){msg.style.display='none';},4000);
-  return false;
-};
-
-(function(){
-  var n=new Date();
-  document.getElementById('bkDateTime').min=n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0')+'T'+String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');
-})();
-
-// ======================== INTERSECTION OBSERVER ========================
-var obs=new IntersectionObserver(function(es){
-  es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
-},{threshold:.12,rootMargin:'0px 0px -30px 0px'});
-document.querySelectorAll('section').forEach(function(s){ if(!s.classList.contains('hero')) obs.observe(s); });
-
-// ======================== NAV ========================
-var nav=document.getElementById('nav');
-window.addEventListener('scroll',function(){ nav.classList.toggle('scrolled',window.scrollY>50); });
-
-document.getElementById('navToggle').addEventListener('click',function(){
-  document.getElementById('navLinks').classList.toggle('open');
-});
-document.querySelectorAll('.nav-links a').forEach(function(a){
-  a.addEventListener('click',function(){ document.getElementById('navLinks').classList.remove('open'); });
-});
-
-// ======================== PARALLAX ========================
-window.addEventListener('scroll',function(){
-  var y=window.scrollY, hc=document.getElementById('heroContent');
-  if(hc) hc.style.transform='translateY('+(y*.12)+'px)';
-});
-
-// ======================== ADMIN ========================
+// ============ DATA LAYER ============
+var FALLBACK_IMG = 'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=400&q=80';
 var ADMIN_PASS = 'admin123';
-var adminLoggedIn = false;
 
-function openAdminLogin(){
-  document.getElementById('adminLoginOverlay').classList.add('open');
-  document.getElementById('adminPassInput').value=''; document.getElementById('adminErr').style.display='none';
-  document.getElementById('adminPassInput').focus();
+function loadData(key, def) {
+  try { var v = localStorage.getItem(key); return v ? JSON.parse(v) : def; } catch(e) { return def; }
+}
+function saveData(key, v) { localStorage.setItem(key, JSON.stringify(v)); }
+
+function getServices() {
+  return loadData('bs_services', [
+    {id:1,name:'Classic Haircut',desc:'Precision scissor & clipper work with hot towel finish.',price:35,tags:['Scissor','Clipper','Hot Towel'],img:'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400&q=80'},
+    {id:2,name:'Fade Cut',desc:'Modern fade — low, mid, high, or skin fade.',price:40,tags:['Fade','Modern','Style'],img:'https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=400&q=80'},
+    {id:3,name:'Beard Trim',desc:'Full beard shape-up with hot towel and oil.',price:25,tags:['Beard','Shape','Oil'],img:'https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=400&q=80'},
+    {id:4,name:'Hot Towel Shave',desc:'Straight razor shave with hot lather and cold towel.',price:45,tags:['Razor','Lather','Aftershave'],img:'https://images.unsplash.com/photo-1493256338651-d82f7acb2b38?w=400&q=80'},
+    {id:5,name:"Kids Cut",desc:'Friendly haircut for children under 12.',price:20,tags:['Kids','Gentle','Quick'],img:'https://images.unsplash.com/photo-1634302086687-6e14d422a728?w=400&q=80'}
+  ]);
+}
+function setServices(v) { saveData('bs_services', v); }
+
+function getBarbers() {
+  return loadData('bs_barbers', [
+    {id:1,name:'Ahmed',specialty:'Master Barber',img:'https://images.unsplash.com/photo-1618077360395-f3068be8e001?w=300&q=80'},
+    {id:2,name:'Karim',specialty:'Fade Specialist',img:'https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=300&q=80'},
+    {id:3,name:'Youssef',specialty:'Beard Expert',img:'https://images.unsplash.com/photo-1534297635766-a262cdcb8ee4?w=300&q=80'}
+  ]);
+}
+function setBarbers(v) { saveData('bs_barbers', v); }
+
+function getCurrency() { return loadData('bs_currency', '$'); }
+function setCurrency(v) { saveData('bs_currency', v); }
+
+function getBookings() { return loadData('bs_bookings', []); }
+function setBookings(v) { saveData('bs_bookings', v); }
+
+function getLang() { return loadData('bs_lang', 'en'); }
+function setLangStore(v) { saveData('bs_lang', v); }
+
+function nextId(arr) { return arr.length ? Math.max.apply(null, arr.map(function(x){return x.id})) + 1 : 1; }
+
+// ============ TOAST ============
+function toast(msg, gold) {
+  var w = document.getElementById('toastWrap');
+  var t = document.createElement('div');
+  t.className = 'toast' + (gold ? ' gold' : '');
+  t.innerHTML = '<span>' + msg + '</span><button class="tc" onclick="this.parentElement.remove()">✕</button>';
+  w.appendChild(t);
+  setTimeout(function(){ if(t.parentElement) t.remove(); }, 3500);
 }
 
-function closeAdminLogin(){ document.getElementById('adminLoginOverlay').classList.remove('open'); }
-
-document.getElementById('adminFab').addEventListener('click',openAdminLogin);
-
-window.adminLogin = function(){
-  var p=document.getElementById('adminPassInput').value;
-  if(p===ADMIN_PASS){
-    adminLoggedIn=true;
-    closeAdminLogin();
-    document.getElementById('adminDash').classList.add('open');
-    renderAdminAll();
-    toast('🔐 Welcome, admin', true);
-  } else {
-    document.getElementById('adminErr').textContent='❌ Wrong password';
-    document.getElementById('adminErr').style.display='block';
-  }
-};
-
-window.adminLogout = function(){
-  adminLoggedIn=false;
-  document.getElementById('adminDash').classList.remove('open');
-  toast('🔒 Logged out');
-};
-
-// === ADMIN SIDEBAR ===
-document.querySelectorAll('.admin-side .ab').forEach(function(b){
-  b.addEventListener('click',function(){
-    document.querySelectorAll('.admin-side .ab').forEach(function(x){x.classList.remove('on');});
-    document.querySelectorAll('.admin-pane').forEach(function(x){x.classList.remove('on');});
-    b.classList.add('on');
-    document.getElementById('pane-'+b.dataset.pane).classList.add('on');
-    if(b.dataset.pane==='services') renderAdminServices();
-    else if(b.dataset.pane==='barbers') renderAdminBarbers();
-    else if(b.dataset.pane==='currency') renderAdminCurrency();
-    else if(b.dataset.pane==='bookings') renderAdminBookings();
+// ============ LANGUAGE ============
+function setLang(lang) {
+  setLangStore(lang);
+  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-en]').forEach(function(el) {
+    el.innerHTML = el.getAttribute('data-' + lang) || el.getAttribute('data-en');
   });
-});
+  document.querySelectorAll('.lang-btn').forEach(function(b) {
+    b.classList.toggle('active', b.getAttribute('onclick').indexOf("'" + lang + "'") > -1);
+  });
+  // Also update booking form placeholders and service/barber selects
+  var bkName = document.getElementById('bkName');
+  var bkPhone = document.getElementById('bkPhone');
+  var tr = {en:{n:'e.g. John Doe',p:'+1 555-1234'},fr:{n:'ex: Jean Dupont',p:'+33 6 12 34 56 78'},ar:{n:'مثال: أحمد علي',p:'+213 555 123 456'}};
+  if(bkName) bkName.placeholder = tr[lang].n;
+  if(bkPhone) bkPhone.placeholder = tr[lang].p;
+}
 
-// === ADMIN RENDERS ===
-function renderAdminAll(){ renderAdminServices(); renderAdminBarbers(); renderAdminCurrency(); renderAdminBookings(); }
+// ============ NAVIGATION ============
+function scrollToSection(id) {
+  var el = document.getElementById(id);
+  if(el) el.scrollIntoView({behavior:'smooth'});
+  var nl = document.getElementById('navLinks');
+  nl.classList.remove('open');
+}
 
-function renderAdminServices(){
-  var sv=getServices(), sym=currencySymbol(), tb=document.getElementById('svcTable').querySelector('tbody');
-  tb.innerHTML=sv.map(function(s){
-    return '<tr><td>'+s.name+'</td><td style="color:rgba(255,255,255,.4);font-size:11px">'+(s.desc||'')+'</td><td style="color:#C9A84C;font-weight:600">'+sym+s.price+'</td><td>'+(s.img?'<img src="'+s.img+'" style="width:32px;height:32px;border-radius:50%;object-fit:cover">':'—')+'</td><td><div class="acts"><button class="btn-gold-outline btn-sm" onclick="openServiceModal('+s.id+')">Edit</button><button class="btn-danger btn-sm" onclick="deleteService('+s.id+')">Del</button></div></td></tr>';
+function toggleNav() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+// ============ RENDER PUBLIC ============
+function renderServices() {
+  var g = document.getElementById('svcGrid');
+  var sv = getServices();
+  var sym = getCurrency();
+  g.innerHTML = sv.map(function(s) {
+    var tags = s.tags ? s.tags.map(function(t){return '<span>'+t+'</span>'}).join('') : '';
+    return '<div class="s-card card">' +
+      '<img src="'+s.img+'" alt="'+s.name+'" onerror="this.style.background=\'#C9A84C\';this.src=\'\'" loading="lazy">' +
+      '<div class="s-card-body">' +
+      '<h3>'+s.name+' <span class="price">'+sym+s.price+'</span></h3>' +
+      '<p>'+s.desc+'</p>' +
+      '<div class="tags">'+tags+'</div>' +
+      '</div></div>';
   }).join('');
 }
 
-function renderAdminBarbers(){
-  var br=getBarbers(), tb=document.getElementById('brbTable').querySelector('tbody');
-  tb.innerHTML=br.map(function(b){
-    return '<tr><td>'+b.name+'</td><td style="color:rgba(255,255,255,.4);font-size:11px">'+b.specialty+'</td><td style="font-size:11px;color:rgba(255,255,255,.35)">'+b.hours+'</td><td>'+(b.img?'<img src="'+b.img+'" style="width:32px;height:32px;border-radius:50%;object-fit:cover">':'—')+'</td><td><div class="acts"><button class="btn-gold-outline btn-sm" onclick="openBarberModal('+b.id+')">Edit</button><button class="btn-danger btn-sm" onclick="deleteBarber('+b.id+')">Del</button></div></td></tr>';
+function renderBarbers() {
+  var g = document.getElementById('brbGrid');
+  var br = getBarbers();
+  g.innerHTML = br.map(function(b) {
+    return '<div class="br-card card">' +
+      '<img src="'+b.img+'" alt="'+b.name+'" onerror="this.style.background=\'#C9A84C\';this.src=\'\'" loading="lazy">' +
+      '<h4>'+b.name+'</h4>' +
+      '<div class="sp">'+b.specialty+'</div></div>';
   }).join('');
 }
 
-function renderAdminCurrency(){
-  var cur=getCurrency(), sel=document.getElementById('currencySelect');
-  sel.value=cur;
-  var sv=getServices(), sym=currencySymbol(), tb=document.getElementById('priceTable').querySelector('tbody');
-  tb.innerHTML=sv.map(function(s){
-    return '<tr><td>'+s.name+'</td><td style="color:#C9A84C;font-weight:600">'+sym+s.price+'</td><td><input type="number" id="np_'+s.id+'" value="'+s.price+'" style="width:80px;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.035);color:#fff;font-size:12px;font-family:inherit;outline:none"></td><td><button class="btn-sm" style="background:rgba(201,168,76,.12);color:#C9A84C;border:none;padding:5px 12px;border-radius:5px;cursor:pointer;font-size:10px;font-weight:600;font-family:inherit" onclick="updateServicePrice('+s.id+')">Update</button></td></tr>';
+function renderBookingDD() {
+  var ss = document.getElementById('bkService');
+  var bs = document.getElementById('bkBarber');
+  var sv = getServices();
+  var br = getBarbers();
+  var sym = getCurrency();
+  var lang = getLang();
+  var svcLabel = {en:'Select service',fr:'Choisir service',ar:'اختر الخدمة'};
+  var brbLabel = {en:'Select barber',fr:'Choisir barbier',ar:'اختر الحلاق'};
+  ss.innerHTML = '<option value="">'+svcLabel[lang]+'</option>' +
+    sv.map(function(s){return '<option value="'+s.id+'">'+s.name+' — '+sym+s.price+'</option>';}).join('');
+  bs.innerHTML = '<option value="">'+brbLabel[lang]+'</option>' +
+    br.map(function(b){return '<option value="'+b.id+'">'+b.name+'</option>';}).join('');
+}
+
+function renderGallery() {
+  var urls = [
+    'https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=600&q=80',
+    'https://images.unsplash.com/photo-1517832606299-7ae9b720a9b4?w=600&q=80',
+    'https://images.unsplash.com/photo-1596728325488-58c87691e9af?w=600&q=80',
+    'https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=600&q=80',
+    'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=600&q=80',
+    'https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=600&q=80',
+    'https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=600&q=80',
+    'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=600&q=80'
+  ];
+  var t = document.getElementById('galTrack');
+  t.innerHTML = urls.concat(urls).map(function(u) {
+    return '<img src="'+u+'" alt="" onerror="this.style.background=\'#C9A84C\';this.src=\'\'" loading="lazy">';
   }).join('');
 }
 
-function renderAdminBookings(){
-  var bk=getBookings(), tb=document.getElementById('bkTable').querySelector('tbody');
-  document.getElementById('bkCount').textContent='('+bk.length+' total)';
-  if(!bk.length){ tb.innerHTML='<tr><td colspan="7" style="text-align:center;color:rgba(255,255,255,.2);padding:20px">No bookings yet</td></tr>'; return; }
-  tb.innerHTML=bk.map(function(b){
-    var st=b.status==='confirmed'?'✅ Confirmed':'⏳ Pending';
-    return '<tr><td>'+b.name+'</td><td style="direction:ltr;text-align:right;font-size:11px">'+b.phone+'</td><td>'+b.service+'</td><td>'+b.barber+'</td><td style="font-size:11px;color:rgba(255,255,255,.4)">'+b.datetime.replace('T',' ')+'</td><td>'+st+'</td><td><div class="acts">'+(b.status!=='confirmed'?'<button class="btn-sm" style="background:rgba(0,200,80,.12);color:#4c4;border:none;padding:3px 8px;border-radius:4px;cursor:pointer;font-size:9px;font-weight:600;font-family:inherit" onclick="confirmBooking('+b.id+')">Confirm</button>':'')+'<button class="btn-danger btn-sm" onclick="deleteBooking('+b.id+')">Del</button></div></td></tr>';
+function renderStats() {
+  var data = [
+    {ico:'✂️',target:5000,lbl:{en:'Clients',fr:'Clients',ar:'الزبائن'}},
+    {ico:'⭐',target:49,lbl:{en:'Rating',fr:'Note',ar:'التقييم'},dec:1},
+    {ico:'💈',target:8,lbl:{en:'Years',fr:'Années',ar:'سنوات'}},
+    {ico:'👨',target:3,lbl:{en:'Barbers',fr:'Barbiers',ar:'حلاقون'}}
+  ];
+  var g = document.getElementById('statsGrid');
+  var lang = getLang();
+  g.innerHTML = data.map(function(s, i) {
+    return '<div class="st-item"><span class="ico">'+s.ico+'</span><div class="num" id="sn'+i+'">0</div><div class="lbl">'+(s.lbl[lang]||s.lbl.en)+'</div></div>';
   }).join('');
-}
-
-// === ADMIN CRUD ===
-window.openServiceModal = function(id){
-  var sv=getServices(), s=id?sv.find(function(x){return x.id===id}):null;
-  showModal(
-    '<h3>'+(s?'Edit Service':'Add Service')+'</h3>'+
-    '<div class="fg"><label>Name</label><input type="text" id="mSvcName" value="'+(s?s.name:'')+'" placeholder="Service name"></div>'+
-    '<div class="fg"><label>Description</label><textarea id="mSvcDesc" rows="2" style="width:100%;padding:9px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.035);color:#fff;font-family:\'Inter\',sans-serif;font-size:12px;outline:none;resize:vertical">'+(s?s.desc||'':'')+'</textarea></div>'+
-    '<div class="fg"><label>Price</label><input type="number" id="mSvcPrice" value="'+(s?s.price:'')+'" placeholder="35" step="0.5"></div>'+
-    '<div class="fg"><label>Image URL</label><input type="text" id="mSvcImg" value="'+(s?s.img||'')+'" placeholder="https://..."></div>'+
-    '<div class="fg"><label>Tags (comma separated)</label><input type="text" id="mSvcTags" value="'+(s&&s.tags?s.tags.join(', '):'')+'" placeholder="e.g. Scissor, Clipper"></div>'+
-    '<div class="modal-acts"><button class="btn btn-primary btn-sm" onclick="saveService('+(id||'null')+')">'+(s?'Update':'Add')+'</button><button class="btn btn-ghost btn-sm" onclick="closeModal()">Cancel</button></div>'
-  );
-};
-
-window.saveService = function(id){
-  var name=document.getElementById('mSvcName').value.trim();
-  var desc=document.getElementById('mSvcDesc').value.trim();
-  var price=parseFloat(document.getElementById('mSvcPrice').value);
-  var img=document.getElementById('mSvcImg').value.trim();
-  var tagsStr=document.getElementById('mSvcTags').value.trim();
-  if(!name||isNaN(price)) return toast('⚠️ Name and price required');
-  var sv=getServices();
-  var tags=tagsStr? tagsStr.split(',').map(function(t){return t.trim();}).filter(function(t){return t;}) :[];
-  if(id){
-    var s=sv.find(function(x){return x.id===id});
-    if(s){ s.name=name; s.desc=desc; s.price=price; s.img=img||s.img; s.tags=tags; }
-  } else {
-    sv.push({ id:nextId(sv), name:name, desc:desc, price:price, img:img||'https://images.unsplash.com/photo-1596728325488-58c87691e9af?w=400&q=80', tags:tags });
+  // Count-up on scroll
+  var counted = false;
+  function doCount() {
+    if(counted) return;
+    var rect = document.getElementById('stats').getBoundingClientRect();
+    if(rect.top < window.innerHeight && rect.bottom > 0) {
+      counted = true;
+      window.removeEventListener('scroll', checkStatsScroll);
+      data.forEach(function(s, i) {
+        var el = document.getElementById('sn'+i);
+        var target = s.target;
+        var dec = s.dec || 0;
+        var dur = 2000;
+        var start = null;
+        function step(ts) {
+          if(!start) start = ts;
+          var p = Math.min((ts - start) / dur, 1);
+          var val = p * target;
+          if(dec) {
+            el.textContent = val.toFixed(dec);
+          } else {
+            el.textContent = Math.floor(val) + '+';
+          }
+          if(p < 1) requestAnimationFrame(step);
+          else el.textContent = dec ? target.toFixed(dec) : target + '+';
+        }
+        requestAnimationFrame(step);
+      });
+    }
   }
-  setServices(sv); closeModal(); renderAdminServices(); renderPublic(); toast('✅ Service saved', true);
-};
+  function checkStatsScroll() { doCount(); }
+  window.addEventListener('scroll', checkStatsScroll);
+  doCount();
+}
 
-window.deleteService = function(id){
+function renderPublic() {
+  renderServices();
+  renderBarbers();
+  renderBookingDD();
+  renderGallery();
+  renderStats();
+}
+
+// ============ BOOKING ============
+function handleBooking(e) {
+  e.preventDefault();
+  var name = document.getElementById('bkName').value.trim();
+  var phone = document.getElementById('bkPhone').value.trim();
+  var svcId = document.getElementById('bkService').value;
+  var brbId = document.getElementById('bkBarber').value;
+  var dt = document.getElementById('bkDateTime').value;
+  var msg = document.getElementById('bkMsg');
+  var lang = getLang();
+  var errMsg = {en:'⚠️ Please fill in all fields.',fr:'⚠️ Veuillez remplir tous les champs.',ar:'⚠️ يرجى ملء جميع الحقول.'};
+  var okMsg = {en:'✅ Booking confirmed! See you soon.',fr:'✅ Réservation confirmée ! À bientôt.',ar:'✅ تم تأكيد الحجز! نراكم قريباً.'};
+  if(!name || !phone || !svcId || !brbId || !dt) {
+    msg.style.display = 'block';
+    msg.style.color = 'rgba(255,80,80,.7)';
+    msg.textContent = errMsg[lang];
+    return false;
+  }
+  var sv = getServices();
+  var br = getBarbers();
+  var sn = sv.find(function(s){return s.id == svcId});
+  var bn = br.find(function(b){return b.id == brbId});
+  var bk = getBookings();
+  bk.push({id:nextId(bk),name:name,phone:phone,service:sn?sn.name:'—',barber:bn?bn.name:'—',datetime:dt,status:'pending'});
+  setBookings(bk);
+  msg.style.display = 'block';
+  msg.style.color = 'rgba(201,168,76,.8)';
+  msg.textContent = okMsg[lang];
+  document.getElementById('bookingForm').reset();
+  renderAdminBookings();
+  toast('✅ '+okMsg[lang], true);
+  setTimeout(function(){msg.style.display='none';}, 4000);
+  return false;
+}
+
+// Set min datetime
+(function(){
+  var inp = document.getElementById('bkDateTime');
+  if(inp){
+    var d = new Date();
+    var y = d.getFullYear();
+    var m = String(d.getMonth()+1).padStart(2,'0');
+    var day = String(d.getDate()).padStart(2,'0');
+    var h = String(d.getHours()).padStart(2,'0');
+    var min = String(d.getMinutes()).padStart(2,'0');
+    inp.min = y+'-'+m+'-'+day+'T'+h+':'+min;
+  }
+})();
+
+// ============ ADMIN ============
+function openAdmin() {
+  var pass = prompt('Enter admin password:');
+  if(pass === ADMIN_PASS) {
+    document.getElementById('adminPanel').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    var cur = getCurrency();
+    var sel = document.getElementById('curSelect');
+    for(var i=0;i<sel.options.length;i++) {
+      if(sel.options[i].value === cur) { sel.selectedIndex = i; break; }
+    }
+    renderAdminAll();
+    toast('🔐 Admin access granted', true);
+  } else if(pass !== null) {
+    alert('Wrong password!');
+  }
+}
+
+function closeAdmin() {
+  document.getElementById('adminPanel').style.display = 'none';
+  document.body.style.overflow = 'auto';
+}
+
+function showPane(name) {
+  document.querySelectorAll('.admin-pane').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.abtn').forEach(function(b){b.classList.remove('active');});
+  document.getElementById('pane-'+name).classList.add('active');
+  document.querySelector('.abtn[onclick="showPane(\''+name+'\')"]').classList.add('active');
+  if(name==='services') renderAdminServices();
+  else if(name==='barbers') renderAdminBarbers();
+  else if(name==='currency') renderAdminCurrency();
+  else if(name==='bookings') renderAdminBookings();
+}
+
+function renderAdminAll() {
+  renderAdminServices();
+  renderAdminBarbers();
+  renderAdminCurrency();
+  renderAdminBookings();
+}
+
+function renderAdminServices() {
+  var sv = getServices();
+  var sym = getCurrency();
+  var tb = document.getElementById('admSvcBody');
+  tb.innerHTML = sv.map(function(s) {
+    return '<tr><td>'+s.name+'</td><td style="color:rgba(255,255,255,.4);font-size:11px">'+(s.desc||'')+'</td><td style="color:#C9A84C;font-weight:600">'+sym+s.price+'</td><td>'+(s.img?'<img src="'+s.img+'" style="width:32px;height:32px;border-radius:50%;object-fit:cover" onerror="this.style.background=\'#C9A84C\';this.src=\'\'">':'—')+'</td><td><div class="acts"><button onclick="openSvcModal('+s.id+')" style="background:rgba(201,168,76,.12);color:#C9A84C">Edit</button><button onclick="delSvc('+s.id+')" style="background:rgba(220,50,50,.15);color:#e44">Del</button></div></td></tr>';
+  }).join('');
+}
+
+function renderAdminBarbers() {
+  var br = getBarbers();
+  var tb = document.getElementById('admBrbBody');
+  tb.innerHTML = br.map(function(b) {
+    return '<tr><td>'+b.name+'</td><td style="color:rgba(255,255,255,.4);font-size:11px">'+b.specialty+'</td><td>'+(b.img?'<img src="'+b.img+'" style="width:32px;height:32px;border-radius:50%;object-fit:cover" onerror="this.style.background=\'#C9A84C\';this.src=\'\'">':'—')+'</td><td><div class="acts"><button onclick="openBrbModal('+b.id+')" style="background:rgba(201,168,76,.12);color:#C9A84C">Edit</button><button onclick="delBrb('+b.id+')" style="background:rgba(220,50,50,.15);color:#e44">Del</button></div></td></tr>';
+  }).join('');
+}
+
+function renderAdminCurrency() {
+  var sv = getServices();
+  var sym = getCurrency();
+  var tb = document.getElementById('admPriceBody');
+  tb.innerHTML = sv.map(function(s) {
+    return '<tr><td>'+s.name+'</td><td style="color:#C9A84C;font-weight:600">'+sym+s.price+'</td><td><input type="number" id="np_'+s.id+'" value="'+s.price+'" style="width:80px;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.035);color:#fff;font-size:12px;outline:none"></td><td><button onclick="updPrice('+s.id+')" style="background:rgba(201,168,76,.12);color:#C9A84C;border:none;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:10px;font-weight:600">Update</button></td></tr>';
+  }).join('');
+}
+
+function renderAdminBookings() {
+  var bk = getBookings();
+  var tb = document.getElementById('admBkBody');
+  document.getElementById('bkCount').textContent = '('+bk.length+' total)';
+  if(!bk.length) {
+    tb.innerHTML = '<tr><td colspan="7" style="text-align:center;color:rgba(255,255,255,.2);padding:20px">No bookings yet</td></tr>';
+    return;
+  }
+  tb.innerHTML = bk.map(function(b) {
+    var st = b.status === 'confirmed' ? '✅ Confirmed' : '⏳ Pending';
+    return '<tr><td>'+b.name+'</td><td style="font-size:11px">'+b.phone+'</td><td>'+b.service+'</td><td>'+b.barber+'</td><td style="font-size:11px;color:rgba(255,255,255,.4)">'+b.datetime.replace('T',' ')+'</td><td>'+st+'</td><td><div class="acts">'+(b.status!=='confirmed'?'<button onclick="confirmBk('+b.id+')" style="background:rgba(0,200,80,.12);color:#4c4">Confirm</button>':'')+'<button onclick="delBk('+b.id+')" style="background:rgba(220,50,50,.15);color:#e44">Del</button></div></td></tr>';
+  }).join('');
+}
+
+// === ADMIN CRUD: SERVICES ===
+function openSvcModal(id) {
+  var sv = getServices();
+  var s = id ? sv.find(function(x){return x.id===id}) : null;
+  var lang = getLang();
+  var t = {en:{title:s?'Edit Service':'Add Service',name:'Name',desc:'Description',price:'Price',img:'Image URL',tags:'Tags (comma separated)',update:s?'Update':'Add',cancel:'Cancel'},
+    fr:{title:s?'Modifier Service':'Ajouter Service',name:'Nom',desc:'Description',price:'Prix',img:'URL Image',tags:'Tags (séparés par virgule)',update:s?'Modifier':'Ajouter',cancel:'Annuler'},
+    ar:{title:s?'تعديل الخدمة':'إضافة خدمة',name:'الاسم',desc:'الوصف',price:'السعر',img:'رابط الصورة',tags:'الوسوم (مفصولة بفواصل)',update:s?'تحديث':'إضافة',cancel:'إلغاء'}};
+  var tr = t[lang];
+  showModal(
+    '<h3>'+tr.title+'</h3>'+
+    '<div class="fg"><label>'+tr.name+'</label><input type="text" id="mSvcName" value="'+(s?s.name:'')+'"></div>'+
+    '<div class="fg"><label>'+tr.desc+'</label><textarea id="mSvcDesc" rows="2">'+(s?s.desc||'')+'</textarea></div>'+
+    '<div class="fg"><label>'+tr.price+'</label><input type="number" id="mSvcPrice" value="'+(s?s.price:'')+'" step="0.5"></div>'+
+    '<div class="fg"><label>'+tr.img+'</label><input type="text" id="mSvcImg" value="'+(s?s.img||'')+'" oninput="previewModalImg(this.value,\'svcPrev\')"><img id="svcPrev" class="preview" onerror="this.style.display=\'none\'"></div>'+
+    '<div class="fg"><label>'+tr.tags+'</label><input type="text" id="mSvcTags" value="'+(s&&s.tags?s.tags.join(', '):'')+'"></div>'+
+    '<div class="modal-acts"><button class="btn btn-sm" onclick="saveSvc('+(id||'null')+')">'+tr.update+'</button><button class="btn btn-outline btn-sm" onclick="closeModal()">'+tr.cancel+'</button></div>'
+  );
+  if(s&&s.img) setTimeout(function(){previewModalImg(s.img,'svcPrev');}, 50);
+}
+
+function saveSvc(id) {
+  var name = document.getElementById('mSvcName').value.trim();
+  var desc = document.getElementById('mSvcDesc').value.trim();
+  var price = parseFloat(document.getElementById('mSvcPrice').value);
+  var img = document.getElementById('mSvcImg').value.trim();
+  var tagsStr = document.getElementById('mSvcTags').value.trim();
+  if(!name || isNaN(price)) { toast('⚠️ Name and price required'); return; }
+  var sv = getServices();
+  var tags = tagsStr ? tagsStr.split(',').map(function(t){return t.trim();}).filter(function(t){return t;}) : [];
+  if(id) {
+    var s = sv.find(function(x){return x.id===id});
+    if(s) { s.name=name; s.desc=desc; s.price=price; s.img=img||s.img; s.tags=tags; }
+  } else {
+    sv.push({id:nextId(sv),name:name,desc:desc,price:price,img:img||FALLBACK_IMG,tags:tags});
+  }
+  setServices(sv);
+  closeModal();
+  renderAdminServices();
+  renderAdminCurrency();
+  renderPublic();
+  toast('✅ Saved', true);
+}
+
+function delSvc(id) {
   if(!confirm('Delete this service?')) return;
-  var sv=getServices().filter(function(x){return x.id!==id});
-  setServices(sv); renderAdminServices(); renderAdminCurrency(); renderPublic(); toast('🗑️ Deleted');
-};
+  setServices(getServices().filter(function(x){return x.id!==id}));
+  renderAdminServices();
+  renderAdminCurrency();
+  renderPublic();
+  toast('🗑️ Deleted');
+}
 
-window.openBarberModal = function(id){
-  var br=getBarbers(), b=id?br.find(function(x){return x.id===id}):null;
+// === ADMIN CRUD: BARBERS ===
+function openBrbModal(id) {
+  var br = getBarbers();
+  var b = id ? br.find(function(x){return x.id===id}) : null;
+  var lang = getLang();
+  var t = {en:{title:b?'Edit Barber':'Add Barber',name:'Name',spec:'Specialty',img:'Photo URL',update:b?'Update':'Add',cancel:'Cancel'},
+    fr:{title:b?'Modifier Barbier':'Ajouter Barbier',name:'Nom',spec:'Spécialité',img:'URL Photo',update:b?'Modifier':'Ajouter',cancel:'Annuler'},
+    ar:{title:b?'تعديل الحلاق':'إضافة حلاق',name:'الاسم',spec:'التخصص',img:'رابط الصورة',update:b?'تحديث':'إضافة',cancel:'إلغاء'}};
+  var tr = t[lang];
   showModal(
-    '<h3>'+(b?'Edit Barber':'Add Barber')+'</h3>'+
-    '<div class="fg"><label>Name</label><input type="text" id="mBrbName" value="'+(b?b.name:'')+'" placeholder="Barber name"></div>'+
-    '<div class="fg"><label>Specialty</label><input type="text" id="mBrbSpec" value="'+(b?b.specialty:'')+'" placeholder="e.g. Master Barber"></div>'+
-    '<div class="fg"><label>Working Hours</label><input type="text" id="mBrbHours" value="'+(b?b.hours:'')+'" placeholder="e.g. 9AM-6PM"></div>'+
-    '<div class="fg"><label>Photo URL</label><input type="text" id="mBrbImg" value="'+(b?b.img:'')+'" placeholder="https://..."></div>'+
-    '<div class="modal-acts"><button class="btn btn-primary btn-sm" onclick="saveBarber('+(id||'null')+')">'+(b?'Update':'Add')+'</button><button class="btn btn-ghost btn-sm" onclick="closeModal()">Cancel</button></div>'
+    '<h3>'+tr.title+'</h3>'+
+    '<div class="fg"><label>'+tr.name+'</label><input type="text" id="mBrbName" value="'+(b?b.name:'')+'"></div>'+
+    '<div class="fg"><label>'+tr.spec+'</label><input type="text" id="mBrbSpec" value="'+(b?b.specialty:'')+'"></div>'+
+    '<div class="fg"><label>'+tr.img+'</label><input type="text" id="mBrbImg" value="'+(b?b.img:'')+'" oninput="previewModalImg(this.value,\'brbPrev\')"><img id="brbPrev" class="preview" style="border-radius:50%" onerror="this.style.display=\'none\'"></div>'+
+    '<div class="modal-acts"><button class="btn btn-sm" onclick="saveBrb('+(id||'null')+')">'+tr.update+'</button><button class="btn btn-outline btn-sm" onclick="closeModal()">'+tr.cancel+'</button></div>'
   );
-};
+  if(b&&b.img) setTimeout(function(){previewModalImg(b.img,'brbPrev');}, 50);
+}
 
-window.saveBarber = function(id){
-  var name=document.getElementById('mBrbName').value.trim();
-  var spec=document.getElementById('mBrbSpec').value.trim();
-  var hours=document.getElementById('mBrbHours').value.trim();
-  var img=document.getElementById('mBrbImg').value.trim();
-  if(!name) return toast('⚠️ Name is required');
-  var br=getBarbers();
-  if(id){
-    var b=br.find(function(x){return x.id===id});
-    if(b){ b.name=name; b.specialty=spec||b.specialty; b.hours=hours||b.hours; b.img=img||b.img; }
+function saveBrb(id) {
+  var name = document.getElementById('mBrbName').value.trim();
+  var spec = document.getElementById('mBrbSpec').value.trim();
+  var img = document.getElementById('mBrbImg').value.trim();
+  if(!name) { toast('⚠️ Name required'); return; }
+  var br = getBarbers();
+  if(id) {
+    var b = br.find(function(x){return x.id===id});
+    if(b) { b.name=name; b.specialty=spec||b.specialty; b.img=img||b.img; }
   } else {
-    br.push({ id:nextId(br), name:name, specialty:spec||'Barber', hours:hours||'9AM-6PM', img:img||'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80' });
+    br.push({id:nextId(br),name:name,specialty:spec||'Barber',img:img||FALLBACK_IMG});
   }
-  setBarbers(br); closeModal(); renderAdminBarbers(); renderPublic(); toast('✅ Barber saved', true);
-};
+  setBarbers(br);
+  closeModal();
+  renderAdminBarbers();
+  renderPublic();
+  toast('✅ Saved', true);
+}
 
-window.deleteBarber = function(id){
+function delBrb(id) {
   if(!confirm('Delete this barber?')) return;
   setBarbers(getBarbers().filter(function(x){return x.id!==id}));
-  renderAdminBarbers(); renderPublic(); toast('🗑️ Deleted');
-};
+  renderAdminBarbers();
+  renderPublic();
+  toast('🗑️ Deleted');
+}
 
-window.changeCurrency = function(val){
-  setCurrency(val); renderPublic(); renderAdminServices(); renderAdminCurrency(); toast('💰 Currency changed to '+val.split(',')[1], true);
-};
+// === ADMIN: CURRENCY ===
+function changeCur(val) {
+  setCurrency(val);
+  renderPublic();
+  renderAdminServices();
+  renderAdminCurrency();
+  toast('💰 Currency changed', true);
+}
 
-window.updateServicePrice = function(id){
-  var np=parseFloat(document.getElementById('np_'+id).value);
-  if(isNaN(np)||np<=0) return toast('⚠️ Invalid price');
-  var sv=getServices(), s=sv.find(function(x){return x.id===id});
-  if(s){ s.price=np; setServices(sv); renderAdminServices(); renderAdminCurrency(); renderPublic(); toast('✅ Price updated', true); }
-};
+function updPrice(id) {
+  var np = parseFloat(document.getElementById('np_'+id).value);
+  if(isNaN(np) || np <= 0) { toast('⚠️ Invalid price'); return; }
+  var sv = getServices();
+  var s = sv.find(function(x){return x.id===id});
+  if(s) { s.price = np; setServices(sv); renderAdminServices(); renderAdminCurrency(); renderPublic(); toast('✅ Updated', true); }
+}
 
-window.confirmBooking = function(id){
-  var bk=getBookings(), b=bk.find(function(x){return x.id===id});
-  if(b){ b.status='confirmed'; setBookings(bk); renderAdminBookings(); toast('✅ Booking confirmed', true); }
-};
+// === ADMIN: BOOKINGS ===
+function confirmBk(id) {
+  var bk = getBookings();
+  var b = bk.find(function(x){return x.id===id});
+  if(b) { b.status = 'confirmed'; setBookings(bk); renderAdminBookings(); toast('✅ Confirmed', true); }
+}
 
-window.deleteBooking = function(id){
+function delBk(id) {
   if(!confirm('Delete this booking?')) return;
   setBookings(getBookings().filter(function(x){return x.id!==id}));
-  renderAdminBookings(); toast('🗑️ Deleted');
-};
+  renderAdminBookings();
+  toast('🗑️ Deleted');
+}
+
+// === ADMIN: RESET ===
+function resetData() {
+  if(!confirm('Reset ALL data to defaults? This cannot be undone.')) return;
+  localStorage.removeItem('bs_services');
+  localStorage.removeItem('bs_barbers');
+  localStorage.removeItem('bs_currency');
+  localStorage.removeItem('bs_bookings');
+  renderAdminAll();
+  renderPublic();
+  toast('🔄 Reset to defaults', true);
+}
 
 // === MODAL ===
-function showModal(html){
-  document.getElementById('modalBox').innerHTML=html;
-  document.getElementById('modalBg').classList.add('open');
+function showModal(html) {
+  document.getElementById('modalBox').innerHTML = html;
+  document.getElementById('modalOverlay').classList.add('open');
 }
-window.closeModal = function(){ document.getElementById('modalBg').classList.remove('open'); };
-document.getElementById('modalBg').addEventListener('click',function(e){ if(e.target===this) closeModal(); });
 
-// ======================== LOG ========================
-console.log('✂️ Blade & Razor — Sharp Looks. Fresh Cuts.');
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+}
 
-// ======================== INIT ========================
+function previewModalImg(url, id) {
+  var el = document.getElementById(id);
+  if(!el) return;
+  if(url && url.trim()) { el.src = url.trim(); el.style.display = 'block'; }
+  else { el.style.display = 'none'; }
+}
+
+// ============ INIT ============
+setLang(getLang());
 renderPublic();
+console.log('✂️ Blade & Razor — Premium Barbershop');
 </script>
 </body>
 </html>
