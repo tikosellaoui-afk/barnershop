@@ -242,6 +242,9 @@ nav{padding:0 12px;height:54px}
         </div>
         <h1>صالون <span class="gold">الحلاقة</span> الفاخر</h1>
         <p>احجز دورك الآن عند أفضل الحلاقين المحترفين واستمتع بتجربة حلاقة راقية</p>
+        <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:14px;font-size:13px;color:var(--text2)">
+            <span id="shopAddressDisplay2" style="display:none"></span>
+        </div>
         <div class="hero-actions">
             <button class="btn btn-gold" onclick="goPage('book')">📅 احجز دورك</button>
             <button class="btn btn-outline" onclick="goPage('queue')">👥 عرض الطابور</button>
@@ -256,11 +259,23 @@ nav{padding:0 12px;height:54px}
         <div class="card-title">👥 الطابور الحالي <span class="badge">مباشر</span></div>
         <div class="queue-mini" id="homeQueue"></div>
     </div>
+    <div class="features" style="margin-top:12px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr))">
+        <div class="feature" style="padding:8px"><img src="https://images.unsplash.com/photo-1596728325488-58c87691e9af?w=300&q=80" alt="" style="width:100%;height:110px;object-fit:cover;border-radius:10px;display:block;margin-bottom:6px" onerror="this.style.display='none'"><h3 style="font-size:11px">صالون عصري</h3></div>
+        <div class="feature" style="padding:8px"><img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=300&q=80" alt="" style="width:100%;height:110px;object-fit:cover;border-radius:10px;display:block;margin-bottom:6px" onerror="this.style.display='none'"><h3 style="font-size:11px">أجواء احترافية</h3></div>
+        <div class="feature" style="padding:8px"><img src="https://images.unsplash.com/photo-1599351431202-1e0f1e7a3e2d?w=300&q=80" alt="" style="width:100%;height:110px;object-fit:cover;border-radius:10px;display:block;margin-bottom:6px" onerror="this.style.display='none'"><h3 style="font-size:11px">أحدث التصاميم</h3></div>
+        <div class="feature" style="padding:8px"><img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=300&q=80" alt="" style="width:100%;height:110px;object-fit:cover;border-radius:10px;display:block;margin-bottom:6px" onerror="this.style.display='none'"><h3 style="font-size:11px">حلاقة كلاسيك</h3></div>
+        <div class="feature" style="padding:8px"><img src="https://images.unsplash.com/photo-1621605815971-fbc98d665666?w=300&q=80" alt="" style="width:100%;height:110px;object-fit:cover;border-radius:10px;display:block;margin-bottom:6px" onerror="this.style.display='none'"><h3 style="font-size:11px">تصفيف لحية</h3></div>
+        <div class="feature" style="padding:8px"><img src="https://images.unsplash.com/photo-1593702288056-996c0f12a5b4?w=300&q=80" alt="" style="width:100%;height:110px;object-fit:cover;border-radius:10px;display:block;margin-bottom:6px" onerror="this.style.display='none'"><h3 style="font-size:11px">منتجات عناية</h3></div>
+    </div>
+    <div id="shopAddressDisplay" style="display:none"></div>
 </div>
 
 <!-- BOOK -->
 <div class="page" id="p-book">
     <div class="card">
+        <div style="width:100%;height:140px;border-radius:12px;overflow:hidden;margin-bottom:14px">
+            <img src="https://images.unsplash.com/photo-1596728325488-58c87691e9af?w=800&q=80" alt="" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none'">
+        </div>
         <div class="card-title">✂️ حجز دور جديد</div>
         <p style="color:var(--text2);font-size:13px;margin-bottom:14px">اختر الحلاق، نوع الحلاقة، ثم أدخل بياناتك واحجز</p>
 
@@ -309,6 +324,9 @@ nav{padding:0 12px;height:54px}
 <!-- QUEUE -->
 <div class="page" id="p-queue">
     <div class="card">
+        <div style="width:100%;height:100px;border-radius:12px;overflow:hidden;margin-bottom:12px">
+            <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&q=80" alt="" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none'">
+        </div>
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:8px">
             <div class="card-title" style="margin-bottom:0">👥 طابور الانتظار</div>
             <div class="queue-stats" style="margin-bottom:0">
@@ -323,6 +341,9 @@ nav{padding:0 12px;height:54px}
 <!-- TRACK -->
 <div class="page" id="p-track">
     <div class="card track-wrap">
+        <div style="width:100%;height:100px;border-radius:12px;overflow:hidden;margin-bottom:12px">
+            <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665666?w=800&q=80" alt="" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none'">
+        </div>
         <div class="card-title" style="justify-content:center">🔍 تتبع دورك</div>
         <p style="color:var(--text2);font-size:13px;text-align:center;margin-bottom:14px">أدخل رقم جوالك لمعرفة موقعك في الطابور</p>
         <div class="track-input">
@@ -475,10 +496,13 @@ async function api(url, opts={}){
     return d;
 }
 
-function formDataApi(url, method, fd){
+async function formDataApi(url, method, fd){
     let h = {};
     if(adminToken) h['Authorization'] = 'Bearer '+adminToken;
-    return fetch(API+url, {method, headers:h, body:fd}).then(r=>r.json());
+    let r = await fetch(API+url, {method, headers:h, body:fd});
+    let d = await r.json();
+    if(!r.ok) throw new Error(d.error||'خطأ');
+    return d;
 }
 
 // ===== HOME =====
@@ -499,10 +523,10 @@ async function loadBook(){
     try {
         let [barbers, styles] = await Promise.all([api('/api/barbers'), api('/api/styles')]);
         let bg = document.getElementById('barberGrid');
-        bg.innerHTML = barbers.length ? barbers.map(b=>'<div class="b-card" data-id="'+b.id+'" onclick="pickBarber('+b.id+')"><div style="position:absolute;top:5px;left:5px;width:16px;height:16px;border-radius:50%;background:var(--primary);color:#fff;font-size:9px;display:none;align-items:center;justify-content:center;font-weight:700">✓</div>'+(b.photo?'<img src="'+API+b.photo+'" onerror="this.onerror=null;this.parentElement.innerHTML=\'<div class=placeholder-avatar>✂️</div>\'">':'<div class="placeholder-avatar">✂️</div>')+'<span class="name">'+b.name+'</span></div>').join('') : '<p style="color:var(--text2);font-size:12px;grid-column:1/-1">لا يوجد حلاقين</p>';
+        bg.innerHTML = barbers.length ? barbers.map(b=>'<div class="b-card" data-id="'+b.id+'" onclick="pickBarber('+b.id+')"><div style="position:absolute;top:5px;left:5px;width:16px;height:16px;border-radius:50%;background:var(--primary);color:#fff;font-size:9px;display:none;align-items:center;justify-content:center;font-weight:700">✓</div>'+(b.photo?'<img src="'+(b.photo.startsWith('http')?b.photo:API+b.photo)+'" onerror="this.onerror=null;this.parentElement.innerHTML=\'<div class=placeholder-avatar>✂️</div>\'">':'<div class="placeholder-avatar">✂️</div>')+'<span class="name">'+b.name+'</span>'+(b.phone?'<span style="font-size:9px;color:var(--text2);display:block;margin-top:1px">'+b.phone+'</span>':'')+'</div>').join('') : '<p style="color:var(--text2);font-size:12px;grid-column:1/-1">لا يوجد حلاقين</p>';
 
         let sg = document.getElementById('styleGrid');
-        sg.innerHTML = styles.length ? styles.map(s=>'<div class="s-card" data-id="'+s.id+'" onclick="pickStyle('+s.id+')"><div style="position:absolute;top:5px;left:5px;width:16px;height:16px;border-radius:50%;background:var(--primary);color:#fff;font-size:9px;display:none;align-items:center;justify-content:center;font-weight:700">✓</div>'+(s.photo?'<img src="'+API+s.photo+'" onerror="this.onerror=null;this.parentElement.innerHTML=\'<div class=placeholder-avatar>💈</div>\'">':'<div class="placeholder-avatar">💈</div>')+'<span class="name">'+s.name+'</span><span class="price">'+s.price+' دج</span></div>').join('') : '<p style="color:var(--text2);font-size:12px;grid-column:1/-1">لا توجد أنواع</p>';
+        sg.innerHTML = styles.length ? styles.map(s=>'<div class="s-card" data-id="'+s.id+'" onclick="pickStyle('+s.id+')"><div style="position:absolute;top:5px;left:5px;width:16px;height:16px;border-radius:50%;background:var(--primary);color:#fff;font-size:9px;display:none;align-items:center;justify-content:center;font-weight:700">✓</div>'+(s.photo?'<img src="'+(s.photo.startsWith('http')?s.photo:API+s.photo)+'" onerror="this.onerror=null;this.parentElement.innerHTML=\'<div class=placeholder-avatar>💈</div>\'">':'<div class="placeholder-avatar">💈</div>')+'<span class="name">'+s.name+'</span><span class="price">'+s.price+' دج</span></div>').join('') : '<p style="color:var(--text2);font-size:12px;grid-column:1/-1">لا توجد أنواع</p>';
     } catch(e){ toast('⚠️','خطأ','فشل تحميل البيانات'); }
 }
 
@@ -678,29 +702,31 @@ async function loadABarbers(){
         let el = document.getElementById('ap-abarbers');
         el.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px"><div class="card-title" style="margin-bottom:0">✂️ الحلاقين</div><button class="btn btn-sm btn-gold" onclick="showBarberModal()">+ إضافة</button></div>';
         if(!bb.length) { el.innerHTML += '<p style="color:var(--text2)">لا يوجد</p>'; return; }
-        el.innerHTML += '<div class="tbl-wrap"><table><thead><tr><th>الصورة</th><th>الاسم</th><th>الحالة</th><th></th></tr></thead><tbody>'+
-            bb.map(b=>'<tr><td>'+(b.photo?'<img src="'+API+b.photo+'">':'✂️')+'</td><td>'+b.name+'</td><td>'+(b.is_active?'🟢':'🔴')+'</td><td><div class="tbl-acts"><button class="tbl-edit" onclick="showBarberModal('+b.id+',\''+b.name.replace(/'/g,"\\'")+'\')">تعديل</button>'+(b.is_active?'<button class="tbl-del" onclick="delBarber('+b.id+')">حذف</button>':'')+'</div></td></tr>').join('')+'</tbody></table></div>';
+        el.innerHTML += '<div class="tbl-wrap"><table><thead><tr><th>الصورة</th><th>الاسم</th><th>الجوال</th><th>الحالة</th><th></th></tr></thead><tbody>'+
+            bb.map(b=>'<tr><td>'+(b.photo?'<img src="'+(b.photo.startsWith('http')?b.photo:API+b.photo)+'">':'✂️')+'</td><td>'+b.name+'</td><td style="direction:ltr;text-align:right;font-size:12px">'+(b.phone||'—')+'</td><td>'+(b.is_active?'🟢':'🔴')+'</td><td><div class="tbl-acts"><button class="tbl-edit" onclick="showBarberModal('+b.id+',\''+b.name.replace(/'/g,"\\'")+'\',\''+((b.phone||'').replace(/'/g,"\\'"))+'\')">تعديل</button>'+(b.is_active?'<button class="tbl-del" onclick="delBarber('+b.id+')">حذف</button>':'')+'</div></td></tr>').join('')+'</tbody></table></div>';
     } catch(e){}
 }
 
-window.showBarberModal = function(id, name){
+window.showBarberModal = function(id, name, phone){
     document.getElementById('modalBg').classList.add('show');
     document.getElementById('modalBox').innerHTML = '<h2>'+(id?'تعديل حلاق':'إضافة حلاق')+'</h2>'+
         '<div class="form-group"><label>الاسم</label><input type="text" id="mBarberName" value="'+(id?name:'')+'" placeholder="اسم الحلاق"></div>'+
+        '<div class="form-group"><label>رقم الجوال</label><input type="text" id="mBarberPhone" value="'+(id?phone:'')+'" placeholder="مثال: 0555123456" style="direction:ltr;text-align:left"></div>'+
         '<div class="form-group"><label>الصورة</label><input type="file" id="mBarberPhoto" accept="image/*"></div>'+
         '<div class="modal-acts"><button class="btn btn-gold" onclick="saveBarber('+(id||'null')+')">'+(id?'💾 حفظ':'➕ إضافة')+'</button><button class="btn btn-outline" onclick="closeModal()">إلغاء</button></div>';
 };
 
 window.saveBarber = async function(id){
     let name = document.getElementById('mBarberName').value.trim();
+    let phone = document.getElementById('mBarberPhone').value.trim();
     if(!name) return toast('⚠️','خطأ','الاسم مطلوب');
     let file = document.getElementById('mBarberPhoto').files[0];
     try {
         if(id){
-            if(file){ let fd=new FormData(); fd.append('name',name); fd.append('photo',file); fd.append('type','barbers'); await formDataApi('/api/barbers/'+id,'PUT',fd); }
-            else await api('/api/barbers/'+id, {method:'PUT', body:JSON.stringify({name})});
+            if(file){ let fd=new FormData(); fd.append('name',name); fd.append('phone',phone); fd.append('photo',file); fd.append('type','barbers'); await formDataApi('/api/barbers/'+id,'PUT',fd); }
+            else await api('/api/barbers/'+id, {method:'PUT', body:JSON.stringify({name, phone})});
         } else {
-            let fd=new FormData(); fd.append('name',name); fd.append('type','barbers'); if(file) fd.append('photo',file);
+            let fd=new FormData(); fd.append('name',name); fd.append('phone',phone); fd.append('type','barbers'); if(file) fd.append('photo',file);
             await formDataApi('/api/barbers','POST',fd);
         }
         closeModal(); loadABarbers(); toast('✅','تم');
@@ -720,7 +746,7 @@ async function loadAStyles(){
         el.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px"><div class="card-title" style="margin-bottom:0">💈 أنواع الحلاقة</div><button class="btn btn-sm btn-gold" onclick="showStyleModal()">+ إضافة</button></div>';
         if(!ss.length) { el.innerHTML += '<p style="color:var(--text2)">لا يوجد</p>'; return; }
         el.innerHTML += '<div class="tbl-wrap"><table><thead><tr><th>الصورة</th><th>الاسم</th><th>السعر</th><th>الوصف</th><th></th></tr></thead><tbody>'+
-            ss.map(s=>'<tr><td>'+(s.photo?'<img src="'+API+s.photo+'">':'💈')+'</td><td>'+s.name+'</td><td style="color:var(--gold2);font-weight:700">'+s.price+' دج</td><td style="color:var(--text2);font-size:11px">'+(s.description||'—')+'</td><td><div class="tbl-acts"><button class="tbl-edit" onclick="showStyleModal('+s.id+',\''+s.name.replace(/'/g,"\\'")+'\','+s.price+',\''+(s.description||'').replace(/'/g,"\\'")+'\')">تعديل</button><button class="tbl-del" onclick="delStyle('+s.id+')">حذف</button></div></td></tr>').join('')+'</tbody></table></div>';
+            ss.map(s=>'<tr><td>'+(s.photo?'<img src="'+(s.photo.startsWith('http')?s.photo:API+s.photo)+'">':'💈')+'</td><td>'+s.name+'</td><td style="color:var(--gold2);font-weight:700">'+s.price+' دج</td><td style="color:var(--text2);font-size:11px">'+(s.description||'—')+'</td><td><div class="tbl-acts"><button class="tbl-edit" onclick="showStyleModal('+s.id+',\''+s.name.replace(/'/g,"\\'")+'\','+s.price+',\''+(s.description||'').replace(/'/g,"\\'")+'\')">تعديل</button><button class="tbl-del" onclick="delStyle('+s.id+')">حذف</button></div></td></tr>').join('')+'</tbody></table></div>';
     } catch(e){}
 }
 
@@ -760,15 +786,19 @@ window.delStyle = async function(id){
 // SETTINGS
 function loadASet(){
     document.getElementById('ap-aset').innerHTML = '<div class="card-title">🔧 الإعدادات</div>'+
-        '<div class="form-group"><label>اسم الصالون</label><div style="display:flex;gap:10px"><input type="text" id="shopNameInput" placeholder="اسم الصالون" style="flex:1;padding:11px 14px;border-radius:10px;border:1px solid rgba(0,0,0,.08);background:#fff;color:var(--text);font-family:inherit;outline:none" value="صالون"><button class="btn btn-sm btn-gold" onclick="saveShopName()">حفظ</button></div><p id="shopMsg" style="font-size:11px;color:var(--text2);margin-top:4px"></p></div>'+
+        '<div class="form-group"><label>اسم الصالون</label><div style="display:flex;gap:10px"><input type="text" id="shopNameInput" placeholder="اسم الصالون" style="flex:1;padding:11px 14px;border-radius:10px;border:1px solid rgba(0,0,0,.08);background:#fff;color:var(--text);font-family:inherit;outline:none"><button class="btn btn-sm btn-gold" onclick="saveShopName()">حفظ</button></div><p id="shopMsg" style="font-size:11px;color:var(--text2);margin-top:4px"></p></div>'+
+        '<div class="form-group"><label>عنوان المحل</label><div style="display:flex;gap:10px"><input type="text" id="shopAddressInput" placeholder="مثال: شارع الجمهورية، المدينة" style="flex:1;padding:11px 14px;border-radius:10px;border:1px solid rgba(0,0,0,.08);background:#fff;color:var(--text);font-family:inherit;outline:none"><button class="btn btn-sm btn-gold" onclick="saveShopAddress()">حفظ</button></div><p id="addrMsg" style="font-size:11px;color:var(--text2);margin-top:4px"></p></div>'+
         '<div class="form-group" style="margin-top:12px"><label>تغيير كلمة المرور</label><div style="display:flex;gap:10px"><input type="password" id="newPass" placeholder="كلمة سر جديدة" style="flex:1;padding:11px 14px;border-radius:10px;border:1px solid rgba(0,0,0,.08);background:#fff;color:var(--text);font-family:inherit;outline:none"><button class="btn btn-sm btn-gold" onclick="changePass()">تغيير</button></div><p id="passMsg" style="font-size:11px;color:var(--text2);margin-top:4px"></p></div>'+
         '<div class="form-group" style="margin-top:12px"><label>رابط الموقع</label><div style="display:flex;gap:10px"><input type="text" id="siteUrl" style="flex:1;padding:11px 14px;border-radius:10px;border:1px solid rgba(0,0,0,.08);background:#fff;color:var(--text);font-family:inherit;outline:none;direction:ltr;text-align:left" readonly><button class="btn btn-sm btn-outline" onclick="copyURL()">📋 نسخ</button></div></div>';
     document.getElementById('siteUrl').value = location.origin;
-    loadShopName();
+    loadAllSettings();
 }
 
-window.loadShopName = async function(){
-    try{ const s = await api('/api/settings'); if(s.shop_name){ document.getElementById('shopNameInput').value = s.shop_name; updateShopName(s.shop_name); } } catch(e){}
+window.loadAllSettings = async function(){
+    try{ const s = await api('/api/settings');
+        if(s.shop_name){ document.getElementById('shopNameInput').value = s.shop_name; updateShopName(s.shop_name); }
+        if(s.address !== undefined){ document.getElementById('shopAddressInput').value = s.address||''; updateShopAddress(s.address||''); }
+    } catch(e){}
 };
 
 window.saveShopName = async function(){
@@ -777,9 +807,31 @@ window.saveShopName = async function(){
     try{ await api('/api/settings', {method:'PUT', body:JSON.stringify({shop_name:n})}); updateShopName(n); document.getElementById('shopMsg').textContent='✅ تم الحفظ'; toast('✅','تم الحفظ'); } catch(e){ toast('⚠️','خطأ',e.message); }
 };
 
+window.saveShopAddress = async function(){
+    let a = document.getElementById('shopAddressInput').value.trim();
+    try{ await api('/api/settings', {method:'PUT', body:JSON.stringify({address:a})}); updateShopAddress(a); document.getElementById('addrMsg').textContent='✅ تم الحفظ'; toast('✅','تم الحفظ'); } catch(e){ toast('⚠️','خطأ',e.message); }
+};
+
 function updateShopName(name){
     let el = document.getElementById('shopNameDisplay');
     if(el) el.textContent = name;
+}
+
+function updateShopAddress(addr){
+    let el = document.getElementById('shopAddressDisplay');
+    if(el){
+        if(addr){
+            el.style.display = 'block';
+            el.innerHTML = '<div style="text-align:center;margin-top:8px;font-size:13px;color:var(--text2)">📍 ' + addr + '</div>';
+        } else { el.style.display = 'none'; }
+    }
+    let el2 = document.getElementById('shopAddressDisplay2');
+    if(el2){
+        if(addr){
+            el2.style.display = 'inline';
+            el2.textContent = '📍 ' + addr;
+        } else { el2.style.display = 'none'; }
+    }
 }
 
 window.changePass = async function(){
@@ -803,7 +855,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     refreshQueue();
     setInterval(refreshHomeQ, 10000);
     setInterval(refreshQueue, 10000);
-    loadShopName();
+    loadAllSettings();
     if(location.pathname==='/admin') goPage('admin');
 });
 </script>

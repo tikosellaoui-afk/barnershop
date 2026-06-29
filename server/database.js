@@ -23,11 +23,18 @@ async function initDatabase() {
         CREATE TABLE IF NOT EXISTS barbers (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
+            phone TEXT DEFAULT NULL,
             photo TEXT DEFAULT NULL,
             is_active INTEGER DEFAULT 1,
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP
         )
     `);
+
+    const barberColumns = db.exec("PRAGMA table_info('barbers')");
+    const barberCols = barberColumns.length ? barberColumns[0].values.map(v => v[1]) : [];
+    if (!barberCols.includes('phone')) {
+        db.run("ALTER TABLE barbers ADD COLUMN phone TEXT DEFAULT NULL");
+    }
 
     db.run(`
         CREATE TABLE IF NOT EXISTS styles (
@@ -73,6 +80,11 @@ async function initDatabase() {
     const shopName = db.exec("SELECT COUNT(*) as count FROM settings WHERE key = 'shop_name'");
     if (!shopName.length || !shopName[0].values.length || shopName[0].values[0][0] === 0) {
         db.run("INSERT INTO settings (key, value) VALUES ('shop_name', 'BarberShop Pro')");
+    }
+
+    const shopAddr = db.exec("SELECT COUNT(*) as count FROM settings WHERE key = 'address'");
+    if (!shopAddr.length || !shopAddr[0].values.length || shopAddr[0].values[0][0] === 0) {
+        db.run("INSERT INTO settings (key, value) VALUES ('address', '')");
     }
 
     const barberCount = db.exec('SELECT COUNT(*) as count FROM barbers');

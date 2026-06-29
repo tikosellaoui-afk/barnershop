@@ -5,7 +5,31 @@ const cors = require('cors');
 const path = require('path');
 const multer = require('multer');
 const bcrypt = require('bcryptjs');
+const cloudinary = require('cloudinary').v2;
 const { initDatabase, getDb, queryAll, queryOne, run, insert } = require('./database');
+
+// Cloudinary config (env vars or empty = local fallback)
+if (process.env.CLOUDINARY_CLOUD_NAME) {
+    cloudinary.config({
+        cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+        api_key: process.env.CLOUDINARY_API_KEY,
+        api_secret: process.env.CLOUDINARY_API_SECRET
+    });
+}
+
+async function uploadToCloudinary(filePath, folder) {
+    if (!process.env.CLOUDINARY_CLOUD_NAME) return null;
+    try {
+        const result = await cloudinary.uploader.upload(filePath, {
+            folder: 'barbershop/' + folder,
+            resource_type: 'image'
+        });
+        return result.secure_url;
+    } catch (e) {
+        console.error('Cloudinary upload failed:', e.message);
+        return null;
+    }
+}
 
 const app = express();
 const server = http.createServer(app);
@@ -111,14 +135,18 @@ app.post('/api/barbers', (req, res) => {
     const token = req.headers.authorization;
     if (!token || token !== 'Bearer ' + ADMIN_PASSWORD) return res.status(401).json({ error: 'Unauthorized' });
     const multerMiddleware = upload.single('photo');
-    multerMiddleware(req, res, (err) => {
+    multerMiddleware(req, res, async (err) => {
         if (err) return res.status(400).json({ error: err.message });
         try {
-            const { name } = req.body;
+            const { name, phone } = req.body;
             if (!name || !name.trim()) return res.status(400).json({ error: 'الاسم مطلوب' });
-            const photo = req.file ? '/uploads/barbers/' + req.file.filename : null;
-            const result = insert('INSERT INTO barbers (name, photo) VALUES (?, ?)', [name.trim(), photo]);
-            res.json({ id: result.lastInsertRowid, name: name.trim(), photo });
+            let photo = null;
+            if (req.file) {
+                const cUrl = await uploadToCloudinary(req.file.path, 'barbers');
+                photo = cUrl || '/uploads/barbers/' + req.file.filename;
+            }
+            const result = insert('INSERT INTO barbers (name, phone, photo) VALUES (?, ?, ?)', [name.trim(), phone || null, photo]);
+            res.json({ id: result.lastInsertRowid, name: name.trim(), phone: phone || null, photo });
         } catch (e) { res.status(500).json({ error: e.message }); }
     });
 });
@@ -127,20 +155,24 @@ app.put('/api/barbers/:id', (req, res) => {
     const token = req.headers.authorization;
     if (!token || token !== 'Bearer ' + ADMIN_PASSWORD) return res.status(401).json({ error: 'Unauthorized' });
     const multerMiddleware = upload.single('photo');
-    multerMiddleware(req, res, (err) => {
+    multerMiddleware(req, res, async (err) => {
         if (err) return res.status(400).json({ error: err.message });
         try {
             const { id } = req.params;
-            const { name, is_active } = req.body;
+            const { name, phone, is_active } = req.body;
             const barber = queryOne('SELECT * FROM barbers WHERE id = ?', [id]);
             if (!barber) return res.status(404).json({ error: 'الحلاق غير موجود' });
 
             let photo = barber.photo;
-            if (req.file) photo = '/uploads/barbers/' + req.file.filename;
+            if (req.file) {
+                const cUrl = await uploadToCloudinary(req.file.path, 'barbers');
+                photo = cUrl || '/uploads/barbers/' + req.file.filename;
+            }
 
+            const p = phone !== undefined ? phone : barber.phone;
             const activeVal = is_active !== undefined ? (is_active === '0' || is_active === false ? 0 : 1) : barber.is_active;
-            run('UPDATE barbers SET name = ?, photo = ?, is_active = ? WHERE id = ?',
-                [name || barber.name, photo, activeVal, id]);
+            run('UPDATE barbers SET name = ?, phone = ?, photo = ?, is_active = ? WHERE id = ?',
+                [name || barber.name, p, photo, activeVal, id]);
             res.json({ success: true });
         } catch (e) { res.status(500).json({ error: e.message }); }
     });
@@ -170,14 +202,18 @@ app.post('/api/styles', (req, res) => {
     const token = req.headers.authorization;
     if (!token || token !== 'Bearer ' + ADMIN_PASSWORD) return res.status(401).json({ error: 'Unauthorized' });
     const multerMiddleware = upload.single('photo');
-    multerMiddleware(req, res, (err) => {
+    multerMiddleware(req, res, async (err) => {
         if (err) return res.status(400).json({ error: err.message });
         try {
             const { name, price, description } = req.body;
             if (!name || !price) return res.status(400).json({ error: 'الاسم والسعر مطلوبان' });
             const p = parseFloat(price);
             if (isNaN(p) || p <= 0) return res.status(400).json({ error: 'السعر غير صحيح' });
-            const photo = req.file ? '/uploads/styles/' + req.file.filename : null;
+            let photo = null;
+            if (req.file) {
+                const cUrl = await uploadToCloudinary(req.file.path, 'styles');
+                photo = cUrl || '/uploads/styles/' + req.file.filename;
+            }
             const result = insert('INSERT INTO styles (name, price, photo, description) VALUES (?, ?, ?, ?)',
                 [name.trim(), p, photo, description || '']);
             res.json({ id: result.lastInsertRowid, name: name.trim(), price: p, photo });
@@ -189,7 +225,7 @@ app.put('/api/styles/:id', (req, res) => {
     const token = req.headers.authorization;
     if (!token || token !== 'Bearer ' + ADMIN_PASSWORD) return res.status(401).json({ error: 'Unauthorized' });
     const multerMiddleware = upload.single('photo');
-    multerMiddleware(req, res, (err) => {
+    multerMiddleware(req, res, async (err) => {
         if (err) return res.status(400).json({ error: err.message });
         try {
             const { id } = req.params;
@@ -198,7 +234,10 @@ app.put('/api/styles/:id', (req, res) => {
             if (!style) return res.status(404).json({ error: 'نوع الحلاقة غير موجود' });
 
             let photo = style.photo;
-            if (req.file) photo = '/uploads/styles/' + req.file.filename;
+            if (req.file) {
+                const cUrl = await uploadToCloudinary(req.file.path, 'styles');
+                photo = cUrl || '/uploads/styles/' + req.file.filename;
+            }
 
             run('UPDATE styles SET name = ?, price = ?, photo = ?, description = ? WHERE id = ?', [
                 name || style.name,
@@ -400,7 +439,7 @@ app.get('/api/admin/stats', (req, res) => {
 // ==================== SETTINGS ====================
 app.get('/api/settings', (req, res) => {
     try {
-        const rows = queryAll("SELECT key, value FROM settings WHERE key IN ('shop_name', 'admin_password')");
+        const rows = queryAll("SELECT key, value FROM settings WHERE key IN ('shop_name', 'admin_password', 'address')");
         const settings = {};
         rows.forEach(r => settings[r.key] = r.value);
         res.json(settings);
@@ -409,9 +448,12 @@ app.get('/api/settings', (req, res) => {
 
 app.put('/api/settings', requireAdmin, (req, res) => {
     try {
-        const { shop_name } = req.body;
+        const { shop_name, address } = req.body;
         if (shop_name !== undefined) {
             run("INSERT OR REPLACE INTO settings (key, value) VALUES ('shop_name', ?)", [shop_name.trim()]);
+        }
+        if (address !== undefined) {
+            run("INSERT OR REPLACE INTO settings (key, value) VALUES ('address', ?)", [address.trim()]);
         }
         res.json({ success: true });
     } catch (e) { res.status(500).json({ error: e.message }); }
