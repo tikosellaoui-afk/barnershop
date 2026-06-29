@@ -397,6 +397,26 @@ app.get('/api/admin/stats', (req, res) => {
     } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
+// ==================== SETTINGS ====================
+app.get('/api/settings', (req, res) => {
+    try {
+        const rows = queryAll("SELECT key, value FROM settings WHERE key IN ('shop_name', 'admin_password')");
+        const settings = {};
+        rows.forEach(r => settings[r.key] = r.value);
+        res.json(settings);
+    } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
+app.put('/api/settings', requireAdmin, (req, res) => {
+    try {
+        const { shop_name } = req.body;
+        if (shop_name !== undefined) {
+            run("INSERT OR REPLACE INTO settings (key, value) VALUES ('shop_name', ?)", [shop_name.trim()]);
+        }
+        res.json({ success: true });
+    } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
 // ==================== SOCKET.IO ====================
 io.on('connection', (socket) => {
     console.log('Client connected:', socket.id);
