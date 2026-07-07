@@ -43,13 +43,23 @@ html[dir="rtl"] .nav-links a{font-family:'Cairo',sans-serif;letter-spacing:0}
 .lang-btn.active{color:#C9A84C;border-color:#C9A84C}
 
 /* HERO */
-.hero{position:relative;height:100vh;min-height:580px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.85)),url('https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=1920&q=80') center/cover no-repeat fixed}
+.hero{position:relative;height:100vh;min-height:580px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:repeating-linear-gradient(45deg,transparent,transparent 24px,rgba(201,168,76,.04) 24px,rgba(201,168,76,.04) 25px),radial-gradient(ellipse at 50% 50%,rgba(201,168,76,.07) 0%,transparent 60%),linear-gradient(135deg,rgba(26,10,0,.75) 0%,rgba(17,17,17,.75) 50%,rgba(13,13,13,.75) 100%),url('https://images.unsplash.com/photo-1585747861115-d51f6b8c4f7a?w=1600&q=80') center/cover no-repeat}
+.hero-vid{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(circle at 30% 50%,rgba(201,168,76,.04) 0%,transparent 50%),radial-gradient(circle at 70% 50%,rgba(201,168,76,.03) 0%,transparent 50%);animation:heroGlow 6s ease-in-out infinite alternate;z-index:1}
+@keyframes heroGlow{0%{opacity:.5}100%{opacity:1}}
+.hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,rgba(17,17,17,.88) 25%,rgba(17,17,17,.4) 55%,rgba(17,17,17,.7) 100%);z-index:2}
 .hero-content{position:relative;z-index:2;text-align:center;padding:20px;max-width:720px}
 .hero-badge{display:inline-block;padding:5px 18px;border:1px solid rgba(201,168,76,.35);border-radius:50px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#C9A84C;margin-bottom:16px;background:rgba(201,168,76,.05)}
 .hero-content h1{font-size:clamp(38px,10vw,88px);line-height:.95;margin-bottom:8px}
 .hero-content h1 span{color:#C9A84C;display:block;font-size:clamp(26px,6vw,56px)}
 .hero-content p{font-size:clamp(13px,1.8vw,16px);color:rgba(255,255,255,.5);max-width:480px;margin:0 auto 24px;line-height:1.7}
 .hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* CURRENCY */
+.currency-switch{display:flex;gap:2px;margin:0 4px}
+.cur-btn{background:none;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.35);font-size:10px;font-weight:600;padding:3px 6px;border-radius:4px;cursor:pointer;transition:all .25s;font-family:'Inter',sans-serif}
+.cur-btn:hover{color:#fff;border-color:rgba(255,255,255,.2)}
+.cur-btn.active{color:#C9A84C;border-color:#C9A84C}
 
 /* BUTTONS */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 32px;font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:2px;border:none;cursor:pointer;transition:all .35s;background:#C9A84C;color:#111}
@@ -62,14 +72,6 @@ html[dir="rtl"] .btn{font-family:'Cairo',sans-serif;letter-spacing:0}
 
 /* SECTIONS */
 section{padding:70px 0;display:block}
-.card{animation:fadeUp 0.5s ease forwards;opacity:0}
-.card:nth-child(1){animation-delay:0.1s}
-.card:nth-child(2){animation-delay:0.2s}
-.card:nth-child(3){animation-delay:0.3s}
-.card:nth-child(4){animation-delay:0.4s}
-.card:nth-child(5){animation-delay:0.5s}
-.card:nth-child(6){animation-delay:0.6s}
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
 /* SERVICES */
 .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
@@ -84,14 +86,6 @@ html[dir="rtl"] .s-card-body h3 .price{font-family:'Cairo',sans-serif;margin-lef
 .s-card-body .tags{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap}
 .s-card-body .tags span{padding:2px 8px;border-radius:20px;font-size:9px;border:1px solid rgba(255,255,255,.07);color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.5px}
 
-/* STATS */
-.stats-sec{padding:70px 0;text-align:center}
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px}
-.st-item .num{font-size:clamp(36px,5vw,52px);font-weight:700;color:#C9A84C;font-family:'Oswald',sans-serif;line-height:1}
-html[dir="rtl"] .st-item .num{font-family:'Cairo',sans-serif;letter-spacing:0}
-.st-item .lbl{font-size:12px;color:rgba(255,255,255,.5);margin-top:4px;text-transform:uppercase;letter-spacing:1px}
-.st-item .ico{font-size:28px;margin-bottom:8px;display:block}
-
 /* BARBERS */
 .barbers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
 .br-card{text-align:center;padding:24px 14px;border-radius:12px;background:rgba(255,255,255,.015);border:1px solid rgba(255,255,255,.04);transition:transform .4s}
@@ -100,14 +94,6 @@ html[dir="rtl"] .st-item .num{font-family:'Cairo',sans-serif;letter-spacing:0}
 .br-card:hover img{border-color:#C9A84C}
 .br-card h4{font-size:16px;margin-bottom:2px}
 .br-card .sp{font-size:10px;color:rgba(255,255,255,.3);letter-spacing:1px;text-transform:uppercase}
-
-/* GALLERY */
-.gallery-wrap{overflow:hidden;position:relative;padding:10px 0}
-.gal-track{display:flex;gap:14px;width:max-content;animation:scrollGal 50s linear infinite}
-.gal-track:hover{animation-play-state:paused}
-.gal-track img{height:250px;border-radius:10px;object-fit:cover;flex-shrink:0;transition:transform .4s;border:1px solid rgba(255,255,255,.03)}
-.gal-track img:hover{transform:scale(1.04)}
-@keyframes scrollGal{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
 /* BOOKING */
 .booking-wrap{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start}
@@ -153,11 +139,8 @@ html[dir="rtl"] .admin-sidebar{border-right:none;border-left:1px solid rgba(255,
 .adm-tbl td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.03);color:rgba(255,255,255,.7)}
 .adm-tbl tr:hover td{background:rgba(255,255,255,.015)}
 .adm-tbl .acts{display:flex;gap:4px}
-.adm-tbl .acts button{padding:3px 8px;border-radius:5px;border:none;font-size:9px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:.2s}
+.adm-tbl .acts button{padding:3px 8px;border-radius:5px;border:none;font-size:9px;font-weight:600;cursor:pointer;transition:.2s}
 html[dir="rtl"] .adm-tbl th,html[dir="rtl"] .adm-tbl td{text-align:right}
-.admin-close-top{position:absolute;top:12px;right:12px;z-index:10;background:none;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.4);font-size:12px;padding:6px 14px;border-radius:6px;cursor:pointer;font-family:'Inter',sans-serif;transition:.3s}
-.admin-close-top:hover{color:#e44;border-color:rgba(220,50,50,.3)}
-html[dir="rtl"] .admin-close-top{right:auto;left:12px}
 
 /* MODAL */
 #modalOverlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.65);z-index:10001;display:none;align-items:center;justify-content:center;padding:16px}
@@ -184,6 +167,35 @@ html[dir="rtl"] #toastWrap{right:auto;left:24px}
 footer{padding:24px 20px;text-align:center;border-top:1px solid rgba(255,255,255,.03);margin-top:10px}
 footer p{font-size:11px;color:rgba(255,255,255,.15);letter-spacing:1px}
 
+/* QUEUE SECTION */
+.queue-section{background:#1a1a1a;border-radius:12px;padding:30px 24px;text-align:center;border:1px solid rgba(255,255,255,.04);margin-bottom:24px}
+.queue-num{font-size:clamp(48px,8vw,96px);font-family:'Oswald',sans-serif;color:#C9A84C;line-height:1;margin-bottom:4px}
+.queue-num .qsub{font-size:clamp(10px,1.5vw,14px);color:rgba(255,255,255,.3);display:block;text-transform:uppercase;letter-spacing:2px;font-family:'Inter',sans-serif;margin-top:2px}
+html[dir="rtl"] .queue-num{font-family:'Cairo',sans-serif;letter-spacing:0}
+.queue-info{display:flex;justify-content:center;gap:36px;margin-top:14px;flex-wrap:wrap}
+.queue-info div{text-align:center}
+.queue-info .q-label{font-size:9px;text-transform:uppercase;color:rgba(255,255,255,.25);letter-spacing:1px}
+.queue-info .q-val{font-size:22px;font-family:'Oswald',sans-serif;color:#fff}
+html[dir="rtl"] .queue-info .q-val{font-family:'Cairo',sans-serif;letter-spacing:0}
+.queue-badge{display:inline-block;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);color:#C9A84C;padding:6px 16px;border-radius:50px;font-size:10px;letter-spacing:1px;text-transform:uppercase;margin-top:12px}
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:16px}
+.stat-card{padding:16px 12px;border-radius:10px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);text-align:center}
+.stat-card .stat-num{font-size:28px;font-family:'Oswald',sans-serif;color:#C9A84C;line-height:1}
+.stat-card .stat-label{font-size:9px;text-transform:uppercase;color:rgba(255,255,255,.25);letter-spacing:1px;margin-top:4px}
+html[dir="rtl"] .stat-card .stat-num{font-family:'Cairo',sans-serif;letter-spacing:0}
+/* SETTINGS */
+.settings-field{margin-bottom:14px}
+.settings-field label{display:block;font-size:9px;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.35);margin-bottom:4px}
+.settings-field input,.settings-field select{width:100%;max-width:400px;padding:9px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.035);color:#fff;font-size:13px;font-family:'Inter',sans-serif;outline:none}
+.settings-field input:focus,.settings-field select:focus{border-color:#C9A84C}
+/* QUEUE ADMIN */
+.queue-admin-box{text-align:center;padding:24px;background:rgba(255,255,255,.02);border-radius:12px;border:1px solid rgba(255,255,255,.04)}
+.queue-admin-box .big-num{font-size:72px;font-family:'Oswald',sans-serif;color:#C9A84C;line-height:1;margin-bottom:4px}
+html[dir="rtl"] .queue-admin-box .big-num{font-family:'Cairo',sans-serif;letter-spacing:0}
+.queue-admin-box .q-label{font-size:11px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px}
+.queue-acts{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+
 /* RESPONSIVE */
 @media(max-width:768px){
 nav{padding:10px 16px}
@@ -195,7 +207,6 @@ nav{padding:10px 16px}
 .booking-wrap{grid-template-columns:1fr}
 .booking-form{padding:20px}
 .fr{grid-template-columns:1fr}
-.gal-track img{height:160px}
 section{padding:45px 0}
 .admin-layout{flex-direction:column}
 .admin-sidebar{width:100%;flex-direction:row;padding:10px 14px;overflow-x:auto;border-right:none;border-bottom:1px solid rgba(255,255,255,.04)}
@@ -205,7 +216,6 @@ section{padding:45px 0}
 .admin-main{padding:14px}
 .adm-tbl{font-size:10px}
 .adm-tbl th,.adm-tbl td{padding:5px 6px}
-.stats-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:480px){
 .hero-content h1{font-size:30px}
@@ -219,16 +229,21 @@ section{padding:45px 0}
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo"><div class="barber-pole"></div> <span>Blade</span> &amp; Razor</div>
+  <div class="nav-logo"><div class="barber-pole"></div> <span id="storeLogoText">Blade &amp; Razor</span></div>
   <div class="nav-links" id="navLinks">
     <div class="lang-switch">
       <button class="lang-btn" onclick="setLang('en')" data-en="EN" data-fr="EN" data-ar="EN">🇬🇧 EN</button>
       <button class="lang-btn" onclick="setLang('fr')" data-en="FR" data-fr="FR" data-ar="FR">🇫🇷 FR</button>
       <button class="lang-btn" onclick="setLang('ar')" data-en="AR" data-fr="AR" data-ar="AR">🇸🇦 AR</button>
     </div>
+    <div class="currency-switch" id="curSwitch">
+      <button class="cur-btn" onclick="setCurrency('USD')" data-cur="USD">$</button>
+      <button class="cur-btn" onclick="setCurrency('EUR')" data-cur="EUR">€</button>
+      <button class="cur-btn" onclick="setCurrency('DZD')" data-cur="DZD">د.ج</button>
+    </div>
     <a href="#services" onclick="scrollToSection('services')" data-en="SERVICES" data-fr="SERVICES" data-ar="الخدمات">SERVICES</a>
     <a href="#barbers" onclick="scrollToSection('barbers')" data-en="BARBERS" data-fr="BARBIERS" data-ar="الحلاقون">BARBERS</a>
-    <a href="#gallery" onclick="scrollToSection('gallery')" data-en="GALLERY" data-fr="GALERIE" data-ar="المعرض">GALLERY</a>
+    <a href="#queue" onclick="scrollToSection('queue')" data-en="QUEUE" data-fr="FILE" data-ar="الدور">QUEUE</a>
     <a href="#booking" onclick="scrollToSection('booking')" class="cta-btn" data-en="BOOK NOW" data-fr="RÉSERVER" data-ar="احجز الآن">BOOK NOW</a>
   </div>
   <button class="nav-toggle" onclick="toggleNav()">☰</button>
@@ -236,6 +251,11 @@ section{padding:45px 0}
 
 <!-- HERO -->
 <section class="hero" id="hero">
+  <video class="hero-vid" autoplay muted loop playsinline onerror="this.style.display='none'">
+    <source src="https://videos.pexels.com/video-files/6953984/6953984-uhd_2560_1440_25fps.mp4" type="video/mp4">
+    <source src="https://videos.pexels.com/video-files/5723669/5723669-uhd_2560_1440_25fps.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
   <div class="hero-content">
     <div class="hero-badge" data-en="✂️ Est. 2018" data-fr="✂️ Depuis 2018" data-ar="✂️ تأسست 2018">✂️ Est. 2018</div>
     <h1><span data-en="SHARP LOOKS" data-fr="STYLE NET" data-ar="مظهر حاد">SHARP LOOKS</span><span data-en="FRESH CUTS" data-fr="COUPES FRAÎCHES" data-ar="قصة عصرية">FRESH CUTS</span></h1>
@@ -257,15 +277,6 @@ section{padding:45px 0}
   </div>
 </section>
 
-<!-- STATS -->
-<section class="stats-sec" id="stats">
-  <div class="container">
-    <h2 class="section-title" data-en="OUR <span>NUMBERS</span>" data-fr="NOS <span>CHIFFRES</span>" data-ar="<span>أرقامنا</span>">OUR <span>NUMBERS</span></h2>
-    <p class="section-sub" data-en="What drives us every day" data-fr="Ce qui nous anime chaque jour" data-ar="ما يدفعنا كل يوم">What drives us every day</p>
-    <div class="stats-grid" id="statsGrid"></div>
-  </div>
-</section>
-
 <!-- BARBERS -->
 <section id="barbers">
   <div class="container">
@@ -275,13 +286,20 @@ section{padding:45px 0}
   </div>
 </section>
 
-<!-- GALLERY -->
-<section id="gallery">
+<!-- QUEUE -->
+<section id="queue">
   <div class="container">
-    <h2 class="section-title" data-en="OUR <span>STUDIO</span>" data-fr="NOTRE <span>STUDIO</span>" data-ar="<span>صالوننا</span>">OUR <span>STUDIO</span></h2>
-    <p class="section-sub" data-en="Where craftsmanship meets style" data-fr="Là où l'artisanat rencontre le style" data-ar="حيث تلتقي الحرفية بالأناقة">Where craftsmanship meets style</p>
+    <h2 class="section-title" data-en="LIVE <span>QUEUE</span>" data-fr="FILE <span>D'ATTENTE</span>" data-ar="<span>الدور</span> المباشر">LIVE <span>QUEUE</span></h2>
+    <p class="section-sub" data-en="Track your turn in real time" data-fr="Suivez votre tour en temps réel" data-ar="تابع دورك في الوقت الفعلي">Track your turn in real time</p>
+    <div class="queue-section">
+      <div class="queue-num" id="qCurrentDisplay">0<span class="qsub" data-en="NOW SERVING" data-fr="EN COURS" data-ar="يتم تقديمه الآن">NOW SERVING</span></div>
+      <div class="queue-info">
+        <div><div class="q-label" data-en="TICKETS ISSUED" data-fr="TICKETS ÉMIS" data-ar="التذاكر المصدرة">TICKETS ISSUED</div><div class="q-val" id="qTotalIssued">0</div></div>
+        <div><div class="q-label" data-en="WAITING" data-fr="EN ATTENTE" data-ar="في الانتظار">WAITING</div><div class="q-val" id="qWaiting">0</div></div>
+      </div>
+      <div class="queue-badge" data-en="🎫 Take a ticket at the counter" data-fr="🎫 Prenez un ticket au comptoir" data-ar="🎫 خذ تذكرة من الشباك">🎫 Take a ticket at the counter</div>
+    </div>
   </div>
-  <div class="gallery-wrap"><div class="gal-track" id="galTrack"></div></div>
 </section>
 
 <!-- BOOKING -->
@@ -295,6 +313,7 @@ section{padding:45px 0}
         <div class="fi"><div class="dot"></div><div class="tx" data-en="No waiting — be ready when you arrive" data-fr="Pas d'attente — soyez prêt à votre arrivée" data-ar="لا انتظار — كن جاهزاً عند وصولك">No waiting — be ready when you arrive</div></div>
         <div class="fi"><div class="dot"></div><div class="tx" data-en="Choose your preferred barber and service" data-fr="Choisissez votre barbier et service préférés" data-ar="اختر الحلاق والخدمة التي تفضلها">Choose your preferred barber and service</div></div>
         <div class="fi"><div class="dot"></div><div class="tx" data-en="Free consultation before every service" data-fr="Consultation gratuite avant chaque service" data-ar="استشارة مجانية قبل كل خدمة">Free consultation before every service</div></div>
+        <div class="fi" id="storeLocationDisplay" style="display:none"><div class="dot"></div><div class="tx" id="storeLocationText"></div></div>
       </div>
       <form class="booking-form" onsubmit="return handleBooking(event)">
         <div class="fg"><label data-en="Full Name" data-fr="Nom complet" data-ar="الاسم الكامل">Full Name</label><input type="text" id="bkName" required placeholder="e.g. John Doe"></div>
@@ -313,7 +332,7 @@ section{padding:45px 0}
   </div>
 </section>
 
-<footer><p data-en="✂️ Blade &amp; Razor — Premium Barbershop &copy; 2026" data-fr="✂️ Blade &amp; Razor — Salon de coiffure &copy; 2026" data-ar="✂️ بليد آند ريزور — صالون حلاقة راقي &copy; 2026">✂️ Blade &amp; Razor — Premium Barbershop &copy; 2026</p></footer>
+<footer><p id="footerText" data-en="✂️ Blade &amp; Razor — Premium Barbershop &copy; 2026" data-fr="✂️ Blade &amp; Razor — Salon de coiffure &copy; 2026" data-ar="✂️ بليد آند ريزور — صالون حلاقة راقي &copy; 2026">✂️ Blade &amp; Razor — Premium Barbershop &copy; 2026</p></footer>
 
 <!-- ADMIN FAB -->
 <button class="admin-fab" onclick="openAdmin()">⚙</button>
@@ -323,49 +342,55 @@ section{padding:45px 0}
   <div class="admin-layout">
     <div class="admin-sidebar">
       <h3 data-en="⚙ Admin" data-fr="⚙ Admin" data-ar="⚙ الإدارة">⚙ Admin</h3>
-      <button class="abtn active" onclick="showPane('services')" data-en="💈 Services" data-fr="💈 Services" data-ar="💈 الخدمات">💈 Services</button>
-      <button class="abtn" onclick="showPane('barbers')" data-en="✂️ Barbers" data-fr="✂️ Barbiers" data-ar="✂️ الحلاقون">✂️ Barbers</button>
-      <button class="abtn" onclick="showPane('currency')" data-en="💰 Currency" data-fr="💰 Devise" data-ar="💰 العملة">💰 Currency</button>
-      <button class="abtn" onclick="showPane('bookings')" data-en="📋 Bookings" data-fr="📋 Réservations" data-ar="📋 الحجوزات">📋 Bookings</button>
+      <button class="abtn active" data-pane="services" onclick="showPane(this)" data-en="💈 Services" data-fr="💈 Services" data-ar="💈 الخدمات">💈 Services</button>
+      <button class="abtn" data-pane="barbers" onclick="showPane(this)" data-en="✂️ Barbers" data-fr="✂️ Barbiers" data-ar="✂️ الحلاقون">✂️ Barbers</button>
+      <button class="abtn" data-pane="bookings" onclick="showPane(this)" data-en="📋 Bookings" data-fr="📋 Réservations" data-ar="📋 الحجوزات">📋 Bookings</button>
+      <button class="abtn" data-pane="queue" onclick="showPane(this)" data-en="🎫 Queue" data-fr="🎫 File" data-ar="🎫 الدور">🎫 Queue</button>
+      <button class="abtn" data-pane="stats" onclick="showPane(this)" data-en="📊 Stats" data-fr="📊 Stats" data-ar="📊 الإحصائيات">📊 Stats</button>
+      <button class="abtn" data-pane="settings" onclick="showPane(this)" data-en="⚙ Settings" data-fr="⚙ Paramètres" data-ar="⚙ الإعدادات">⚙ Settings</button>
       <div class="spacer"></div>
       <button class="abtn" onclick="resetData()" style="color:rgba(255,100,100,.5)" data-en="🔄 Reset Defaults" data-fr="🔄 Réinitialiser" data-ar="🔄 إعادة تعيين">🔄 Reset Defaults</button>
       <button class="close-btn" onclick="closeAdmin()" data-en="✕ Close" data-fr="✕ Fermer" data-ar="✕ إغلاق">✕ Close</button>
     </div>
     <div class="admin-main">
-      <button class="admin-close-top" onclick="closeAdmin()" data-en="✕ Close" data-fr="✕ Fermer" data-ar="✕ إغلاق">✕ Close</button>
-
       <div class="admin-pane active" id="pane-services">
         <h2><span data-en="💈 Services" data-fr="💈 Services" data-ar="💈 الخدمات">💈 Services</span><button class="btn btn-sm" onclick="openSvcModal()" data-en="+ Add" data-fr="+ Ajouter" data-ar="+ إضافة">+ Add</button></h2>
-        <div style="overflow-x:auto"><table class="adm-tbl"><thead><tr><th data-en="Name" data-fr="Nom" data-ar="الاسم">Name</th><th data-en="Description" data-fr="Description" data-ar="الوصف">Description</th><th data-en="Price" data-fr="Prix" data-ar="السعر">Price</th><th data-en="Image" data-fr="Image" data-ar="الصورة">Image</th><th></th></tr></thead><tbody id="admSvcBody"></tbody></table></div>
+        <div style="overflow-x:auto"><table class="adm-tbl"><thead><tr><th data-en="Name" data-fr="Nom" data-ar="الاسم">Name</th><th data-en="Description" data-fr="Description" data-ar="الوصف">Description</th><th data-en="Price" data-fr="Prix" data-ar="السعر">Price</th><th></th></tr></thead><tbody id="admSvcBody"></tbody></table></div>
       </div>
-
       <div class="admin-pane" id="pane-barbers">
         <h2><span data-en="✂️ Barbers" data-fr="✂️ Barbiers" data-ar="✂️ الحلاقون">✂️ Barbers</span><button class="btn btn-sm" onclick="openBrbModal()" data-en="+ Add" data-fr="+ Ajouter" data-ar="+ إضافة">+ Add</button></h2>
-        <div style="overflow-x:auto"><table class="adm-tbl"><thead><tr><th data-en="Name" data-fr="Nom" data-ar="الاسم">Name</th><th data-en="Specialty" data-fr="Spécialité" data-ar="التخصص">Specialty</th><th data-en="Photo" data-fr="Photo" data-ar="الصورة">Photo</th><th></th></tr></thead><tbody id="admBrbBody"></tbody></table></div>
+        <div style="overflow-x:auto"><table class="adm-tbl"><thead><tr><th data-en="Name" data-fr="Nom" data-ar="الاسم">Name</th><th data-en="Specialty" data-fr="Spécialité" data-ar="التخصص">Specialty</th><th></th></tr></thead><tbody id="admBrbBody"></tbody></table></div>
       </div>
-
-      <div class="admin-pane" id="pane-currency">
-        <h2><span data-en="💰 Currency &amp; Pricing" data-fr="💰 Devise et prix" data-ar="💰 العملة والأسعار">💰 Currency &amp; Pricing</span></h2>
-        <div class="fg" style="max-width:320px">
-          <label data-en="Currency" data-fr="Devise" data-ar="العملة">Currency</label>
-          <select onchange="changeCur(this.value)" style="padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.035);color:#fff;font-size:13px;font-family:'Inter',sans-serif;width:100%;outline:none" id="curSelect">
-            <option value="$">USD ($)</option>
-            <option value="€">EUR (€)</option>
-            <option value="£">GBP (£)</option>
-            <option value="ر.س">SAR (ر.س)</option>
-            <option value="د.إ">AED (د.إ)</option>
-            <option value="دج">DZD (دج)</option>
-            <option value="د.م">MAD (د.م)</option>
-            <option value="د.ت">TND (د.ت)</option>
-          </select>
-        </div>
-        <p style="font-size:11px;color:rgba(255,255,255,.3);margin-bottom:12px" data-en="Select currency to change display symbol. Edit prices below per service." data-fr="Sélectionnez la devise. Modifiez les prix ci-dessous par service." data-ar="اختر العملة. عدل الأسعار أدناه لكل خدمة.">Select currency to change display symbol. Edit prices below per service.</p>
-        <div style="overflow-x:auto"><table class="adm-tbl"><thead><tr><th data-en="Service" data-fr="Service" data-ar="الخدمة">Service</th><th data-en="Current Price" data-fr="Prix actuel" data-ar="السعر الحالي">Current Price</th><th data-en="New Price" data-fr="Nouveau prix" data-ar="السعر الجديد">New Price</th><th></th></tr></thead><tbody id="admPriceBody"></tbody></table></div>
-      </div>
-
       <div class="admin-pane" id="pane-bookings">
         <h2><span data-en="📋 Bookings" data-fr="📋 Réservations" data-ar="📋 الحجوزات">📋 Bookings</span> <span style="font-size:12px;color:rgba(255,255,255,.25)" id="bkCount"></span></h2>
         <div style="overflow-x:auto"><table class="adm-tbl"><thead><tr><th data-en="Name" data-fr="Nom" data-ar="الاسم">Name</th><th data-en="Phone" data-fr="Téléphone" data-ar="الهاتف">Phone</th><th data-en="Service" data-fr="Service" data-ar="الخدمة">Service</th><th data-en="Barber" data-fr="Barbier" data-ar="الحلاق">Barber</th><th data-en="Date/Time" data-fr="Date/Heure" data-ar="التاريخ/الوقت">Date/Time</th><th data-en="Status" data-fr="Statut" data-ar="الحالة">Status</th><th></th></tr></thead><tbody id="admBkBody"></tbody></table></div>
+      </div>
+      <div class="admin-pane" id="pane-queue">
+        <h2 data-en="🎫 Queue Management" data-fr="🎫 Gestion de la file" data-ar="🎫 إدارة الدور">🎫 Queue Management</h2>
+        <div class="queue-admin-box">
+          <div class="big-num" id="adminQCurrent">0</div>
+          <div class="q-label" id="adminQLabel" data-en="CURRENTLY SERVING" data-fr="EN COURS DE SERVICE" data-ar="يتم تقديمه الآن">CURRENTLY SERVING</div>
+          <div style="display:flex;gap:24px;justify-content:center;margin-bottom:16px;flex-wrap:wrap">
+            <div><span style="font-size:9px;text-transform:uppercase;color:rgba(255,255,255,.25)" data-en="TOTAL ISSUED" data-fr="TOTAL ÉMIS" data-ar="إجمالي المصدر">TOTAL ISSUED</span><br><span id="adminQTotal" style="font-size:18px;color:#C9A84C">0</span></div>
+            <div><span style="font-size:9px;text-transform:uppercase;color:rgba(255,255,255,.25)" data-en="WAITING" data-fr="EN ATTENTE" data-ar="في الانتظار">WAITING</span><br><span id="adminQWaiting" style="font-size:18px;color:#C9A84C">0</span></div>
+          </div>
+          <div class="queue-acts">
+            <button class="btn btn-sm" onclick="queueNext()" data-en="➡ Next Customer" data-fr="➡ Client Suivant" data-ar="➡ الزبون التالي">➡ Next Customer</button>
+            <button class="btn btn-outline btn-sm" onclick="queueReset()" data-en="🔄 Reset Queue" data-fr="🔄 Réinitialiser" data-ar="🔄 إعادة تعيين الدور">🔄 Reset Queue</button>
+          </div>
+        </div>
+      </div>
+      <div class="admin-pane" id="pane-stats">
+        <h2 data-en="📊 Daily Statistics" data-fr="📊 Statistiques du jour" data-ar="📊 إحصائيات اليوم">📊 Daily Statistics</h2>
+        <div class="stats-grid" id="statsGrid"></div>
+      </div>
+      <div class="admin-pane" id="pane-settings">
+        <h2 data-en="⚙ Store Settings" data-fr="⚙ Paramètres" data-ar="⚙ إعدادات المتجر">⚙ Store Settings</h2>
+        <div class="settings-field"><label data-en="Store Name" data-fr="Nom du salon" data-ar="اسم المتجر">Store Name</label><input type="text" id="setStoreName" maxlength="60"></div>
+        <div class="settings-field"><label data-en="Store Tagline" data-fr="Slogan" data-ar="الشعار">Store Tagline</label><input type="text" id="setStoreTagline" maxlength="120"></div>
+        <div class="settings-field"><label data-en="Store Location (Google Maps link or address)" data-fr="Adresse / Lien Google Maps" data-ar="موقع المتجر (رابط خرائط أو عنوان)">Store Location (Google Maps link or address)</label><input type="text" id="setStoreLocation" maxlength="500" placeholder="https://maps.google.com/... or full address"></div>
+        <div class="settings-field"><label data-en="Currency" data-fr="Devise" data-ar="العملة">Currency</label><select id="setCurrency"><option value="USD">$ USD</option><option value="EUR">€ EUR</option><option value="DZD">د.ج DZD</option></select></div>
+        <div class="modal-acts" style="max-width:400px"><button class="btn btn-sm" onclick="saveSettings()" data-en="💾 Save Settings" data-fr="💾 Enregistrer" data-ar="💾 حفظ الإعدادات">💾 Save Settings</button></div>
       </div>
     </div>
   </div>
@@ -381,7 +406,7 @@ section{padding:45px 0}
 
 <script>
 // ============ DATA LAYER ============
-var FALLBACK_IMG = 'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=400&q=80';
+var FALLBACK_IMG = "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%231a1a1a%22 width=%22400%22 height=%22300%22/%3E%3Ctext x=%22200%22 y=%22195%22 font-size=%2280%22 text-anchor=%22middle%22 fill=%22%23C9A84C%22%3E%E2%9C%82%EF%B8%8F%3C/text%3E%3C/svg%3E";
 var ADMIN_PASS = 'admin123';
 
 function loadData(key, def) {
@@ -409,9 +434,6 @@ function getBarbers() {
 }
 function setBarbers(v) { saveData('bs_barbers', v); }
 
-function getCurrency() { return loadData('bs_currency', '$'); }
-function setCurrency(v) { saveData('bs_currency', v); }
-
 function getBookings() { return loadData('bs_bookings', []); }
 function setBookings(v) { saveData('bs_bookings', v); }
 
@@ -419,6 +441,166 @@ function getLang() { return loadData('bs_lang', 'en'); }
 function setLangStore(v) { saveData('bs_lang', v); }
 
 function nextId(arr) { return arr.length ? Math.max.apply(null, arr.map(function(x){return x.id})) + 1 : 1; }
+
+// ============ CURRENCY ============
+var CURRENCY_SYMBOLS = {USD:'$',EUR:'€',DZD:'د.ج'};
+function getCurrency() { return loadData('bs_currency', 'USD'); }
+function setCurStore(v) { saveData('bs_currency', v); }
+function getCurrencySymbol() { return CURRENCY_SYMBOLS[getCurrency()] || '$'; }
+function formatPrice(amount) { return getCurrencySymbol() + amount; }
+
+function setCurrency(cur) {
+  setCurStore(cur);
+  renderCurrencyUI();
+  renderServices();
+  renderBookingDD();
+  if(document.getElementById('adminPanel').style.display==='block') renderAdminServices();
+}
+
+function renderCurrencyUI() {
+  var cur = getCurrency();
+  document.querySelectorAll('.cur-btn').forEach(function(b){
+    b.classList.toggle('active', b.getAttribute('data-cur')===cur);
+  });
+}
+
+// ============ STORE SETTINGS ============
+function getStoreName() { return loadData('bs_store_name', 'Blade & Razor'); }
+function setStoreName(v) { saveData('bs_store_name', v); }
+function getStoreTagline() { return loadData('bs_store_tagline', 'Premium Barbershop'); }
+function setStoreTagline(v) { saveData('bs_store_tagline', v); }
+function getStoreLocation() { return loadData('bs_store_location', ''); }
+function setStoreLocation(v) { saveData('bs_store_location', v); }
+
+function renderStoreInfo() {
+  var name = getStoreName();
+  var tagline = getStoreTagline();
+  var loc = getStoreLocation();
+  var logo = document.getElementById('storeLogoText');
+  if(logo) logo.textContent = name;
+  var foot = document.getElementById('footerText');
+  if(foot) foot.innerHTML = '✂️ ' + name + ' &mdash; ' + tagline + ' &copy; 2026';
+  var locEl = document.getElementById('storeLocationDisplay');
+  var locTxt = document.getElementById('storeLocationText');
+  if(loc && loc.trim()) {
+    if(locEl) locEl.style.display = 'flex';
+    if(locTxt) locTxt.textContent = loc;
+  } else {
+    if(locEl) locEl.style.display = 'none';
+  }
+}
+
+function renderSettingsPane() {
+  document.getElementById('setStoreName').value = getStoreName();
+  document.getElementById('setStoreTagline').value = getStoreTagline();
+  document.getElementById('setStoreLocation').value = getStoreLocation();
+  document.getElementById('setCurrency').value = getCurrency();
+}
+
+function saveSettings() {
+  setStoreName(document.getElementById('setStoreName').value.trim() || 'Blade & Razor');
+  setStoreTagline(document.getElementById('setStoreTagline').value.trim() || 'Barbershop');
+  setStoreLocation(document.getElementById('setStoreLocation').value.trim());
+  var newCur = document.getElementById('setCurrency').value;
+  setCurStore(newCur);
+  renderStoreInfo();
+  renderCurrencyUI();
+  renderServices();
+  renderBookingDD();
+  renderAdminServices();
+  toast('✅ Settings saved', true);
+}
+
+// ============ QUEUE ============
+function getQueueCounter() { return loadData('bs_queue_counter', 0); }
+function setQueueCounter(v) { saveData('bs_queue_counter', v); }
+function getQueueCurrent() { return loadData('bs_queue_current', 0); }
+function setQueueCurrent(v) { saveData('bs_queue_current', v); }
+
+function renderQueueDisplay() {
+  var cur = getQueueCurrent();
+  var total = getQueueCounter();
+  var waiting = Math.max(0, total - cur);
+  var lang = getLang();
+  var label = {en:'NOW SERVING',fr:'EN COURS',ar:'يتم تقديمه الآن'};
+  var curEl = document.getElementById('qCurrentDisplay');
+  if(curEl) curEl.innerHTML = cur + '<span class="qsub">' + label[lang] + '</span>';
+  var ti = document.getElementById('qTotalIssued');
+  if(ti) ti.textContent = total;
+  var w = document.getElementById('qWaiting');
+  if(w) w.textContent = waiting;
+}
+
+function renderAdminQueue() {
+  var cur = getQueueCurrent();
+  var total = getQueueCounter();
+  var waiting = Math.max(0, total - cur);
+  document.getElementById('adminQCurrent').textContent = cur;
+  document.getElementById('adminQTotal').textContent = total;
+  document.getElementById('adminQWaiting').textContent = waiting;
+}
+
+function queueNext() {
+  var cur = getQueueCurrent();
+  var total = getQueueCounter();
+  if(cur < total) {
+    setQueueCurrent(cur + 1);
+    renderQueueDisplay();
+    renderAdminQueue();
+    toast('➡ Now serving #' + (cur + 1), true);
+  } else {
+    toast('⚠️ No more customers in queue');
+  }
+}
+
+function queueReset() {
+  if(!confirm('Reset the entire queue? This will set counter and serving to 0.')) return;
+  setQueueCounter(0);
+  setQueueCurrent(0);
+  renderQueueDisplay();
+  renderAdminQueue();
+  toast('🔄 Queue reset');
+}
+
+// ============ STATS ============
+function renderAdminStats() {
+  var bk = getBookings();
+  var sv = getServices();
+  var today = new Date();
+  var ds = today.toISOString().slice(0,10);
+  var todayBk = bk.filter(function(b){return b.datetime && b.datetime.slice(0,10)===ds;});
+  var total = todayBk.length;
+  var confirmed = todayBk.filter(function(b){return b.status==='confirmed'||b.status==='completed';}).length;
+  var completed = todayBk.filter(function(b){return b.status==='completed';}).length;
+  var cancelled = todayBk.filter(function(b){return b.status==='cancelled';}).length;
+  var pending = todayBk.filter(function(b){return b.status==='pending';}).length;
+  var earnings = 0;
+  todayBk.forEach(function(b){
+    if(b.status==='completed' && b.service) {
+      var s = sv.find(function(x){return x.name===b.service;});
+      if(s) earnings += s.price;
+    }
+  });
+  var curSym = getCurrencySymbol();
+  var lang = getLang();
+  var labels = {
+    en:['Total Today','Confirmed','Completed','Pending','Cancelled','Earnings'],
+    fr:["Aujourd'hui","Confirmés","Terminés","En attente","Annulés","Revenus"],
+    ar:['إجمالي اليوم','مؤكدة','منجزة','قيد الانتظار','ملغاة','الإيرادات']
+  };
+  var lb = labels[lang];
+  var cards = [
+    {num:total,label:lb[0]},
+    {num:confirmed,label:lb[1]},
+    {num:completed,label:lb[2]},
+    {num:pending,label:lb[3]},
+    {num:cancelled,label:lb[4]},
+    {num:curSym+earnings,label:lb[5]}
+  ];
+  document.getElementById('statsGrid').innerHTML = cards.map(function(c){
+    return '<div class="stat-card"><div class="stat-num">'+c.num+'</div><div class="stat-label">'+c.label+'</div></div>';
+  }).join('');
+}
 
 // ============ TOAST ============
 function toast(msg, gold) {
@@ -439,9 +621,8 @@ function setLang(lang) {
     el.innerHTML = el.getAttribute('data-' + lang) || el.getAttribute('data-en');
   });
   document.querySelectorAll('.lang-btn').forEach(function(b) {
-    b.classList.toggle('active', b.getAttribute('onclick').indexOf("'" + lang + "'") > -1);
+    b.classList.toggle('active', b.getAttribute('onclick') && b.getAttribute('onclick').indexOf("'" + lang + "'") > -1);
   });
-  // Also update booking form placeholders and service/barber selects
   var bkName = document.getElementById('bkName');
   var bkPhone = document.getElementById('bkPhone');
   var tr = {en:{n:'e.g. John Doe',p:'+1 555-1234'},fr:{n:'ex: Jean Dupont',p:'+33 6 12 34 56 78'},ar:{n:'مثال: أحمد علي',p:'+213 555 123 456'}};
@@ -453,8 +634,7 @@ function setLang(lang) {
 function scrollToSection(id) {
   var el = document.getElementById(id);
   if(el) el.scrollIntoView({behavior:'smooth'});
-  var nl = document.getElementById('navLinks');
-  nl.classList.remove('open');
+  document.getElementById('navLinks').classList.remove('open');
 }
 
 function toggleNav() {
@@ -465,13 +645,12 @@ function toggleNav() {
 function renderServices() {
   var g = document.getElementById('svcGrid');
   var sv = getServices();
-  var sym = getCurrency();
   g.innerHTML = sv.map(function(s) {
     var tags = s.tags ? s.tags.map(function(t){return '<span>'+t+'</span>'}).join('') : '';
-    return '<div class="s-card card">' +
-      '<img src="'+s.img+'" alt="'+s.name+'" onerror="this.style.background=\'#C9A84C\';this.src=\'\'" loading="lazy">' +
+    return '<div class="s-card">' +
+      '<img src="'+s.img+'" alt="'+s.name+'" onerror="this.src=\''+FALLBACK_IMG+'\'" loading="lazy">' +
       '<div class="s-card-body">' +
-      '<h3>'+s.name+' <span class="price">'+sym+s.price+'</span></h3>' +
+      '<h3>'+s.name+' <span class="price">'+formatPrice(s.price)+'</span></h3>' +
       '<p>'+s.desc+'</p>' +
       '<div class="tags">'+tags+'</div>' +
       '</div></div>';
@@ -482,8 +661,8 @@ function renderBarbers() {
   var g = document.getElementById('brbGrid');
   var br = getBarbers();
   g.innerHTML = br.map(function(b) {
-    return '<div class="br-card card">' +
-      '<img src="'+b.img+'" alt="'+b.name+'" onerror="this.style.background=\'#C9A84C\';this.src=\'\'" loading="lazy">' +
+    return '<div class="br-card">' +
+      '<img src="'+b.img+'" alt="'+b.name+'" onerror="this.src=\''+FALLBACK_IMG+'\'" loading="lazy">' +
       '<h4>'+b.name+'</h4>' +
       '<div class="sp">'+b.specialty+'</div></div>';
   }).join('');
@@ -494,86 +673,22 @@ function renderBookingDD() {
   var bs = document.getElementById('bkBarber');
   var sv = getServices();
   var br = getBarbers();
-  var sym = getCurrency();
   var lang = getLang();
   var svcLabel = {en:'Select service',fr:'Choisir service',ar:'اختر الخدمة'};
   var brbLabel = {en:'Select barber',fr:'Choisir barbier',ar:'اختر الحلاق'};
   ss.innerHTML = '<option value="">'+svcLabel[lang]+'</option>' +
-    sv.map(function(s){return '<option value="'+s.id+'">'+s.name+' — '+sym+s.price+'</option>';}).join('');
+    sv.map(function(s){return '<option value="'+s.id+'">'+s.name+' — '+formatPrice(s.price)+'</option>';}).join('');
   bs.innerHTML = '<option value="">'+brbLabel[lang]+'</option>' +
     br.map(function(b){return '<option value="'+b.id+'">'+b.name+'</option>';}).join('');
-}
-
-function renderGallery() {
-  var urls = [
-    'https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=600&q=80',
-    'https://images.unsplash.com/photo-1517832606299-7ae9b720a9b4?w=600&q=80',
-    'https://images.unsplash.com/photo-1596728325488-58c87691e9af?w=600&q=80',
-    'https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=600&q=80',
-    'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=600&q=80',
-    'https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=600&q=80',
-    'https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=600&q=80',
-    'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=600&q=80'
-  ];
-  var t = document.getElementById('galTrack');
-  t.innerHTML = urls.concat(urls).map(function(u) {
-    return '<img src="'+u+'" alt="" onerror="this.style.background=\'#C9A84C\';this.src=\'\'" loading="lazy">';
-  }).join('');
-}
-
-function renderStats() {
-  var data = [
-    {ico:'✂️',target:5000,lbl:{en:'Clients',fr:'Clients',ar:'الزبائن'}},
-    {ico:'⭐',target:49,lbl:{en:'Rating',fr:'Note',ar:'التقييم'},dec:1},
-    {ico:'💈',target:8,lbl:{en:'Years',fr:'Années',ar:'سنوات'}},
-    {ico:'👨',target:3,lbl:{en:'Barbers',fr:'Barbiers',ar:'حلاقون'}}
-  ];
-  var g = document.getElementById('statsGrid');
-  var lang = getLang();
-  g.innerHTML = data.map(function(s, i) {
-    return '<div class="st-item"><span class="ico">'+s.ico+'</span><div class="num" id="sn'+i+'">0</div><div class="lbl">'+(s.lbl[lang]||s.lbl.en)+'</div></div>';
-  }).join('');
-  // Count-up on scroll
-  var counted = false;
-  function doCount() {
-    if(counted) return;
-    var rect = document.getElementById('stats').getBoundingClientRect();
-    if(rect.top < window.innerHeight && rect.bottom > 0) {
-      counted = true;
-      window.removeEventListener('scroll', checkStatsScroll);
-      data.forEach(function(s, i) {
-        var el = document.getElementById('sn'+i);
-        var target = s.target;
-        var dec = s.dec || 0;
-        var dur = 2000;
-        var start = null;
-        function step(ts) {
-          if(!start) start = ts;
-          var p = Math.min((ts - start) / dur, 1);
-          var val = p * target;
-          if(dec) {
-            el.textContent = val.toFixed(dec);
-          } else {
-            el.textContent = Math.floor(val) + '+';
-          }
-          if(p < 1) requestAnimationFrame(step);
-          else el.textContent = dec ? target.toFixed(dec) : target + '+';
-        }
-        requestAnimationFrame(step);
-      });
-    }
-  }
-  function checkStatsScroll() { doCount(); }
-  window.addEventListener('scroll', checkStatsScroll);
-  doCount();
 }
 
 function renderPublic() {
   renderServices();
   renderBarbers();
   renderBookingDD();
-  renderGallery();
-  renderStats();
+  renderStoreInfo();
+  renderQueueDisplay();
+  renderCurrencyUI();
 }
 
 // ============ BOOKING ============
@@ -599,14 +714,17 @@ function handleBooking(e) {
   var sn = sv.find(function(s){return s.id == svcId});
   var bn = br.find(function(b){return b.id == brbId});
   var bk = getBookings();
-  bk.push({id:nextId(bk),name:name,phone:phone,service:sn?sn.name:'—',barber:bn?bn.name:'—',datetime:dt,status:'pending'});
+  var ticket = getQueueCounter() + 1;
+  setQueueCounter(ticket);
+  bk.push({id:nextId(bk),name:name,phone:phone,service:sn?sn.name:'—',barber:bn?bn.name:'—',datetime:dt,status:'pending',ticket:ticket});
   setBookings(bk);
   msg.style.display = 'block';
   msg.style.color = 'rgba(201,168,76,.8)';
-  msg.textContent = okMsg[lang];
+  msg.innerHTML = okMsg[lang] + '<br><span style="font-size:16px;color:#C9A84C">🎫 #'+ticket+'</span>';
   document.getElementById('bookingForm').reset();
   renderAdminBookings();
-  toast('✅ '+okMsg[lang], true);
+  renderQueueDisplay();
+  toast('✅ '+okMsg[lang]+' 🎫 #'+ticket, true);
   setTimeout(function(){msg.style.display='none';}, 4000);
   return false;
 }
@@ -631,11 +749,6 @@ function openAdmin() {
   if(pass === ADMIN_PASS) {
     document.getElementById('adminPanel').style.display = 'block';
     document.body.style.overflow = 'hidden';
-    var cur = getCurrency();
-    var sel = document.getElementById('curSelect');
-    for(var i=0;i<sel.options.length;i++) {
-      if(sel.options[i].value === cur) { sel.selectedIndex = i; break; }
-    }
     renderAdminAll();
     toast('🔐 Admin access granted', true);
   } else if(pass !== null) {
@@ -648,30 +761,33 @@ function closeAdmin() {
   document.body.style.overflow = 'auto';
 }
 
-function showPane(name) {
+function showPane(btn) {
+  var name = typeof btn === 'string' ? btn : btn.getAttribute('data-pane');
   document.querySelectorAll('.admin-pane').forEach(function(p){p.classList.remove('active');});
   document.querySelectorAll('.abtn').forEach(function(b){b.classList.remove('active');});
   document.getElementById('pane-'+name).classList.add('active');
-  document.querySelector('.abtn[onclick="showPane(\''+name+'\')"]').classList.add('active');
+  if(btn && btn.classList) btn.classList.add('active');
   if(name==='services') renderAdminServices();
   else if(name==='barbers') renderAdminBarbers();
-  else if(name==='currency') renderAdminCurrency();
   else if(name==='bookings') renderAdminBookings();
+  else if(name==='queue') renderAdminQueue();
+  else if(name==='stats') renderAdminStats();
+  else if(name==='settings') renderSettingsPane();
 }
 
 function renderAdminAll() {
   renderAdminServices();
   renderAdminBarbers();
-  renderAdminCurrency();
   renderAdminBookings();
+  renderAdminQueue();
+  renderAdminStats();
 }
 
 function renderAdminServices() {
   var sv = getServices();
-  var sym = getCurrency();
   var tb = document.getElementById('admSvcBody');
   tb.innerHTML = sv.map(function(s) {
-    return '<tr><td>'+s.name+'</td><td style="color:rgba(255,255,255,.4);font-size:11px">'+(s.desc||'')+'</td><td style="color:#C9A84C;font-weight:600">'+sym+s.price+'</td><td>'+(s.img?'<img src="'+s.img+'" style="width:32px;height:32px;border-radius:50%;object-fit:cover" onerror="this.style.background=\'#C9A84C\';this.src=\'\'">':'—')+'</td><td><div class="acts"><button onclick="openSvcModal('+s.id+')" style="background:rgba(201,168,76,.12);color:#C9A84C">Edit</button><button onclick="delSvc('+s.id+')" style="background:rgba(220,50,50,.15);color:#e44">Del</button></div></td></tr>';
+    return '<tr><td>'+s.name+'</td><td style="color:rgba(255,255,255,.4);font-size:11px">'+(s.desc||'')+'</td><td style="color:#C9A84C;font-weight:600">'+formatPrice(s.price)+'</td><td><div class="acts"><button onclick="openSvcModal('+s.id+')" style="background:rgba(201,168,76,.12);color:#C9A84C">Edit</button><button onclick="delSvc('+s.id+')" style="background:rgba(220,50,50,.15);color:#e44">Del</button></div></td></tr>';
   }).join('');
 }
 
@@ -679,16 +795,7 @@ function renderAdminBarbers() {
   var br = getBarbers();
   var tb = document.getElementById('admBrbBody');
   tb.innerHTML = br.map(function(b) {
-    return '<tr><td>'+b.name+'</td><td style="color:rgba(255,255,255,.4);font-size:11px">'+b.specialty+'</td><td>'+(b.img?'<img src="'+b.img+'" style="width:32px;height:32px;border-radius:50%;object-fit:cover" onerror="this.style.background=\'#C9A84C\';this.src=\'\'">':'—')+'</td><td><div class="acts"><button onclick="openBrbModal('+b.id+')" style="background:rgba(201,168,76,.12);color:#C9A84C">Edit</button><button onclick="delBrb('+b.id+')" style="background:rgba(220,50,50,.15);color:#e44">Del</button></div></td></tr>';
-  }).join('');
-}
-
-function renderAdminCurrency() {
-  var sv = getServices();
-  var sym = getCurrency();
-  var tb = document.getElementById('admPriceBody');
-  tb.innerHTML = sv.map(function(s) {
-    return '<tr><td>'+s.name+'</td><td style="color:#C9A84C;font-weight:600">'+sym+s.price+'</td><td><input type="number" id="np_'+s.id+'" value="'+s.price+'" style="width:80px;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.035);color:#fff;font-size:12px;outline:none"></td><td><button onclick="updPrice('+s.id+')" style="background:rgba(201,168,76,.12);color:#C9A84C;border:none;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:10px;font-weight:600">Update</button></td></tr>';
+    return '<tr><td>'+b.name+'</td><td style="color:rgba(255,255,255,.4);font-size:11px">'+b.specialty+'</td><td><div class="acts"><button onclick="openBrbModal('+b.id+')" style="background:rgba(201,168,76,.12);color:#C9A84C">Edit</button><button onclick="delBrb('+b.id+')" style="background:rgba(220,50,50,.15);color:#e44">Del</button></div></td></tr>';
   }).join('');
 }
 
@@ -701,8 +808,16 @@ function renderAdminBookings() {
     return;
   }
   tb.innerHTML = bk.map(function(b) {
-    var st = b.status === 'confirmed' ? '✅ Confirmed' : '⏳ Pending';
-    return '<tr><td>'+b.name+'</td><td style="font-size:11px">'+b.phone+'</td><td>'+b.service+'</td><td>'+b.barber+'</td><td style="font-size:11px;color:rgba(255,255,255,.4)">'+b.datetime.replace('T',' ')+'</td><td>'+st+'</td><td><div class="acts">'+(b.status!=='confirmed'?'<button onclick="confirmBk('+b.id+')" style="background:rgba(0,200,80,.12);color:#4c4">Confirm</button>':'')+'<button onclick="delBk('+b.id+')" style="background:rgba(220,50,50,.15);color:#e44">Del</button></div></td></tr>';
+    var stMap = {pending:'⏳ Pending',confirmed:'✅ Confirmed',completed:'🏁 Completed',cancelled:'❌ Cancelled'};
+    var st = stMap[b.status] || '⏳ Pending';
+    var acts = '<div class="acts">';
+    if(b.status==='pending') acts += '<button onclick="confirmBk('+b.id+')" style="background:rgba(0,200,80,.12);color:#4c4">Confirm</button>';
+    if(b.status==='confirmed') acts += '<button onclick="completeBk('+b.id+')" style="background:rgba(0,150,255,.12);color:#48f">Complete</button>';
+    if(b.status!=='cancelled' && b.status!=='completed') acts += '<button onclick="cancelBk('+b.id+')" style="background:rgba(200,150,0,.12);color:#ea0">Cancel</button>';
+    acts += '<button onclick="delBk('+b.id+')" style="background:rgba(220,50,50,.15);color:#e44">Del</button>';
+    acts += '</div>';
+    var ticket = b.ticket ? ' #'+b.ticket : '';
+    return '<tr><td>'+b.name+ticket+'</td><td style="font-size:11px">'+b.phone+'</td><td>'+b.service+'</td><td>'+b.barber+'</td><td style="font-size:11px;color:rgba(255,255,255,.4)">'+b.datetime.replace('T',' ')+'</td><td>'+st+'</td><td>'+acts+'</td></tr>';
   }).join('');
 }
 
@@ -718,9 +833,9 @@ function openSvcModal(id) {
   showModal(
     '<h3>'+tr.title+'</h3>'+
     '<div class="fg"><label>'+tr.name+'</label><input type="text" id="mSvcName" value="'+(s?s.name:'')+'"></div>'+
-    '<div class="fg"><label>'+tr.desc+'</label><textarea id="mSvcDesc" rows="2">'+(s?s.desc||'')+'</textarea></div>'+
+    '<div class="fg"><label>'+tr.desc+'</label><textarea id="mSvcDesc" rows="2">'+(s?s.desc||'':'')+'</textarea></div>'+
     '<div class="fg"><label>'+tr.price+'</label><input type="number" id="mSvcPrice" value="'+(s?s.price:'')+'" step="0.5"></div>'+
-    '<div class="fg"><label>'+tr.img+'</label><input type="text" id="mSvcImg" value="'+(s?s.img||'')+'" oninput="previewModalImg(this.value,\'svcPrev\')"><img id="svcPrev" class="preview" onerror="this.style.display=\'none\'"></div>'+
+    '<div class="fg"><label>'+tr.img+'</label><input type="text" id="mSvcImg" value="'+(s?s.img||'':'')+'" oninput="previewModalImg(this.value,\'svcPrev\')"><img id="svcPrev" class="preview" onerror="this.src=\''+FALLBACK_IMG+'\'"></div>'+
     '<div class="fg"><label>'+tr.tags+'</label><input type="text" id="mSvcTags" value="'+(s&&s.tags?s.tags.join(', '):'')+'"></div>'+
     '<div class="modal-acts"><button class="btn btn-sm" onclick="saveSvc('+(id||'null')+')">'+tr.update+'</button><button class="btn btn-outline btn-sm" onclick="closeModal()">'+tr.cancel+'</button></div>'
   );
@@ -745,7 +860,6 @@ function saveSvc(id) {
   setServices(sv);
   closeModal();
   renderAdminServices();
-  renderAdminCurrency();
   renderPublic();
   toast('✅ Saved', true);
 }
@@ -754,7 +868,6 @@ function delSvc(id) {
   if(!confirm('Delete this service?')) return;
   setServices(getServices().filter(function(x){return x.id!==id}));
   renderAdminServices();
-  renderAdminCurrency();
   renderPublic();
   toast('🗑️ Deleted');
 }
@@ -772,7 +885,7 @@ function openBrbModal(id) {
     '<h3>'+tr.title+'</h3>'+
     '<div class="fg"><label>'+tr.name+'</label><input type="text" id="mBrbName" value="'+(b?b.name:'')+'"></div>'+
     '<div class="fg"><label>'+tr.spec+'</label><input type="text" id="mBrbSpec" value="'+(b?b.specialty:'')+'"></div>'+
-    '<div class="fg"><label>'+tr.img+'</label><input type="text" id="mBrbImg" value="'+(b?b.img:'')+'" oninput="previewModalImg(this.value,\'brbPrev\')"><img id="brbPrev" class="preview" style="border-radius:50%" onerror="this.style.display=\'none\'"></div>'+
+    '<div class="fg"><label>'+tr.img+'</label><input type="text" id="mBrbImg" value="'+(b?b.img:'')+'" oninput="previewModalImg(this.value,\'brbPrev\')"><img id="brbPrev" class="preview" style="border-radius:50%" onerror="this.src=\''+FALLBACK_IMG+'\'"></div>'+
     '<div class="modal-acts"><button class="btn btn-sm" onclick="saveBrb('+(id||'null')+')">'+tr.update+'</button><button class="btn btn-outline btn-sm" onclick="closeModal()">'+tr.cancel+'</button></div>'
   );
   if(b&&b.img) setTimeout(function(){previewModalImg(b.img,'brbPrev');}, 50);
@@ -805,35 +918,32 @@ function delBrb(id) {
   toast('🗑️ Deleted');
 }
 
-// === ADMIN: CURRENCY ===
-function changeCur(val) {
-  setCurrency(val);
-  renderPublic();
-  renderAdminServices();
-  renderAdminCurrency();
-  toast('💰 Currency changed', true);
-}
-
-function updPrice(id) {
-  var np = parseFloat(document.getElementById('np_'+id).value);
-  if(isNaN(np) || np <= 0) { toast('⚠️ Invalid price'); return; }
-  var sv = getServices();
-  var s = sv.find(function(x){return x.id===id});
-  if(s) { s.price = np; setServices(sv); renderAdminServices(); renderAdminCurrency(); renderPublic(); toast('✅ Updated', true); }
-}
-
 // === ADMIN: BOOKINGS ===
 function confirmBk(id) {
   var bk = getBookings();
   var b = bk.find(function(x){return x.id===id});
-  if(b) { b.status = 'confirmed'; setBookings(bk); renderAdminBookings(); toast('✅ Confirmed', true); }
+  if(b) { b.status = 'confirmed'; setBookings(bk); renderAdminBookings(); renderAdminStats(); toast('✅ Confirmed', true); }
 }
 
 function delBk(id) {
   if(!confirm('Delete this booking?')) return;
   setBookings(getBookings().filter(function(x){return x.id!==id}));
   renderAdminBookings();
+  renderAdminStats();
   toast('🗑️ Deleted');
+}
+
+function completeBk(id) {
+  var bk = getBookings();
+  var b = bk.find(function(x){return x.id===id});
+  if(b) { b.status = 'completed'; setBookings(bk); renderAdminBookings(); renderAdminStats(); toast('🏁 Marked completed', true); }
+}
+
+function cancelBk(id) {
+  if(!confirm('Cancel this booking?')) return;
+  var bk = getBookings();
+  var b = bk.find(function(x){return x.id===id});
+  if(b) { b.status = 'cancelled'; setBookings(bk); renderAdminBookings(); renderAdminStats(); toast('❌ Cancelled'); }
 }
 
 // === ADMIN: RESET ===
@@ -841,8 +951,13 @@ function resetData() {
   if(!confirm('Reset ALL data to defaults? This cannot be undone.')) return;
   localStorage.removeItem('bs_services');
   localStorage.removeItem('bs_barbers');
-  localStorage.removeItem('bs_currency');
   localStorage.removeItem('bs_bookings');
+  localStorage.removeItem('bs_queue_counter');
+  localStorage.removeItem('bs_queue_current');
+  localStorage.removeItem('bs_store_name');
+  localStorage.removeItem('bs_store_tagline');
+  localStorage.removeItem('bs_store_location');
+  localStorage.removeItem('bs_currency');
   renderAdminAll();
   renderPublic();
   toast('🔄 Reset to defaults', true);
