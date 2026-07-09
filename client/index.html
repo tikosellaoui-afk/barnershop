@@ -419,6 +419,7 @@ html[dir="rtl"] .admin-sidebar .demo-reset-btn{font-family:'Cairo',sans-serif}
 // ============ DATA LAYER ============
 var FALLBACK_IMG = "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%231a1a1a%22 width=%22400%22 height=%22300%22/%3E%3Ctext x=%22200%22 y=%22195%22 font-size=%2280%22 text-anchor=%22middle%22 fill=%22%23C9A84C%22%3E%E2%9C%82%EF%B8%8F%3C/text%3E%3C/svg%3E";
 var ADMIN_PASS = loadData('bs_admin_pass', 'admin123');
+console.log('[AdminPass] Loaded from localStorage:', ADMIN_PASS);
 var DEMO_PASSWORD = 'demo123';
 var isDemoMode = false;
 
@@ -509,7 +510,7 @@ function renderSettingsPane() {
   document.getElementById('setStoreLocation').value = getStoreLocation();
   document.getElementById('setCurrency').value = getCurrency();
   var pwdEl = document.getElementById('setAdminPass');
-  if(pwdEl) pwdEl.value = ADMIN_PASS;
+  if(pwdEl) { pwdEl.value = ADMIN_PASS; console.log('[AdminPass] Displayed in settings:', ADMIN_PASS); }
 }
 
 function saveSettings() {
@@ -552,6 +553,7 @@ function updatePassword() {
   if(np !== cf) { toast('⚠️ Passwords do not match'); return; }
   ADMIN_PASS = np;
   saveData('bs_admin_pass', np);
+  console.log('[AdminPass] Saved to localStorage:', np, '| Raw stored:', JSON.stringify(localStorage.getItem('bs_admin_pass')));
   closeModal();
   renderSettingsPane();
   toast('✅ Password changed successfully', true);
