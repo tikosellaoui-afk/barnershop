@@ -223,6 +223,13 @@ section{padding:45px 0}
 .btn{padding:12px 20px;font-size:11px}
 .services-grid{grid-template-columns:1fr}
 }
+
+/* DEMO MODE */
+.demo-banner{background:linear-gradient(90deg,#5a4a1a,#8a6e2a);color:#f0d060;padding:8px 12px;border-radius:6px;font-size:11px;font-weight:600;text-align:center;margin-bottom:10px;display:none;align-items:center;justify-content:center;gap:6px}
+.demo-locked{opacity:.5;cursor:not-allowed!important;pointer-events:none}
+.admin-sidebar .demo-reset-btn{display:none;width:100%;padding:9px;border-radius:8px;border:1px solid rgba(201,168,76,.25);background:rgba(201,168,76,.06);color:#C9A84C;font-size:11px;cursor:pointer;font-family:'Inter',sans-serif;transition:.3s;margin-top:6px;text-align:center}
+.admin-sidebar .demo-reset-btn:hover{background:rgba(201,168,76,.12)}
+html[dir="rtl"] .admin-sidebar .demo-reset-btn{font-family:'Cairo',sans-serif}
 </style>
 </head>
 <body>
@@ -342,6 +349,7 @@ section{padding:45px 0}
   <div class="admin-layout">
     <div class="admin-sidebar">
       <h3 data-en="⚙ Admin" data-fr="⚙ Admin" data-ar="⚙ الإدارة">⚙ Admin</h3>
+      <div class="demo-banner" id="demoBanner">🔒 Demo — بعض الإعدادات معطلة</div>
       <button class="abtn active" data-pane="services" onclick="showPane(this)" data-en="💈 Services" data-fr="💈 Services" data-ar="💈 الخدمات">💈 Services</button>
       <button class="abtn" data-pane="barbers" onclick="showPane(this)" data-en="✂️ Barbers" data-fr="✂️ Barbiers" data-ar="✂️ الحلاقون">✂️ Barbers</button>
       <button class="abtn" data-pane="bookings" onclick="showPane(this)" data-en="📋 Bookings" data-fr="📋 Réservations" data-ar="📋 الحجوزات">📋 Bookings</button>
@@ -350,6 +358,7 @@ section{padding:45px 0}
       <button class="abtn" data-pane="settings" onclick="showPane(this)" data-en="⚙ Settings" data-fr="⚙ Paramètres" data-ar="⚙ الإعدادات">⚙ Settings</button>
       <div class="spacer"></div>
       <button class="abtn" onclick="resetData()" style="color:rgba(255,100,100,.5)" data-en="🔄 Reset Defaults" data-fr="🔄 Réinitialiser" data-ar="🔄 إعادة تعيين">🔄 Reset Defaults</button>
+      <button class="demo-reset-btn" id="demoResetBtn" onclick="demoResetDefaults()">🔄 استرجاع البيانات الافتراضية</button>
       <button class="close-btn" onclick="closeAdmin()" data-en="✕ Close" data-fr="✕ Fermer" data-ar="✕ إغلاق">✕ Close</button>
     </div>
     <div class="admin-main">
@@ -391,6 +400,8 @@ section{padding:45px 0}
         <div class="settings-field"><label data-en="Store Location (Google Maps link or address)" data-fr="Adresse / Lien Google Maps" data-ar="موقع المتجر (رابط خرائط أو عنوان)">Store Location (Google Maps link or address)</label><input type="text" id="setStoreLocation" maxlength="500" placeholder="https://maps.google.com/... or full address"></div>
         <div class="settings-field"><label data-en="Currency" data-fr="Devise" data-ar="العملة">Currency</label><select id="setCurrency"><option value="USD">$ USD</option><option value="EUR">€ EUR</option><option value="DZD">د.ج DZD</option></select></div>
         <div class="modal-acts" style="max-width:400px"><button class="btn btn-sm" onclick="saveSettings()" data-en="💾 Save Settings" data-fr="💾 Enregistrer" data-ar="💾 حفظ الإعدادات">💾 Save Settings</button></div>
+        <hr style="border:none;border-top:1px solid rgba(255,255,255,.05);margin:20px 0 14px;max-width:400px">
+        <div class="settings-field"><label data-en="Admin Password" data-fr="Mot de passe Admin" data-ar="كلمة سر الإدارة">Admin Password</label><div style="display:flex;gap:8px;align-items:center;max-width:400px"><input type="password" id="setAdminPass" readonly style="opacity:.5;cursor:not-allowed;flex:1;padding:9px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.035);color:#fff;font-family:'Inter',sans-serif;font-size:13px;outline:none"><button class="btn btn-outline btn-sm" onclick="changePassword()" data-en="🔑 Change" data-fr="🔑 Changer" data-ar="🔑 تغيير">🔑 Change</button></div></div>
       </div>
     </div>
   </div>
@@ -407,7 +418,9 @@ section{padding:45px 0}
 <script>
 // ============ DATA LAYER ============
 var FALLBACK_IMG = "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%231a1a1a%22 width=%22400%22 height=%22300%22/%3E%3Ctext x=%22200%22 y=%22195%22 font-size=%2280%22 text-anchor=%22middle%22 fill=%22%23C9A84C%22%3E%E2%9C%82%EF%B8%8F%3C/text%3E%3C/svg%3E";
-var ADMIN_PASS = 'admin123';
+var ADMIN_PASS = loadData('bs_admin_pass', 'admin123');
+var DEMO_PASSWORD = 'demo123';
+var isDemoMode = false;
 
 function loadData(key, def) {
   try { var v = localStorage.getItem(key); return v ? JSON.parse(v) : def; } catch(e) { return def; }
@@ -495,9 +508,12 @@ function renderSettingsPane() {
   document.getElementById('setStoreTagline').value = getStoreTagline();
   document.getElementById('setStoreLocation').value = getStoreLocation();
   document.getElementById('setCurrency').value = getCurrency();
+  var pwdEl = document.getElementById('setAdminPass');
+  if(pwdEl) pwdEl.value = ADMIN_PASS;
 }
 
 function saveSettings() {
+  if(isDemoMode) { toast('🔒 غير متاح في نسخة Demo', true); return; }
   setStoreName(document.getElementById('setStoreName').value.trim() || 'Blade & Razor');
   setStoreTagline(document.getElementById('setStoreTagline').value.trim() || 'Barbershop');
   setStoreLocation(document.getElementById('setStoreLocation').value.trim());
@@ -509,6 +525,36 @@ function saveSettings() {
   renderBookingDD();
   renderAdminServices();
   toast('✅ Settings saved', true);
+}
+
+function changePassword() {
+  if(isDemoMode) { toast('🔒 غير متاح في نسخة Demo', true); return; }
+  var lang = getLang();
+  var t = {en:{title:'Change Admin Password',current:'Current Password',newP:'New Password',confirm:'Confirm New Password',update:'Update',cancel:'Cancel'},
+    fr:{title:'Changer le mot de passe',current:'Mot de passe actuel',newP:'Nouveau mot de passe',confirm:'Confirmer le mot de passe',update:'Modifier',cancel:'Annuler'},
+    ar:{title:'تغيير كلمة سر الإدارة',current:'كلمة السر الحالية',newP:'كلمة السر الجديدة',confirm:'تأكيد كلمة السر الجديدة',update:'تحديث',cancel:'إلغاء'}};
+  var tr = t[lang];
+  showModal(
+    '<h3>'+tr.title+'</h3>'+
+    '<div class="fg"><label>'+tr.current+'</label><input type="password" id="mOldPass" style="font-family:monospace"></div>'+
+    '<div class="fg"><label>'+tr.newP+'</label><input type="password" id="mNewPass" style="font-family:monospace" minlength="4"></div>'+
+    '<div class="fg"><label>'+tr.confirm+'</label><input type="password" id="mConfirmPass" style="font-family:monospace" minlength="4"></div>'+
+    '<div class="modal-acts"><button class="btn btn-sm" onclick="updatePassword()">'+tr.update+'</button><button class="btn btn-outline btn-sm" onclick="closeModal()">'+tr.cancel+'</button></div>'
+  );
+}
+
+function updatePassword() {
+  var old = document.getElementById('mOldPass').value;
+  var np = document.getElementById('mNewPass').value;
+  var cf = document.getElementById('mConfirmPass').value;
+  if(old !== ADMIN_PASS) { toast('⚠️ Current password is incorrect'); return; }
+  if(!np || np.length < 4) { toast('⚠️ New password must be at least 4 characters'); return; }
+  if(np !== cf) { toast('⚠️ Passwords do not match'); return; }
+  ADMIN_PASS = np;
+  saveData('bs_admin_pass', np);
+  closeModal();
+  renderSettingsPane();
+  toast('✅ Password changed successfully', true);
 }
 
 // ============ QUEUE ============
@@ -554,6 +600,7 @@ function queueNext() {
 }
 
 function queueReset() {
+  if(isDemoMode) { toast('🔒 غير متاح في نسخة Demo', true); return; }
   if(!confirm('Reset the entire queue? This will set counter and serving to 0.')) return;
   setQueueCounter(0);
   setQueueCurrent(0);
@@ -747,10 +794,19 @@ function handleBooking(e) {
 function openAdmin() {
   var pass = prompt('Enter admin password:');
   if(pass === ADMIN_PASS) {
+    isDemoMode = false;
     document.getElementById('adminPanel').style.display = 'block';
     document.body.style.overflow = 'hidden';
     renderAdminAll();
+    renderDemoUI();
     toast('🔐 Admin access granted', true);
+  } else if(pass === DEMO_PASSWORD) {
+    isDemoMode = true;
+    document.getElementById('adminPanel').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    renderAdminAll();
+    renderDemoUI();
+    toast('🔐 Demo mode — some actions disabled', true);
   } else if(pass !== null) {
     alert('Wrong password!');
   }
@@ -775,6 +831,16 @@ function showPane(btn) {
   else if(name==='settings') renderSettingsPane();
 }
 
+function renderDemoUI() {
+  var banner = document.getElementById('demoBanner');
+  var resetBtn = document.getElementById('demoResetBtn');
+  if(banner) banner.style.display = isDemoMode ? 'flex' : 'none';
+  if(resetBtn) resetBtn.style.display = isDemoMode ? 'block' : 'none';
+  document.querySelectorAll('.abtn[onclick*="resetData"]').forEach(function(b){
+    b.classList.toggle('demo-locked', isDemoMode);
+  });
+}
+
 function renderAdminAll() {
   renderAdminServices();
   renderAdminBarbers();
@@ -787,7 +853,7 @@ function renderAdminServices() {
   var sv = getServices();
   var tb = document.getElementById('admSvcBody');
   tb.innerHTML = sv.map(function(s) {
-    return '<tr><td>'+s.name+'</td><td style="color:rgba(255,255,255,.4);font-size:11px">'+(s.desc||'')+'</td><td style="color:#C9A84C;font-weight:600">'+formatPrice(s.price)+'</td><td><div class="acts"><button onclick="openSvcModal('+s.id+')" style="background:rgba(201,168,76,.12);color:#C9A84C">Edit</button><button onclick="delSvc('+s.id+')" style="background:rgba(220,50,50,.15);color:#e44">Del</button></div></td></tr>';
+    return '<tr><td>'+s.name+'</td><td style="color:rgba(255,255,255,.4);font-size:11px">'+(s.desc||'')+'</td><td style="color:#C9A84C;font-weight:600">'+formatPrice(s.price)+'</td><td><div class="acts"><button onclick="openSvcModal('+s.id+')" style="background:rgba(201,168,76,.12);color:#C9A84C">Edit</button><button onclick="delSvc('+s.id+')" style="background:rgba(220,50,50,.15);color:#e44"'+(isDemoMode?' class="demo-locked" disabled':'')+'>Del</button></div></td></tr>';
   }).join('');
 }
 
@@ -795,7 +861,7 @@ function renderAdminBarbers() {
   var br = getBarbers();
   var tb = document.getElementById('admBrbBody');
   tb.innerHTML = br.map(function(b) {
-    return '<tr><td>'+b.name+'</td><td style="color:rgba(255,255,255,.4);font-size:11px">'+b.specialty+'</td><td><div class="acts"><button onclick="openBrbModal('+b.id+')" style="background:rgba(201,168,76,.12);color:#C9A84C">Edit</button><button onclick="delBrb('+b.id+')" style="background:rgba(220,50,50,.15);color:#e44">Del</button></div></td></tr>';
+    return '<tr><td>'+b.name+'</td><td style="color:rgba(255,255,255,.4);font-size:11px">'+b.specialty+'</td><td><div class="acts"><button onclick="openBrbModal('+b.id+')" style="background:rgba(201,168,76,.12);color:#C9A84C">Edit</button><button onclick="delBrb('+b.id+')" style="background:rgba(220,50,50,.15);color:#e44"'+(isDemoMode?' class="demo-locked" disabled':'')+'>Del</button></div></td></tr>';
   }).join('');
 }
 
@@ -807,14 +873,15 @@ function renderAdminBookings() {
     tb.innerHTML = '<tr><td colspan="7" style="text-align:center;color:rgba(255,255,255,.2);padding:20px">No bookings yet</td></tr>';
     return;
   }
+  var dm = isDemoMode ? ' class="demo-locked" disabled' : '';
   tb.innerHTML = bk.map(function(b) {
     var stMap = {pending:'⏳ Pending',confirmed:'✅ Confirmed',completed:'🏁 Completed',cancelled:'❌ Cancelled'};
     var st = stMap[b.status] || '⏳ Pending';
     var acts = '<div class="acts">';
-    if(b.status==='pending') acts += '<button onclick="confirmBk('+b.id+')" style="background:rgba(0,200,80,.12);color:#4c4">Confirm</button>';
-    if(b.status==='confirmed') acts += '<button onclick="completeBk('+b.id+')" style="background:rgba(0,150,255,.12);color:#48f">Complete</button>';
-    if(b.status!=='cancelled' && b.status!=='completed') acts += '<button onclick="cancelBk('+b.id+')" style="background:rgba(200,150,0,.12);color:#ea0">Cancel</button>';
-    acts += '<button onclick="delBk('+b.id+')" style="background:rgba(220,50,50,.15);color:#e44">Del</button>';
+    if(b.status==='pending') acts += '<button onclick="confirmBk('+b.id+')" style="background:rgba(0,200,80,.12);color:#4c4"' + dm + '>Confirm</button>';
+    if(b.status==='confirmed') acts += '<button onclick="completeBk('+b.id+')" style="background:rgba(0,150,255,.12);color:#48f"' + dm + '>Complete</button>';
+    if(b.status!=='cancelled' && b.status!=='completed') acts += '<button onclick="cancelBk('+b.id+')" style="background:rgba(200,150,0,.12);color:#ea0"' + dm + '>Cancel</button>';
+    acts += '<button onclick="delBk('+b.id+')" style="background:rgba(220,50,50,.15);color:#e44"' + dm + '>Del</button>';
     acts += '</div>';
     var ticket = b.ticket ? ' #'+b.ticket : '';
     return '<tr><td>'+b.name+ticket+'</td><td style="font-size:11px">'+b.phone+'</td><td>'+b.service+'</td><td>'+b.barber+'</td><td style="font-size:11px;color:rgba(255,255,255,.4)">'+b.datetime.replace('T',' ')+'</td><td>'+st+'</td><td>'+acts+'</td></tr>';
@@ -865,6 +932,7 @@ function saveSvc(id) {
 }
 
 function delSvc(id) {
+  if(isDemoMode) { toast('🔒 غير متاح في نسخة Demo', true); return; }
   if(!confirm('Delete this service?')) return;
   setServices(getServices().filter(function(x){return x.id!==id}));
   renderAdminServices();
@@ -911,6 +979,7 @@ function saveBrb(id) {
 }
 
 function delBrb(id) {
+  if(isDemoMode) { toast('🔒 غير متاح في نسخة Demo', true); return; }
   if(!confirm('Delete this barber?')) return;
   setBarbers(getBarbers().filter(function(x){return x.id!==id}));
   renderAdminBarbers();
@@ -926,6 +995,7 @@ function confirmBk(id) {
 }
 
 function delBk(id) {
+  if(isDemoMode) { toast('🔒 غير متاح في نسخة Demo', true); return; }
   if(!confirm('Delete this booking?')) return;
   setBookings(getBookings().filter(function(x){return x.id!==id}));
   renderAdminBookings();
@@ -934,12 +1004,14 @@ function delBk(id) {
 }
 
 function completeBk(id) {
+  if(isDemoMode) { toast('🔒 غير متاح في نسخة Demo', true); return; }
   var bk = getBookings();
   var b = bk.find(function(x){return x.id===id});
   if(b) { b.status = 'completed'; setBookings(bk); renderAdminBookings(); renderAdminStats(); toast('🏁 Marked completed', true); }
 }
 
 function cancelBk(id) {
+  if(isDemoMode) { toast('🔒 غير متاح في نسخة Demo', true); return; }
   if(!confirm('Cancel this booking?')) return;
   var bk = getBookings();
   var b = bk.find(function(x){return x.id===id});
@@ -948,6 +1020,7 @@ function cancelBk(id) {
 
 // === ADMIN: RESET ===
 function resetData() {
+  if(isDemoMode) { toast('🔒 غير متاح في نسخة Demo', true); return; }
   if(!confirm('Reset ALL data to defaults? This cannot be undone.')) return;
   localStorage.removeItem('bs_services');
   localStorage.removeItem('bs_barbers');
@@ -961,6 +1034,16 @@ function resetData() {
   renderAdminAll();
   renderPublic();
   toast('🔄 Reset to defaults', true);
+}
+
+// === DEMO: RESTORE DEFAULTS ===
+function demoResetDefaults() {
+  if(!confirm('🔄 Reset services and barbers to factory defaults? Bookings, queue, and settings will be kept.')) return;
+  localStorage.removeItem('bs_services');
+  localStorage.removeItem('bs_barbers');
+  renderAdminAll();
+  renderPublic();
+  toast('🔄 Services & barbers restored to defaults', true);
 }
 
 // === MODAL ===
